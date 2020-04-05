@@ -1,26 +1,51 @@
-<h2>Log in</h2>
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="session" style="width:400px;">
+      <div class="row header">
+        <h4>ログイン</h4>
+      </div>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="form-field row mt-2">
+          <div class="col-4">
+            <%= f.label :email,"メールアドレス" %><br />            
+          </div>
+          <div class="col-8">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>            
+          </div>
+        </div>
+        <div class="form-field row mt-2">
+          <div class="col-4">
+            <%= f.label :password,"パスワード" %><br />
+          </div>
+          <div class="col-8">
+            <%= f.password_field :password, autocomplete: "current-password",class:"form-control" %>          
+          </div>
+        </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <% if devise_mapping.rememberable? %>
+          <div class="form-check row mt-2 ml-1">
+            <%= f.check_box :remember_me,class: "form-check-input" %>
+            <%= f.label :remember_me,"ログイン情報を保存する",class: "form-check-label" %>
+          </div>
+        <% end %>
+        <div class="row mt-2 justify-content-center">
+          <%= f.submit "ログイン",class:"btn btn-primary btn-block" %>        
+        </div>
+        <div class="row mt-2 justify-content-start">
+          <div class="col-6">
+            <%= link_to user_twitter_omniauth_authorize_path do %>
+              <%= image_tag "Twitter_Logo_Blue.png",size: "46x46",id:"image" %>Twitterでログイン
+            <% end %>
+          </div>
+          <div class="col-5">
+            <%= link_to user_google_omniauth_authorize_path do%>
+              <%= image_tag "google_icon.png" %>              
+            <% end %>
+          </div>
+        </div>
+        <div class="row mt-2 justify-content-end">
+          <%= link_to "新規登録", new_registration_path(resource_name) %>
+        </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   root 'homes#top'
 
-  devise_for :users
+  devise_for :users,controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    omniauth_callbacks: 'users/omniauth_callbacks'
+  }
+  
   resources :users,only:[:index,:show,:edit,:update] do
     member do
       get :mypage
