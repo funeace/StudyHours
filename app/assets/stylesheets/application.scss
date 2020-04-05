@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+$bg-color: #f0f8ff;
+
+.top-bg {
+  background-color: $bg-color;
+  height: 200px;
+}
