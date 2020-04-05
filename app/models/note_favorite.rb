@@ -1,0 +1,2 @@
+class NoteFavorite < ApplicationRecord
+end
