@@ -1,0 +1,2 @@
+class NoteCommentsController < ApplicationController
+end

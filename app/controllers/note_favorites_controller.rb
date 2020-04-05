@@ -1,0 +1,2 @@
+class NoteFavoritesController < ApplicationController
+end
