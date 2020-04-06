@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   
   resources :users,only:[:index,:show,:edit,:update] do
     member do
-      get :mypage
+      get :detail
       get :follow
       get :follower
     end
