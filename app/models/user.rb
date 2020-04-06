@@ -19,6 +19,20 @@ class User < ApplicationRecord
   has_many :reverse_of_relationships,class_name: 'Relationship',foreign_key: 'follow_id'
   has_many :followers,through: :reverse_of_relationships, source: :user
 
+  def follow?(user)
+    self.followings.include?(user)
+  end
+
+  def following(user)
+    if self.follow?(user) == false
+      self.relationships.create(follow_id: user.id)
+    end
+  end
+
+  def unfollow(user)
+    self.relationships.find_by(follow_id: user.id).delete
+  end
+
 protected
   def self.from_omniauth(auth)
     # twitterの場合メールアドレスが持ってこれないため、ダミーデータが登録されている
