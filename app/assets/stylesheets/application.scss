@@ -16,7 +16,26 @@
 @import "bootstrap";
 $bg-color: #f0f8ff;
 
+
+/*top画面の青い線*/
 .top-bg {
   background-color: $bg-color;
   height: 200px;
+}
+
+
+/*ノートの一覧画面を表示する画面で日付を左寄せする処理*/
+.notes-disp-left {
+  margin-right: auto;
+}
+
+
+/*カード情報のmemoを左上に配置*/
+.memo-relative {
+  position: relative;
+}
+.memo-absolute{
+  position: absolute;
+  top:0;
+  left:5%
 }
