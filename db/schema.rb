@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_05_023102) do
+ActiveRecord::Schema.define(version: 2020_04_06_025257) do
 
   create_table "chats", force: :cascade do |t|
     t.integer "room_id", null: false
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 2020_04_05_023102) do
 
   create_table "record_details", force: :cascade do |t|
     t.integer "record_id", null: false
-    t.integer "hour", null: false
-    t.integer "min", null: false
+    t.integer "hour", default: 0, null: false
+    t.integer "min", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_id"], name: "index_record_details_on_record_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2020_04_05_023102) do
     t.string "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "working_date", null: false
     t.index ["user_id"], name: "index_records_on_user_id"
   end
 
