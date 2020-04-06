@@ -47,7 +47,7 @@ protected
       when :twitter then 
         user = User.create(provider: auth.provider,uid: auth.uid,email: User.dummy_email(auth),name: auth.info.name,password: Devise.friendly_token[0,20])
       when :google then
-        user = User.create(provider: auth.provider,uid: auth.uid,email: auth.info.emal,name: auth.info.name,password: Devise.friendly_token[0,20])
+        user = User.create(provider: auth.provider,uid: auth.uid,email: auth.info.email,name: auth.info.name,password: Devise.friendly_token[0,20])
       end
     end
     user

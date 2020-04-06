@@ -9,6 +9,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   # googleのOmniAuth
   def google
+    # binding.pry
     callback(:google)
   end
 
