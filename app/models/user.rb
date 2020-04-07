@@ -9,9 +9,9 @@ class User < ApplicationRecord
   has_many :note_comments ,dependent: :destroy
 
   #　学習記録のアソシエーション
-  has_many :records ,dependent: :destroy
-  has_many :record_favorites ,dependent: :destroy
-  has_many :record_comments ,dependent: :destroy
+  has_many :study_logs ,dependent: :destroy
+  has_many :study_log_favorites ,dependent: :destroy
+  has_many :study_log_comments ,dependent: :destroy
 
   # フォロー・フォロワーのアソシエーション
   has_many :relationships
