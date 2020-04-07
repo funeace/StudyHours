@@ -3,8 +3,8 @@
   <% @records.each do |record| %>
     <div class="card" style="width:31%">
       <div class="card-header d-flex">
-        <%= image_tag 'top_img.jpg',size: "80x80" %>
-        <div class="ml-3">
+        <%= attachment_image_tag @user, :profile_image, :fill, 80, 80, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "80x80" %>        
+        <div class="ml-2">
           <%= record.working_date.strftime("%Y年%m月%d日")%> <br>
           <%= record.user.name %>
         </div>
