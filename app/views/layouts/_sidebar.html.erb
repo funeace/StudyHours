@@ -5,7 +5,7 @@
   </div>
   <hr>
   <div class="text-center">
-    <%= @user.name %>
+    <%= user.name %>
   </div>
   <div class="card-body" style="position: relative;">
     <div class="card-text text-center mb-3" style="font-size:0.9rem;">
@@ -19,10 +19,10 @@
   <div>
     <div class="disp_following d-flex justify-content-around">
       <div>
-        Follow <%= link_to user.relationships.count ,following_user_path %>
+        Follow <%= link_to user.relationships.count ,following_user_path(user) %>
       </div>
       <div>
-        Follower <%= link_to user.reverse_of_relationships.count ,followers_user_path %>
+        Follower <%= link_to user.reverse_of_relationships.count ,followers_user_path(user) %>
       </div>
     </div>
     <div class="text-center mt-3">
