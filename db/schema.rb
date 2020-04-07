@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_06_133623) do
+ActiveRecord::Schema.define(version: 2020_04_07_114029) do
 
   create_table "chats", force: :cascade do |t|
     t.integer "room_id", null: false
@@ -45,39 +45,6 @@ ActiveRecord::Schema.define(version: 2020_04_06_133623) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
-  create_table "record_comments", force: :cascade do |t|
-    t.integer "record_id", null: false
-    t.integer "user_id", null: false
-    t.integer "comment", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "record_details", force: :cascade do |t|
-    t.integer "record_id", null: false
-    t.integer "hour", default: 0, null: false
-    t.integer "min", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_id"], name: "index_record_details_on_record_id"
-  end
-
-  create_table "record_favorites", force: :cascade do |t|
-    t.integer "record_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "records", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "memo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.date "working_date", null: false
-    t.index ["user_id"], name: "index_records_on_user_id"
-  end
-
   create_table "relationships", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "follow_id", null: false
@@ -92,6 +59,39 @@ ActiveRecord::Schema.define(version: 2020_04_06_133623) do
     t.string "room_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "study_log_comments", force: :cascade do |t|
+    t.integer "study_log_id", null: false
+    t.integer "user_id", null: false
+    t.integer "comment", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "study_log_details", force: :cascade do |t|
+    t.integer "study_log_id", null: false
+    t.integer "hour", default: 0, null: false
+    t.integer "min", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["study_log_id"], name: "index_study_log_details_on_study_log_id"
+  end
+
+  create_table "study_log_favorites", force: :cascade do |t|
+    t.integer "study_log_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "study_logs", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "memo"
+    t.date "working_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_study_logs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

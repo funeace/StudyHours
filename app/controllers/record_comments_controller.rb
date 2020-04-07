@@ -1,2 +1,0 @@
-class RecordCommentsController < ApplicationController
-end
