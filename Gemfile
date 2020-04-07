@@ -82,6 +82,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'gon'
+gem 'font-awesome-sass'
 
 group :production do
   gem 'mysql2'

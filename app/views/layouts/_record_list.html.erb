@@ -1,3 +1,4 @@
+<!-- 表示される学習記録一覧 -->
 <div class="d-flex justify-content-around">
   <% @records.each do |record| %>
     <div class="card" style="width:31%">
@@ -14,11 +15,25 @@
         <% end %>
       </ul>
       <div class="card-body memo-relative">
-        <div class="memo-absolute">
+        <div class="memo">
           memo
         </div>
         <div class="mt-2">
-          <%= record.memo %>    
+          <%= record.memo %>
+        </div>
+        <div class="memo-detail-relative mt-3">
+          <div class="footer">
+            <% if record.favorited_by?(current_user) %>
+              <%= link_to record_record_favorites_path(record),method: :delete do %>
+                <i class="fas fa-heart"><%= record.record_favorites.count %></i>
+              <% end %>
+            <% else %>
+              <%= link_to record_record_favorites_path(record),method: :post do %>
+                <i class="far fa-heart"><%= record.record_favorites.count %></i>
+              <% end %>
+            <% end %>
+            <span class="ml-2 mr-2">詳細へ</span>
+          </div>
         </div>
       </div>
     </div>
