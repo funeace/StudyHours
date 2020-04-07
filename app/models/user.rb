@@ -21,12 +21,12 @@ class User < ApplicationRecord
 
   attachment :profile_image
 
-  def follow?(user)
+  def following?(user)
     self.followings.include?(user)
   end
 
-  def following(user)
-    if self.follow?(user) == false
+  def follow(user)
+    if self.following?(user) == false
       self.relationships.create(follow_id: user.id)
     end
   end
