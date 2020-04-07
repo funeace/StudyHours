@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="offset-2 col-10">
+    <%= render 'layouts/sidebar',user: @user %>
+    <div class="col-9">
       <ul id="myTab" class="nav nav-tabs" role="tablist">
         <li class="nav-item">
           <a href="#record" id="record-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">積み上げ</a>
@@ -11,10 +12,10 @@
       </ul>
       <div id="myTabContent" class="tab-content mt-3">
         <div id="record" class="tab-pane active fade show" role="tabpanel" aria-labelledby="record-tab">
-          <%= render 'layouts/note_list', notes: @notes %>  
+          <%= render 'layouts/record_list', records: @records %>  
         </div>
         <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
-          <%= render 'layouts/record_list', records: @records %>              
+          <%= render 'layouts/note_list', notes: @notes %>              
         </div>
       </div>
     </div>    
