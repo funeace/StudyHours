@@ -36,9 +36,15 @@ $bg-color: #f0f8ff;
 /*カード情報のmemoを左上に配置*/
 .memo-relative {
   position: relative;
+  & .memo {
+    position: absolute;
+    top:0;
+    left:5%
+  }
+  & .footer{
+    position: absolute;
+    right:0;
+    bottom:0;
+  }
 }
-.memo-absolute{
-  position: absolute;
-  top:0;
-  left:5%
-}
+
