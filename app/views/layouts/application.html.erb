@@ -11,13 +11,13 @@
   </head>
 
   <body>
-    <%= link_to "会員登録",new_user_registration_path %>
-    <%= link_to "ログイン",new_user_session_path %>
-    <%= link_to "ログアウト",destroy_user_session_path,method: :delete %>
     <% if user_signed_in? %>
       <%= link_to "マイページ",timelines_path %>
       <%= link_to "ユーザ詳細ページ",detail_user_path(current_user.id) %>
-
+      <%= link_to "ログアウト",destroy_user_session_path,method: :delete %>
+    <% else %>
+      <%= link_to "会員登録",new_user_registration_path %>
+      <%= link_to "ログイン",new_user_session_path %>
     <% end %>
     <%= yield %>
   </body>
