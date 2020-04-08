@@ -1,18 +1,18 @@
-  <div class="row">      
-    <span class="mt-2">勉強内容</span>
-    <span class="col-8"><%= detail.text_field :tag_list,value: study_log.tag_list.join(','), class:"form-control" %></span>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="w-100  d-flex align-items-center ">
-      <h6 class="mt-2">勉強時間</h6>
-      <div class="w-25 ml-3 mr-1">
-        <%= detail.select :hour, Array.new(24){|index| index },{},class: "form-control" %>
-      </div>
-      <h6 class="mr-2 ml-1 mt-2">時間</h6>
-      <div class="w-25">
-        <%= detail.select :min,Array.new(60){|index| index},{},class: "form-control" %>                
-      </div>
-      <h6 class="ml-2 mt-2">分</h6>
+<div class="row">      
+  <span class="mt-2">勉強内容</span>
+  <span class="col-8"><%= detail.text_field :tag_list,value: study_log.tag_list.join(','), class:"form-control" %></span>
+</div>
+<hr>
+<div class="row">
+  <div class="w-100  d-flex align-items-center ">
+    <h6 class="mt-2">勉強時間</h6>
+    <div class="w-25 ml-3 mr-1">
+      <%= detail.select :hour, Array.new(24){|index| index },{},class: "form-control" %>
     </div>
+    <h6 class="mr-2 ml-1 mt-2">時間</h6>
+    <div class="w-25">
+      <%= detail.select :min,Array.new(60){|index| index},{},class: "form-control" %>                
+    </div>
+    <h6 class="ml-2 mt-2">分</h6>
   </div>
+</div>

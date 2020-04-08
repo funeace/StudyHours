@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_08_002947) do
+ActiveRecord::Schema.define(version: 2020_04_08_132718) do
 
   create_table "chats", force: :cascade do |t|
     t.integer "room_id", null: false
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_002947) do
   create_table "study_log_comments", force: :cascade do |t|
     t.integer "study_log_id", null: false
     t.integer "user_id", null: false
-    t.integer "comment", null: false
+    t.string "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
