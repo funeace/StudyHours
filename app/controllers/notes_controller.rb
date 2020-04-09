@@ -2,6 +2,7 @@ class NotesController < ApplicationController
   def new
     @note = current_user.notes.new
   end
+
   def create
     @note = current_user.notes.new(note_params)
     if @note.save
@@ -10,6 +11,11 @@ class NotesController < ApplicationController
       render 'new'
     end
     redirect_to timelines_path
+  end
+
+  def show
+    @note = Note.find(params[:id])
+    @note_comment = @note.note_comments.new
   end
 
 private

@@ -19,9 +19,7 @@
         <h4><%= note.title %></h4>
         <%= note.body %>
         <div class="text-right">
-          <div class="btn btn-primary">
-            記事を見る
-          </div>                
+            <%= link_to "記事を見る",note_path(note),class: "btn btn-primary" %>
         </div>
       </div>
     </div>
