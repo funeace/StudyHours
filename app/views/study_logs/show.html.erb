@@ -1,0 +1,53 @@
+<div class="container d-flex justify-content-center">
+  <div class="w-50">
+    <div style="position: relative;">
+      <div style="position: absolute; top:1%; right:2%;">
+        <%= render 'layouts/study_log_favorite',study_log: @study_log %>
+        <span><%= link_to "編集する",edit_study_log_path %></span>
+      </div>
+      <div class="card-header d-flex">
+        <%= attachment_image_tag @study_log.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>
+        <div class="ml-3 d-flex flex-column justify-content-center">
+          <h6><%= @study_log.user.name %>さんの</h6>
+          <h6><%= @study_log.working_date.strftime("%Y年%m月%d日") %>の積み上げ</h6>
+        </div>
+      </div>
+      <ul class="list-group">
+        <% @study_log.study_log_details.each do |detail| %>
+          <li class="list-group-item">
+            <span class="col-3">学習内容</span><span class="col-6"><%= detail.tag_list %></span>
+            <hr>
+            <span class="col-3">学習時間</span><span class="col-6"><%= detail.hour%>時間<%= detail.min %>分</span>
+          </li>
+        <% end %>
+        <li class="list-group-item" style="position: relative;">
+          <div class="card-body pt-2">
+            <div class="col-3" style="position: absolute;left:5%;top:2%;">
+              メモ
+            </div>
+            <div class="offset-2 ">
+              <%= @study_log.memo %>            
+            </div>
+          </div>          
+        </li>
+      </ul>
+
+    <h4 class="mt-4">みんなのコメント</h4>
+    <% @study_log.study_log_comments.each do |comments| %>
+      <div class="card mt-1">
+        <div class="card-body d-flex">
+          <%= attachment_image_tag comments.user, :profile_image, :fill, 70, 70, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "70x70" %>
+        <div class="ml-3 d-flex flex-column justify-content-center">
+          <%= comments.comment %>
+         </div>
+       </div>
+      </div>
+    <% end %>
+
+  <h4 class="mt-4">コメント</h4>
+  <%= form_with model:[@study_log ,@study_log_comment] do |f| %>
+    <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントを入力してください" %>
+    <%= f.submit "コメントする", class: "btn btn-primary mt-2" %>
+  <% end %>
+</div>
+</div>

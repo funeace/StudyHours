@@ -1,0 +1,30 @@
+<div class="container d-flex justify-content-center">
+  <div class="w-50">    
+    <div class="card">
+      <%= form_with model: @study_log, local: true do |f| %> 
+        <div class="card-header">
+          <h5>学習日</h5>
+          <span><%= f.date_field :working_date, value: Date.today, class: "form-control" %></span>
+        </div>
+        <div class="card-body  d-flex">
+          <div class="card-body">
+            <!-- 子要素と親要素を同時に更新するための処理,今後非同期で列の追加等を行う予定であるため、パーシャル化 -->
+              <%= f.fields_for :study_log_details do |detail| %> 
+                <%= render 'study_log_detail_new',study_log: @study_log,detail: detail %>
+              <% end %>
+          </div>
+          <div class="col-1">
+            <div class="btn btn-primary rounded-circle p-0 mb-3" style="width:2rem;height:2rem;">+</div>
+            <div class="btn btn-primary rounded-circle p-0" style="width:2rem;height:2rem;">-</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <%= f.text_area :memo ,class: "form-control" %>
+        </div>
+      </div>
+      <div class="mt-2 d-flex justify-content-end">
+        <%= f.submit "登録する" %>      
+      </div>
+    <% end %>
+  </div>
+</div>
