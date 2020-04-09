@@ -18,8 +18,27 @@ class StudyLogsController < ApplicationController
       render 'new'
     end
   end
+
+  def edit
+    @study_log = StudyLog.find(params[:id])
+  end
+
+  def update
+    @study_log = StudyLog.find(params[:id])
+    @study_log.update(study_log_update_params)
+    flash[:notice] = "更新が完了しました。"
+    redirect_to study_log_path(@study_log)
+  end
+
 private
   def study_log_params
     params.require(:study_log).permit(:working_date,:memo,study_log_details_attributes:[:tag_list,:hour,:min])
   end
+
+  def study_log_update_params
+    params.require(:study_log).permit(:working_date,:memo,study_log_details_attributes:[:tag_list,:hour,:min,:id,:_destroy])
+  end
+
 end
+
+

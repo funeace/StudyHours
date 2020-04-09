@@ -1,0 +1,39 @@
+<div class="container d-flex justify-content-center">
+  <div class="w-50">
+    <%= form_with model: @study_log do |f|%>
+      <div class="card">
+        <div class="card-header d-flex">
+          <%= attachment_image_tag @study_log.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>
+          <div class="ml-3 d-flex flex-column justify-content-center">
+            <h6><%= @study_log.user.name %>さんの</h6>
+            <h6><%= @study_log.working_date.strftime("%Y年%m月%d日") %>の積み上げ</h6>
+          </div>
+        </div>
+        <% @study_log.study_log_details.each do |detail| %>
+          <%= f.fields_for :study_log_details, detail do |ff| %>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <span class="col-3">学習内容</span>
+                  <%= ff.text_field :tag_list,value: detail.tag_list.join(','), class: "form-control col-6 d-inline-block" %>
+                <hr>
+                <span class="col-3">学習時間</span>
+                  <%= ff.select :hour, Array.new(24){|index| index },{},class: "form-control col-3 d-inline-block" %>
+                <span class="mr-2 ml-1 mt-2">時間</span>
+                  <%= ff.select :min,Array.new(60){|index| index},{},class: "form-control col-3 d-inline-block" %>
+                <span class="mr-2 ml-1 mt-2">分</span>
+              </li>
+          <% end %>
+        <% end %>
+        <li class="list-group-item">
+          <h6 class="col-3">メモ</h6>
+            <div class="d-flex col-12">
+              <%=f.text_area :memo ,class: "form-control" %>              
+            </div>
+        </li>
+      </ul>
+    </div>
+    <%= f.submit "更新する",class: "mt-2 btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
