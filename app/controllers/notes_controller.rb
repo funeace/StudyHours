@@ -34,6 +34,14 @@ class NotesController < ApplicationController
     end
   end
 
+  def destroy
+    note = Note.find(params[:id])
+    note.destroy
+    flash[:notice] = "投稿を削除しました。"
+    redirect_to timelines_path
+  end
+
+
 private
   def note_params
     params.require(:note).permit(:user_id,:title,:body,:tag_list)

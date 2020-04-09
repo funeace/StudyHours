@@ -8,7 +8,11 @@
         <h4 class="col-3">タイトル</h4>
         <div style="position:absolute; right:5%;">
           <%= render 'layouts/note_favorite', note: @note%>
-            <%= link_to "編集する",edit_note_path(@note),style: "display: block;" %>
+          <div>
+            <%= link_to "編集する",edit_note_path(@note)%>
+            <%= link_to "ノートを削除する",note_path(@note),method: :delete%>            
+          </div>
+
         </div>
         <h4><%= @note.title %></h4>
       </div>
