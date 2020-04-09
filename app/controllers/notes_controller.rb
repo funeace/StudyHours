@@ -7,6 +7,7 @@ class NotesController < ApplicationController
     @note = current_user.notes.new(note_params)
     if @note.save
       flash[:notice] = "ノートを投稿しました。"
+      redirect_to note_path(@note)
     else
       render 'new'
     end
@@ -15,7 +16,22 @@ class NotesController < ApplicationController
 
   def show
     @note = Note.find(params[:id])
+    @note_comments = @note.note_comments.all
     @note_comment = @note.note_comments.new
+  end
+
+  def edit
+    @note = Note.find(params[:id])
+  end
+
+  def update
+    @note = Note.find(params[:id])
+    if @note.update(note_params)
+      flash[:notice] = "ノートを更新しました"
+      redirect_to note_path(@note)
+    else
+      render 'edit'
+    end
   end
 
 private

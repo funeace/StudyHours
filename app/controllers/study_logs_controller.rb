@@ -1,6 +1,7 @@
 class StudyLogsController < ApplicationController
   def show
     @study_log = StudyLog.find(params[:id])
+    @study_log_comments = @study_log.study_log_comments.all
     @study_log_comment = @study_log.study_log_comments.new
   end
 
