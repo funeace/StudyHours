@@ -15,8 +15,8 @@
       <%= link_to "マイページ",timelines_path %>
       <%= link_to "ユーザ詳細ページ",detail_user_path(current_user.id) %>
       <%= link_to "学習記録を投稿する",new_study_log_path,data: {:turbolinks => "false" }  %>
+      <%= link_to "ノートを投稿する",new_note_path,data: {:turbolinks => "false" }  %>
       <%= link_to "ログアウト",destroy_user_session_path,method: :delete %>
-
     <% else %>
       <%= link_to "会員登録",new_user_registration_path %>
       <%= link_to "ログイン",new_user_session_path %>

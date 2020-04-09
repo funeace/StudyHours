@@ -12,6 +12,6 @@ class StudyLogCommentsController < ApplicationController
 
  private
   def study_log_comment_params
-    params.require(:study_log_comment).permit(:user_id ,:study_log_id ,:comment)
+    params.require(:study_log_comment).permit(:study_log_id ,:comment)
   end
 end

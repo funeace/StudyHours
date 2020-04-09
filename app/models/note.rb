@@ -6,4 +6,8 @@ class Note < ApplicationRecord
   # tagsテーブルとの関連付けを作成 defaultは tag_list
   acts_as_taggable
 
+  def favorited_by?(user)
+    self.note_favorites.where(user_id: user.id).exists?
+  end
+
 end
