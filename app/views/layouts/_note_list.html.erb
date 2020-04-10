@@ -13,7 +13,7 @@
     </div>
     <div class="card-body d-flex justify-content-start">
       <div class="col-2">
-        <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>        
+        <%= attachment_image_tag note.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>        
       </div>
       <div class="col-10">
         <h4><%= note.title %></h4>
