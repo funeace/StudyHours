@@ -1,11 +1,11 @@
 <!-- ノートに対するいいねの処理 -->
 <% if user_signed_in? %>
   <% if note.favorited_by?(current_user) %>
-    <%= link_to note_note_favorites_path(note),method: :delete do %>
+    <%= link_to note_note_favorites_path(note),method: :delete,remote: true do %>
       <i class="fas fa-heart"><%= note.note_favorites.count %></i>
     <% end %>
   <% else %>
-    <%= link_to note_note_favorites_path(note),method: :post do %>
+    <%= link_to note_note_favorites_path(note),method: :post,remote: true do %>
       <i class="far fa-heart"><%= note.note_favorites.count %></i>
     <% end %>
   <% end %>

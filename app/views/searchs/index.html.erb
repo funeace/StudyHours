@@ -18,7 +18,7 @@
             <button type="button" class="btn btn-secondary" id="study_favorite_sort">いいねランキング</button>
             <button type="button" class="btn btn-secondary" id="study_posted_sort">作成順</button>
           </div>
-          <%= render 'layouts/study_log_list', study_logs: @study_logs %>  
+          <%= render 'study_logs/study_log_list', study_logs: @study_logs %>  
         </div>
         <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
           <div class="btn-group mb-3 study_btn" role="group">
@@ -26,14 +26,14 @@
             <button type="button" class="btn btn-secondary" id="study_posted_sort">作成順</button>
           </div>
 
-          <%= render 'layouts/note_list', notes: @notes %>              
+          <%= render 'notes/note_list', notes: @notes %>              
         </div>
         <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
           <div class="btn-group mb-3 study_btn" role="group">
             <button type="button" class="btn btn-secondary" id="study_favorite_sort">フォロワー数順</button>
             <button type="button" class="btn btn-secondary" id="study_posted_sort">作成順</button>
           </div>
-          <%= render 'layouts/user_list', users: @users %>
+          <%= render 'users/user_list', users: @users %>
         </div>
       </div>
     </div>    
