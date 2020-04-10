@@ -2,8 +2,11 @@
   <div class="w-50">
     <div style="position: relative;">
       <div style="position: absolute; top:1%; right:2%;">
+        <!-- いいねの処理 -->
         <%= render 'layouts/study_log_favorite',study_log: @study_log %>
-        <span><%= link_to "編集する",edit_study_log_path %></span>
+        <% if user_signed_in? && current_user.id == @note.user.id %>
+          <span><%= link_to "編集する",edit_study_log_path %></span>
+        <% end %>
       </div>
       <div class="card-header d-flex">
         <%= attachment_image_tag @study_log.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>

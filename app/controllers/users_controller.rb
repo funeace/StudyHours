@@ -1,27 +1,31 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!,except: [:show,:detail]
+
   def show
     @user = User.find(params[:id])
     @notes = @user.notes
     @study_logs = @user.study_logs
 
-    # DM機能でroomを作成するため判定を行う
-    current_entry = Entry.where(user_id: current_user.id)
-    partner_entry = Entry.where(user_id: @user.id)
+    # ユーザがログインしている場合、DM機能でroomを作成するため判定を行う
+    if user_signed_in? 
+      current_entry = Entry.where(user_id: current_user.id)
+      partner_entry = Entry.where(user_id: @user.id)
 
-    unless @user.id == current_user.id
-      # 自分とチャット先ユーザのentryテーブルを検索し、同一のroomidがあるか確認
-      current_entry.each do |current|
-        partner_entry.each do |partner|
-          if current.room_id == partner.room_id
-            @room_chk = true
-            @room_id = current.room_id
+      unless @user.id == current_user.id
+        # 自分とチャット先ユーザのentryテーブルを検索し、同一のroomidがあるか確認
+        current_entry.each do |current|
+          partner_entry.each do |partner|
+            if current.room_id == partner.room_id
+              @room_chk = true
+              @room_id = current.room_id
+            end
           end
         end
-      end
-      unless @room_chk == true
-      else
-        @room = Room.new
-        @entry = Entry.new
+        unless @room_chk == true
+        else
+          @room = Room.new
+          @entry = Entry.new
+        end
       end
     end
   end

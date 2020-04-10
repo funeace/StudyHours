@@ -1,4 +1,6 @@
 class StudyLogFavoritesController < ApplicationController
+    before_action :authenticate_user!
+
     def create
     @study_log = StudyLog.find(params[:study_log_id])
     @study_log.study_log_favorites.create(user_id: current_user.id)

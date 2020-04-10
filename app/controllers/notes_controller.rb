@@ -1,4 +1,6 @@
 class NotesController < ApplicationController
+  before_action :authenticate_user!,except: [:show]
+  
   def new
     @note = current_user.notes.new
   end
@@ -11,7 +13,6 @@ class NotesController < ApplicationController
     else
       render 'new'
     end
-    redirect_to timelines_path
   end
 
   def show

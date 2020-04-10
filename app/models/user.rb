@@ -22,18 +22,31 @@ class User < ApplicationRecord
   has_many :rooms, through: :entries
   has_many :chats
 
+  # refileを使うための設定
   attachment :profile_image
 
+  # ユーザ名が空白じゃない
+  validates :name, presence: true
+  # 目標時間(時間)が0~23時間
+  validates :goal_hour, length: {in: 0..23},presence: true
+  # 目標時間(分)が0~59分
+  validates :goal_minute, length: {in: 0..59},presence: true
+  # 自己紹介文が200文字以内
+  validates :introduction,length: {maximum: 200}
+
+  # 対象ユーザがフォロー中か確認するメソッド
   def following?(user)
     self.followings.include?(user)
   end
 
+  # 対象ユーザをフォローするメソッド
   def follow(user)
     if self.following?(user) == false
       self.relationships.create(follow_id: user.id)
     end
   end
 
+  # 対象ユーザのフォローを解除するメソッド
   def unfollow(user)
     self.relationships.find_by(follow_id: user.id).destroy
   end
