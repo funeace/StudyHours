@@ -1,4 +1,6 @@
 class NoteFavoritesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @note = Note.find(params[:note_id])
     @note.note_favorites.create(user_id: current_user.id)

@@ -1,4 +1,5 @@
 class StudyLogCommentsController < ApplicationController
+  before_action :authenticate_user!
   def create
     @study_log = StudyLog.find(params[:study_log_id])
     study_log_comment = current_user.study_log_comments.new(study_log_comment_params)

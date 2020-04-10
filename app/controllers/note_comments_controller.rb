@@ -1,4 +1,6 @@
 class NoteCommentsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @note = Note.find(params[:note_id])
     note_comment = current_user.note_comments.new(note_comment_params)

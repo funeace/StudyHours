@@ -9,8 +9,10 @@
         <div style="position:absolute; right:5%;">
           <%= render 'layouts/note_favorite', note: @note%>
           <div>
-            <%= link_to "編集する",edit_note_path(@note)%>
-            <%= link_to "ノートを削除する",note_path(@note),method: :delete%>            
+            <% if user_signed_in? && current_user.id == @note.user.id %>
+              <%= link_to "編集する",edit_note_path(@note)%>
+              <%= link_to "ノートを削除する",note_path(@note),method: :delete%>
+            <% end %>
           </div>
 
         </div>
@@ -44,10 +46,10 @@
       </div>
     <% end %>
   </div>
-  <div class="row">    
+  <div class="row"> 
     <%= form_with model:[@note ,@note_comment],class:"w-100" do |f| %>
-        <%= f.text_area :comment, rows:'5', class: "form-control w-100",placeholder: "コメントを入力してください" %>
-        <%= f.submit "コメントする", class: "btn btn-primary mt-2" %>
+      <%= f.text_area :comment, rows:'5', class: "form-control w-100",placeholder: "コメントを入力してください" %>
+      <%= f.submit "コメントする", class: "btn btn-primary mt-2" %>
     <% end %>
- </div> 
+  </div> 
 </div>

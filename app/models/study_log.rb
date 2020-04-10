@@ -7,6 +7,12 @@ class StudyLog < ApplicationRecord
 
   acts_as_taggable
 
+  # 作業日が入力されている
+  validates :working_date,presence: true
+  # ユーザIDが存在していることを確認
+  validates :user_id,presence: true
+  # memoは100文字まで
+  validates :memo,length: {maximum: 100}
 
   # 既にいいね ボタンを押しているか確認
   def favorited_by?(user)

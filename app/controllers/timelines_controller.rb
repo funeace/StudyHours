@@ -1,4 +1,6 @@
 class TimelinesController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @user = current_user
     # 自身のユーザまたは、自身がフォローしているユーザ情報の投稿一覧を表示

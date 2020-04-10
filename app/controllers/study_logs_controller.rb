@@ -1,4 +1,6 @@
 class StudyLogsController < ApplicationController
+  before_action :authenticate_user!,except: [:show]
+
   def show
     @study_log = StudyLog.find(params[:id])
     @study_log_comments = @study_log.study_log_comments.all

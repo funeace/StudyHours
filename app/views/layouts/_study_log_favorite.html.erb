@@ -1,10 +1,14 @@
 <!-- 学習記録に対するいいねの処理 -->
-<% if study_log.favorited_by?(current_user) %>
-  <%= link_to study_log_study_log_favorites_path(study_log),method: :delete do %>
-    <i class="fas fa-heart"><%= study_log.study_log_favorites.count %></i>
+<% if user_signed_in? %>
+  <% if study_log.favorited_by?(current_user) %>
+    <%= link_to study_log_study_log_favorites_path(study_log),method: :delete do %>
+      <i class="fas fa-heart"><%= study_log.study_log_favorites.count %></i>
+    <% end %>
+<% else %>
+    <%= link_to study_log_study_log_favorites_path(study_log),method: :post do %>
+      <i class="far fa-heart"><%= study_log.study_log_favorites.count %></i>
+    <% end %>
   <% end %>
 <% else %>
-  <%= link_to study_log_study_log_favorites_path(study_log),method: :post do %>
-    <i class="far fa-heart"><%= study_log.study_log_favorites.count %></i>
-  <% end %>
+  <i class="far fa-heart"><%= study_log.study_log_favorites.count %></i>
 <% end %>
