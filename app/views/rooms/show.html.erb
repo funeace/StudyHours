@@ -1,0 +1,11 @@
+<h1>Chat room</h1>
+<form>
+  <label>発言する</label><br>
+  <input type="text" id="chat-input">
+</form>
+
+<!-- 配信するroomidを宣言 -->
+<div id="chats" data-room_id="<%= @room.id %>">
+  <!-- 非同期でチャットデータを更新 -->
+  <%= render @chats %>
+</div>

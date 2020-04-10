@@ -25,4 +25,5 @@ Rails.application.routes.draw do
   end
   resources :searchs,only: [:index]
   resources :timelines,only: [:index]
+  resources :rooms
 end
