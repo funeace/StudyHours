@@ -1,6 +1,17 @@
 <div class="container">
   <div class="row">
     <%= render 'layouts/sidebar',user: @user %>
+    <% if @user.id != current_user.id %>
+      <% if @room_chk == true %>
+        <%= link_to "チャットする",room_path(@room_id) %>
+      <% else %>
+        <%= link_to "チャットを開始する",rooms_path(user_id: @user.id),method: :post %>
+      <% end %>
+    <% end %>
+
+
+
+
     <div class="col-9">
       <ul id="myTab" class="nav nav-tabs" role="tablist">
         <li class="nav-item">
