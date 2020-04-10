@@ -7,13 +7,15 @@
       <div class="row card-body">
         <h4 class="col-3">タイトル</h4>
         <div style="position:absolute; right:5%;">
-          <%= render 'layouts/note_favorite', note: @note%>
-          <div>
-            <% if user_signed_in? && current_user.id == @note.user.id %>
-              <%= link_to "編集する",edit_note_path(@note)%>
-              <%= link_to "ノートを削除する",note_path(@note),method: :delete%>
-            <% end %>
-          </div>
+          <span id="note-favorite-<%= @note.id %>" >
+            <%= render 'note_favorites/note_favorite', note: @note%>
+          </span>
+        <div>
+        <% if user_signed_in? && current_user.id == @note.user.id %>
+          <%= link_to "編集する",edit_note_path(@note)%>
+          <%= link_to "ノートを削除する",note_path(@note),method: :delete%>
+        <% end %>
+      </div>
 
         </div>
         <h4><%= @note.title %></h4>
