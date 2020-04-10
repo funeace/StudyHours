@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
   resources :relationships, only: [:create,:destroy]
   resources :study_logs,only: [:show,:new,:create,:edit,:update,:destroy] do
-    resource :study_log_comments, only: [:create,:destroy]
+    resources :study_log_comments, only: [:create,:destroy]
     resource :study_log_favorites, only: [:create,:destroy]
   end
   resources :notes,only: [:show,:new,:create,:edit,:update,:destroy] do

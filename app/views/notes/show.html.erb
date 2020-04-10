@@ -5,39 +5,40 @@
   <div class="row">    
     <div class="card w-100">
       <div class="row card-body">
-        <h4 class="col-3">タイトル</h4>
-          <div style="position:absolute; right:5%;">
-            <span id="note-favorite-<%= @note.id %>" >
-              <%= render 'note_favorites/note_favorite', note: @note%>
-            </span>
+      <h4 class="col-3">タイトル</h4>
+        <div style="position:absolute; right:5%;">
+          <span id="note-favorite-<%= @note.id %>" >
+            <%= render 'note_favorites/note_favorite', note: @note%>
+          </span>
           <div>
-          <% if user_signed_in? && current_user.id == @note.user.id %>
-            <%= link_to "編集する",edit_note_path(@note)%>
-            <%= link_to "ノートを削除する",note_path(@note),method: :delete%>
-          <% end %>
+            <% if user_signed_in? && current_user.id == @note.user.id %>
+              <%= link_to "編集する",edit_note_path(@note)%>
+              <%= link_to "ノートを削除する",note_path(@note),method: :delete%>
+            <% end %>
+          </div>
         </div>
+        <h4><%= @note.title %></h4>
       </div>
-      <h4><%= @note.title %></h4>
-    </div>
-    <hr style="margin-top:0;margin-bottom:0;">
-    <div class="row card-body">
-      <h4 class="col-3">タグ</h4>
-      <h5><%= @note.tag_list %></h5>    
-    </div>
-    <hr style="margin-top:0;margin-bottom:0;">
-    <div class="row card-body">
-      <div class="w-100 mb-5">
-        <div class="ml-3">
-          <%= markdown(@note.body) %>
+      <hr style="margin-top:0;margin-bottom:0;">
+      <div class="row card-body">
+        <h4 class="col-3">タグ</h4>
+        <h5><%= @note.tag_list %></h5>    
+      </div>
+      <hr style="margin-top:0;margin-bottom:0;">
+      <div class="row card-body">
+        <div class="w-100 mb-5">
+          <div class="ml-3">
+            <%= markdown(@note.body) %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row" id="note-comments">   
-  <h4 class="mt-4">コメント</h4>
+  <div class="row" id="note-comments">   
+    <h4 class="mt-4">コメント</h4>
     <%= render 'note_comments/note_comments',note: @note,note_comments: @note_comments %>
+  </div>
+  <div class="row"> 
+    <%= render 'notes/note_form',note: @note,note_comment: @note_comment %>    
+  </div> 
 </div>
-<div class="row"> 
-  <%= render 'notes/note_form',note: @note,note_comment: @note_comment %>    
-</div> 

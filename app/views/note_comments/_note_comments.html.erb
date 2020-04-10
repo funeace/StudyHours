@@ -5,7 +5,7 @@
       <div class="ml-3 d-flex flex-column justify-content-center">
         <%= comment.comment %>
       </div>
-      <%= link_to "コメントを削除",note_note_comment_path(note,comment),method: :delete,remote: true %>
+      <%= link_to "コメントを削除",note_note_comment_path(note,comment),method: :delete,remote: true, style: "position:absolute;right:2%;bottom:5%;" %>
     </div>
   </div>
 <% end %>
