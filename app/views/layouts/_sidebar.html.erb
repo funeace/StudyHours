@@ -51,5 +51,14 @@
         <%= link_to "フォロー",relationships_path(user_id: user.id),method: :post, class: "btn btn-primary" %>
       <% end %>
     <% end %>
+    <% if user.id != current_user.id %>
+    <hr>
+      <% if room_chk == true %>
+        <%= link_to "チャット",room_path(room_id),class:"btn btn-info" %>
+      <% else %>
+        <%= link_to "チャット",rooms_path(user_id: user.id),method: :post,class:"btn btn-info" %>
+      <% end %>
+    <% end %>
+
   </div>
 </div>
