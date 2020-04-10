@@ -1,0 +1,11 @@
+<% note_comments.each do |comment| %>
+  <div class="card w-100 mt-1 mb-2">
+    <div class="card-body d-flex">
+      <%= attachment_image_tag comment.user, :profile_image, :fill, 70, 70, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "70x70" %>
+      <div class="ml-3 d-flex flex-column justify-content-center">
+        <%= comment.comment %>
+      </div>
+      <%= link_to "コメントを削除",note_note_comment_path(note,comment),method: :delete,remote: true %>
+    </div>
+  </div>
+<% end %>

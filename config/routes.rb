@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resource :study_log_favorites, only: [:create,:destroy]
   end
   resources :notes,only: [:show,:new,:create,:edit,:update,:destroy] do
-    resource :note_comments, only: [:create,:destroy]
+    resources :note_comments, only: [:create,:destroy]
     resource :note_favorites, only: [:create,:destroy]
   end
   resources :searchs,only: [:index]
