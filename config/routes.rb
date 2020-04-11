@@ -23,7 +23,11 @@ Rails.application.routes.draw do
     resources :note_comments, only: [:create,:destroy]
     resource :note_favorites, only: [:create,:destroy]
   end
-  resources :searchs,only: [:index]
+  resources :searchs,only: [:index] do
+    collection do
+      get :sort
+    end
+  end
   resources :timelines,only: [:index]
   resources :rooms
 end

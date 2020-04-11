@@ -14,28 +14,123 @@
       </ul>
       <div id="myTabContent" class="tab-content mt-3">
         <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
+
+
           <div class="btn-group mb-3 study_btn" role="group">
-            <button type="button" class="btn btn-secondary" id="study_favorite_sort">いいねランキング</button>
-            <button type="button" class="btn btn-secondary" id="study_posted_sort">作成順</button>
+            <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいねランキング</button>
+            <button type="button" class="sort btn btn-secondary" id="study_created_sort">作成順</button>
           </div>
-          <%= render 'study_logs/study_log_list', study_logs: @study_logs %>  
+
+          <div id="study-preview" class="row">
+            <%= render 'study_logs/study_log_list', study_logs: @study_logs %>          
+          </div>
+
         </div>
         <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
           <div class="btn-group mb-3 study_btn" role="group">
-            <button type="button" class="btn btn-secondary" id="study_favorite_sort">いいねランキング</button>
-            <button type="button" class="btn btn-secondary" id="study_posted_sort">作成順</button>
+            <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいねランキング</button>
+            <button type="button" class="sort btn btn-secondary" id="note_posted_sort">作成順</button>
           </div>
-
           <%= render 'notes/note_list', notes: @notes %>              
         </div>
         <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
           <div class="btn-group mb-3 study_btn" role="group">
-            <button type="button" class="btn btn-secondary" id="study_favorite_sort">フォロワー数順</button>
-            <button type="button" class="btn btn-secondary" id="study_posted_sort">作成順</button>
+            <button type="button" class="sort btn btn-secondary" id="user_favorite_sort">フォロワー数順</button>
+            <button type="button" class="sort btn btn-secondary" id="user_posted_sort">作成順</button>
           </div>
-          <%= render 'users/user_list', users: @users %>
+            <%= render 'users/user_list', users: @users %>          
         </div>
       </div>
     </div>    
   </div>
 </div>
+
+<script>
+  $(document).on('turbolinks:load', function () {
+
+    function buildHTML(study_log) {
+      var study_log_html = '';
+      var study_log_detail_html = '';
+      var study_log_detail_tags = '';
+      var html = '';
+
+      study_log.forEach(function(study_log,index){
+        study_log.study_log_details.forEach(function(study_log_detail){
+          study_log_detail.tags.forEach(function(tags,index_tag){
+            study_log_detail_tags += `<span class="badge badge-primary p-2">
+                                        ${study_log_detail.tags[index_tag].tag}
+                                      </span>`
+          });
+          study_log_detail_html += `<li class="list-group-item">
+                                      ${study_log_detail_tags}
+                                    </li>
+                                    <li class="list-group-item">
+                                      ${study_log_detail.hour}時間${study_log_detail.min}分
+                                    </li>`
+          });
+
+          study_log_html += `<div class="col-4">
+                              <div class="card h-100">
+                                <div class="card-header">
+                                  <div>
+                                    ${study_log.working_date}
+                                  </div>
+                                  <div>
+                                    ${study_log.user.profile_image}
+                                    <span class="ml-1">
+                                      ${study_log.user.name}
+                                    </span>
+                                  </div>
+                                </div>
+                                <ul class="list-group">
+                                  ${study_log_detail_html}
+                                  <li class="list-group" style="height: 10vh;">
+                                    <div class="card-body memo-relative">
+                                      <div class="memo">
+                                      memo
+                                      </div>
+                                      <div class="mt-2">
+                                        ${study_log.memo}
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                                <div class="memo-detail-relative mt-3">
+                                  <div class="card-footer">
+                                  <!-- いいね機能の処理 -->
+                                    <span id="study-log-favorite-${study_log.id}">
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                             </div>
+                          </div>`
+          html +=  study_log_html
+         });
+    return html;
+    }
+    // sortクラスが付与されているボタンがクリックされたら処理を実行
+    $('.sort').on('click',function () {
+    // value値取得(id)
+    var val = $(this).attr('id');
+    // ajaxでデータを送信
+    $.ajax({
+      // searchコントローラのsortアクションにidをjsonでコントローラへ送っている
+      type: 'GET',
+      url: '/searchs/sort',
+      data: {
+        sort_id: val
+      },
+      dataType: 'json'
+    })
+      // 成功した時の処理
+      .done(function(data){
+        // 値が取れることの確認
+
+        // htmlに
+        var html = buildHTML(data.study_logs);
+        $('#study-preview').html(html);
+    })
+  })
+  });
+</script>
