@@ -15,40 +15,42 @@
       <div id="myTabContent" class="tab-content mt-3">
         <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
 
-
-          <div class="btn-group mb-3 study_btn" role="group">
-            <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいねランキング</button>
-            <button type="button" class="sort btn btn-secondary" id="study_created_sort">作成順</button>
-          </div>
-
-          <div id="study-preview" class="row">
-            <%= render 'study_logs/study_log_list', study_logs: @study_logs %>          
-          </div>
-
+        <div class="btn-group mb-3 study_btn" id="study_sort" role="group">
+          <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいねランキング</button>
+          <button type="button" class="sort btn btn-secondary" id="study_created_sort">作成順</button>
         </div>
-        <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
-          <div class="btn-group mb-3 study_btn" role="group">
-            <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいねランキング</button>
-            <button type="button" class="sort btn btn-secondary" id="note_posted_sort">作成順</button>
-          </div>
-          <%= render 'notes/note_list', notes: @notes %>              
+
+        <div id="study-preview" class="row">
+          <%= render 'study_logs/study_log_list', study_logs: @study_logs %>          
         </div>
-        <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
-          <div class="btn-group mb-3 study_btn" role="group">
-            <button type="button" class="sort btn btn-secondary" id="user_favorite_sort">フォロワー数順</button>
-            <button type="button" class="sort btn btn-secondary" id="user_posted_sort">作成順</button>
-          </div>
-            <%= render 'users/user_list', users: @users %>          
+
+      </div>
+      <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
+        <div class="btn-group mb-3 study_btn" id="note_sort" role="group">
+          <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいねランキング</button>
+          <button type="button" class="sort btn btn-secondary" id="note_posted_sort">作成順</button>
+        </div>
+
+        <div id="note-preview">
+          <%= render 'notes/note_list', notes: @notes %>                      
         </div>
       </div>
-    </div>    
-  </div>
-</div>
 
+      <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
+        <div class="btn-group mb-3 study_btn" id="user_sort" role="group">
+          <button type="button" class="sort btn btn-secondary" id="user_favorite_sort">フォロワー数順</button>
+          <button type="button" class="sort btn btn-secondary" id="user_posted_sort">作成順</button>
+        </div>
+          <%= render 'users/user_list', users: @users %>          
+      </div>
+    </div>
+  </div>    
+</div>
+</div>
 <script>
   $(document).on('turbolinks:load', function () {
 
-    function buildHTML(study_log) {
+    function StudyLog_HTML(study_log) {
       var study_log_html = '';
       var study_log_detail_html = '';
       var study_log_detail_tags = '';
@@ -105,14 +107,73 @@
                               </div>
                              </div>
                           </div>`
-          html +=  study_log_html
          });
+    html +=  study_log_html;
+    console.log(html);
     return html;
     }
+
+    function Note_HTML(note){
+      var note_html = '';
+      var html = '';
+      var note_comments_count = 0;
+      var note_favorites_count = 0;
+
+      note.forEach(function(note){
+        // カウントを初期化
+        note_comments_count = 0;
+        note_favorites_count = 0;
+        note.note_favorites.forEach(function(note_favorite){
+          note_favorites_count += 1;
+        });
+        note.note_comments.forEach(function(note_comment){
+          note_comments_count += 1;
+        });
+        note.tags.forEach(function(tag){
+          // 未実装　今後追加
+        });
+
+        note_html +=  ` <div class="card mt-2">
+                          <div class="card-header d-flex justify-content-end">
+                            <div class="col-3 notes-disp-left">
+                              ${note.created_at}
+                            </div>
+                            <div class="col-2">
+                              ${note_favorites_count}いいね
+                            </div>
+                            <div class="col-2">
+                              ${note_comments_count}コメント
+                            </div>
+                          </div>
+                          <div class="card-body d-flex justify-content-start">
+                            <div class="col-2">
+                              ${note.user.profile_image}
+                            </div>
+                            <div class="col-10">
+                              <h4>${note.title}</h4>
+                              ${note.body}
+                            <div class="text-right">
+                              <a class="btn btn-primary" href="/notes/${note.id}">記事を見る</a>
+                            </div>
+                            <div class="text-right">
+                            </div>
+                          </div>
+                        </div>  `
+      });
+    html += note_html;
+
+    return html;
+    }
+
+
     // sortクラスが付与されているボタンがクリックされたら処理を実行
     $('.sort').on('click',function () {
     // value値取得(id)
     var val = $(this).attr('id');
+    var parent = $(this).parent().attr('id');
+    console.log(val);
+    console.log(parent);
+
     // ajaxでデータを送信
     $.ajax({
       // searchコントローラのsortアクションにidをjsonでコントローラへ送っている
@@ -125,12 +186,15 @@
     })
       // 成功した時の処理
       .done(function(data){
-        // 値が取れることの確認
-
-        // htmlに
-        var html = buildHTML(data.study_logs);
-        $('#study-preview').html(html);
+        console.log(data);
+        if (parent == "study_sort"){
+          var html = StudyLog_HTML(data.study_logs);
+          $('#study-preview').html(html);
+        }else if(parent == "note_sort"){
+          var html = Note_HTML(data.notes);
+          $('#note-preview').html(html);
+        }
+      })
     })
-  })
   });
 </script>

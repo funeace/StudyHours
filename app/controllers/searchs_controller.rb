@@ -29,6 +29,8 @@ class SearchsController < ApplicationController
       #
     when "study_created_sort" then
       @study_logs = StudyLog.all.order(id: "DESC")      
+    when "note_favorite_sort" then
+      @note = Note.find(NoteFavorite.group(:note_id).order('count(note_id) desc').pluck(:note_id))
     end
 
     respond_to do |format|
