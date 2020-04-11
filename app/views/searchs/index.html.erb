@@ -32,16 +32,18 @@
         </div>
 
         <div id="note-preview">
-          <%= render 'notes/note_list', notes: @notes %>                      
+          <%= render 'notes/note_list', notes: @notes %>
         </div>
       </div>
 
       <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
         <div class="btn-group mb-3 study_btn" id="user_sort" role="group">
-          <button type="button" class="sort btn btn-secondary" id="user_favorite_sort">フォロワー数順</button>
+          <button type="button" class="sort btn btn-secondary" id="user_follower_sort">フォロワー数順</button>
           <button type="button" class="sort btn btn-secondary" id="user_posted_sort">作成順</button>
         </div>
+        <div id="user-preview">
           <%= render 'users/user_list', users: @users %>          
+        </div>
       </div>
     </div>
   </div>    
@@ -161,7 +163,31 @@
                         </div>  `
       });
     html += note_html;
+    return html;
+    }
 
+    function UserHTML(user){
+      var html = '';
+      var user_html = '';
+      user.forEach(function(user){
+      user_html +=`  <a href="/users/${user.id}"%>
+                  <div class="card mb-2">
+                    <div class="card-body d-flex justify-content-start" style="padding: 0.85rem;">
+                      <div class="col-2">
+                        ${user.profile_image_id}
+                      </div>
+                      <div class="col-8">
+                        <div style="font-size: 1.5rem">
+                          ${user.name}              
+                        </div>
+                        <div>
+                          ${user.introduction}
+                        </div>
+                      </div>
+                    </div>
+                  </a>  `
+      });
+    html += user_html;
     return html;
     }
 
@@ -193,6 +219,9 @@
         }else if(parent == "note_sort"){
           var html = Note_HTML(data.notes);
           $('#note-preview').html(html);
+        }else if(parent == "user_sort"){
+          var html = UserHTML(data.users);
+          $('#user-preview').html(html);
         }
       })
     })

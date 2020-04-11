@@ -44,5 +44,5 @@ json.notes @notes do |note|
     json.favorite_id note_favorite.id
   end
 end
-# json.users @users
-# json.notes @notes
+
+json.users @users

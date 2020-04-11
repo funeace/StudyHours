@@ -27,10 +27,25 @@ class SearchsController < ApplicationController
       # WHERE
       #   a.id = b.study_log_id(+)
       #
+    # 作成日順
     when "study_created_sort" then
-      @study_logs = StudyLog.all.order(id: "DESC")      
+      @study_logs = StudyLog.all.order(id: "DESC")   
+
+    # ノートお気に入り順
     when "note_favorite_sort" then
-      @note = Note.find(NoteFavorite.group(:note_id).order('count(note_id) desc').pluck(:note_id))
+      @notes = Note.find(NoteFavorite.group(:note_id).order('count(note_id) desc').pluck(:note_id))
+
+    # ノート作成日順
+    when "note_created_sort" then
+      @notes = Note.all.order(id:"DESC")
+
+    # フォロワー数
+    when "user_follower_sort" then
+      @users = User.find(Relationship.group(:follow_id).order('count(follow_id) desc').pluck(:follow_id))
+
+    # ユーザ作成日順
+    when "user_created_sort" then
+      @users = User.all.order(id: "DESC")
     end
 
     respond_to do |format|
