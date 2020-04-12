@@ -1,14 +1,23 @@
 json.study_logs @study_logs do |study_log|
+  # ログインユーザのIDを取得
+  json.current_user_id @user.id
   # study_logの情報を取得
   json.id study_log.id
-  json.working_date study_log.working_date
+  json.working_date study_log.working_date.strftime("%Y年%m月%d日")
   json.memo study_log.memo
   # ユーザ情報の取得
   json.user do
     json.id study_log.user.id
     json.name study_log.user.name
-    json.profile_image study_log.user.profile_image_id
+    json.profile_image Refile.attachment_url(study_log.user,:profile_image)
   end
+
+  # 学習記録のお気に入り情報取得
+  json.study_log_favorites study_log.study_log_favorites do |study_log_favorite|
+    json.favorite_id study_log_favorite.id
+    json.user_id study_log_favorite.user_id
+  end
+
   # ノート詳細情報の取得
   json.study_log_details study_log.study_log_details do |study_log_detail|
     json.id study_log_detail.id
@@ -17,14 +26,14 @@ json.study_logs @study_logs do |study_log|
     # ノート詳細情報のタグの取得
     json.tags study_log_detail.tag_list do |tag_list|
       json.tag tag_list
-    end                                                                                                                            
+    end                                                                                                                     
   end
 end
 
 # ノートの取得
 json.notes @notes do |note|
   json.id note.id
-  json.created_at note.created_at
+  json.created_at note.created_at.strftime("%Y年%m月%d日")
   json.title note.title
   json.body note.body
   # タグ情報
@@ -33,7 +42,7 @@ json.notes @notes do |note|
   end
   # ユーザ情報
   json.user do
-    json.profile_image note.user.profile_image_id
+    json.profile_image Refile.attachment_url(note.user, :profile_image)
   end
   # ノートのコメントID
   json.note_comments note.note_comments do |note_comment|
@@ -45,4 +54,9 @@ json.notes @notes do |note|
   end
 end
 
-json.users @users
+json.users @users do |user|
+  json.id user.id
+  json.profile_image Refile.attachment_url(user, :profile_image)
+  json.name user.name
+  json.introduction user.introduction
+end
