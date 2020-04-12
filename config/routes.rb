@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   resources :notes,only: [:show,:new,:create,:edit,:update,:destroy] do
     resources :note_comments, only: [:create,:destroy]
     resource :note_favorites, only: [:create,:destroy]
+    collection do
+      get :preview
+     end
   end
   resources :searchs,only: [:index] do
     collection do
