@@ -2,21 +2,71 @@
   <div class="row">
     <h3>ノート</h3>
   </div>
-  <div class="row">    
+  <div class="row">
     <div class="col-12">
       <%= form_with model: @note do |f| %>
         <h6>タイトル</h6>
         <%= f.text_field :title, class: "form-control mb-2" %>
         <h6>タグ</h6>
         <%= f.text_field :tag_list,value: @note.tag_list.join(','), class: "form-control mb-2" %>
-        <div class="d-flex">
+        <div class="d-flex mb-3">
           <div class="w-100">
             <h6>本文</h6>
-            <%= f.text_area :body, class: "form-control",style: "height: 60vh;" %>
+            <!-- プレビュー用のタグ -->
+            <div id="preview-area">
+            </div>
+            <div class="input-field">
+              <%= f.text_area :body, class: "form-control",style: "height: 60vh;" ,id: "md-textarea"%>     
+            </div>
           </div>
-      </div> 
-        <%= f.submit "更新する",class: "btn btn-primary" %>
-        <% end %>   
+        </div>
+
+        <div id="markdown" class="btn btn-info disabled ">
+          記述する
+        </div>
+        <div id="preview" class="btn btn-info mr-5">
+          プレビューする      
+        </div>
+          <%= f.submit "投稿する",class: "btn btn-success" %>
+
+      <% end %>   
     </div>
   </div>  
 </div>
+
+<script>
+  $(document).on('turbolinks:load', function () {
+    // previewが押された時の処理
+    $('#preview').on('click',function(){
+      // textにtextareaの値を代入
+      var text = $('#md-textarea').val()
+      // テキストが空白だった場合何もしない
+      if (text ==""){
+        return ;
+      }
+      // データをコントローラに受け渡す処理
+      $.ajax({
+        url: '/notes/preview',
+        type: 'GET',
+        dataType: 'json',
+        data: {body: text}
+      })
+      // 成功した時の処理
+      .done(function(data){
+        $('#md-textarea').parent().css('display','none');
+        console.log(data.body);
+        $('#preview-area').append(data.body);
+        $('#markdown').removeClass('disabled');
+        $('#preview').addClass('disabled');
+      })
+    })
+
+    // markdownが押された時の処理
+    $('#markdown').on('click',function(){
+      $('#md-textarea').parent().css('display','');
+      $('#preview-area').empty();
+      $('#preview').removeClass('disabled');
+      $('#markdown').addClass('disabled');
+    })
+  })
+</script>

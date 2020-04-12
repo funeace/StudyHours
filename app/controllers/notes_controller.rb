@@ -42,6 +42,14 @@ class NotesController < ApplicationController
     redirect_to timelines_path
   end
 
+# APIの処理
+  def preview
+    @body = view_context.markdown(params[:body])
+    respond_to do |format|
+      format.json
+    end
+  end
+
 
 private
   def note_params
