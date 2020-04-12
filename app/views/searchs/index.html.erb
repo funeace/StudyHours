@@ -52,6 +52,7 @@
 <script>
   $(document).on('turbolinks:load', function () {
 
+    // StudyLogのHTMLを作成
     function StudyLog_HTML(study_log) {
       var study_log_html = '';
       var study_log_detail_html = '';
@@ -100,21 +101,21 @@
                                   </li>
                                 </ul>
                                 <div class="memo-detail-relative mt-3">
-                                  <div class="card-footer">
-                                  <!-- いいね機能の処理 -->
+                                 <div class="card-footer">
+                                    <!-- いいね機能の処理 -->
                                     <span id="study-log-favorite-${study_log.id}">
                                     </span>
                                   </div>
                                 </div>
                               </div>
-                             </div>
-                          </div>`
+                            </div>`
          });
     html +=  study_log_html;
     console.log(html);
     return html;
     }
 
+    // NoteのHTMLを作成
     function Note_HTML(note){
       var note_html = '';
       var html = '';
@@ -166,6 +167,7 @@
     return html;
     }
 
+    // UserのHTMLを作成
     function UserHTML(user){
       var html = '';
       var user_html = '';
