@@ -7,7 +7,7 @@
               <%= study_log.working_date.strftime("%Y年%m月%d日")%>              
             </div>
             <div>
-              <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "80x80" %>              
+              <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "80x80" %>              
             <span class="ml-1">
               <%= study_log.user.name %>
             </span>

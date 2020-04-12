@@ -8,6 +8,7 @@ class SearchsController < ApplicationController
 
   def sort
     # binding.pry
+    @user = current_user
     @users = User.all.order(id: "DESC")
     @notes = Note.all.order(id: "DESC")
     @study_logs = StudyLog.all.order(id: "DESC")
@@ -29,7 +30,7 @@ class SearchsController < ApplicationController
       #
     # 作成日順
     when "study_created_sort" then
-      @study_logs = StudyLog.all.order(id: "DESC")   
+      @study_logs = StudyLog.all.order(id: "DESC")
 
     # ノートお気に入り順
     when "note_favorite_sort" then
