@@ -2,7 +2,7 @@
   <div class="row">
     <h3>ノート</h3>
   </div>
-  <div class="row">    
+  <div class="row">
     <div class="col-12">
       <%= form_with model: @note do |f| %>
         <h6>タイトル</h6>
@@ -14,7 +14,7 @@
             <h6>本文</h6>
             <%= f.text_area :body, class: "form-control",style: "height: 60vh;" %>
           </div>
-      </div>
+        </div>
         <%= f.submit "投稿する",class: "btn btn-primary" %>
       <% end %>   
     </div>

@@ -1,5 +1,4 @@
 <!-- 表示される学習記録一覧 -->
-  <div class="row">
     <% study_logs.each do |study_log| %>
       <div class="col-4">
         <div class="card h-100">
@@ -17,7 +16,11 @@
           <ul class="list-group">
             <!-- 登録された学習内容を表示 -->
             <% study_log.study_log_details.each do |study_log_detail| %>
-              <li class="list-group-item"><%= study_log_detail.tag_list %></li>
+              <li class="list-group-item">
+                <% study_log_detail.tag_list.each do |tag| %> 
+                  <span class="badge badge-primary p-2"><%= tag %></span>
+                <% end %>
+              </li>
               <li class="list-group-item"><%= study_log_detail.hour %>時間<%=study_log_detail.min%>分</li>
             <% end %>
             <li class="list-group" style="height: 10vh;">
@@ -43,5 +46,3 @@
         </div>
       </div>
     <% end %>
-  </div>
-

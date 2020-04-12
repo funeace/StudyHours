@@ -12,7 +12,9 @@
       </ul>
       <div id="myTabContent" class="tab-content mt-3">
         <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
-          <%= render 'study_logs/study_log_list', study_logs: @study_logs,user: @user %>  
+          <div class="row">
+            <%= render 'study_logs/study_log_list', study_logs: @study_logs,user: @user %>            
+          </div>
         </div>
         <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
           <%= render 'notes/note_list', notes: @notes %>              
