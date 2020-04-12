@@ -17,12 +17,30 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-$bg-color: #f0f8ff;
+$bg-color: #fffdf9;
+$top-bg-color: #f0f8ff;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    background-color: $bg-color;
+}
+
+a {
+  text-decoration: none;
+  color:#000;
+  :visited {
+    color: #808080;
+  }
+}
 
 /*top画面の青い線*/
 .top-bg {
-  background-color: $bg-color;
+  background-color: $top-bg-color;
   height: 200px;
 }
 
