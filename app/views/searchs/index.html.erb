@@ -57,30 +57,34 @@
       var study_log_detail_html = '';
       var study_log_detail_tags = '';
       var study_log_favorite_html = '';
-      var study_log_favorites = 0;
-      var study_log_own_favorite = false;
       var study_log_image = '';
       var html = '';
 
       study_log.forEach(function(study_log){
-        study_log_favorites = 0;
+        var study_log_favorites = 0;
+        var study_log_own_favorite = false;
+
         // お気に入りのカウント・自分のIDが存在しているかの確認
         study_log.study_log_favorites.forEach(function(study_log_favorite){
+          study_log_favorite_html = '';
           study_log_favorites += 1;
           console.log(study_log_favorite.user_id);
           console.log(study_log.current_user_id);
           // お気に入りをしたユーザと、ログインしているユーザが一致しているか判定する
           if (study_log_favorite.user_id === study_log.current_user_id){
-            study_log_own_favorite = true; 
+            study_log_own_favorite = true;
           }
-        });
+          console.log(study_log_own_favorite + "study_own-------");
 
+      });
         // いいねの処理(分岐)
-        if(study_log_own_favorite === true){
-          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="post" href="/study_logs/${study_log.id}/study_log_favorites"><i class="fas fa-heart">${study_log_favorites}</i></a>`
+        if(study_log_own_favorite == true){
+          study_log_favorite_html += `<a data-remote="true" rel="nofollow" data-method="delete" href="/study_log/${study_log.id}/study_log_favorites"><i class="fas fa-heart">${study_log_favorites}</i></a>`
         }else{
-          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="delete" href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-heart">${study_log_favorites}</i></a>`
+          study_log_favorite_html += `<a data-remote="true" rel="nofollow" data-method="post" href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-heart">${study_log_favorites}</i></a>`
+
         };
+
 
         // 勉強詳細時間の処理
         study_log.study_log_details.forEach(function(study_log_detail){
@@ -91,20 +95,22 @@
                                       </span>`
           });
             study_log_detail_html = `<li class="list-group-item">
-                                      ${study_log_detail_tags}
+                                      <span class="col-3">学習内容</span>
+                                      <span class="col-9">${study_log_detail_tags}</span>
                                     </li>
                                     <li class="list-group-item">
-                                      ${study_log_detail.hour}時間${study_log_detail.min}分
+                                      <span class="col-3">学習時間</span>
+                                      <span class="col-9">${study_log_detail.hour}時間${study_log_detail.min}分</span> 
                                     </li>`
         });
 
         if(study_log.user.profile_image == null){
-         study_log_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" width="80" height="80">`
+         study_log_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style="width: 80px; height="80px;">`
         } else {
-          study_log_image =`<img class="attachment user profile_image pull-left profile-img" src="${study_log.user.profile_image}"width="80" ,height="80">`
+          study_log_image =`<img class="attachment user profile_image pull-left profile-img" src="${study_log.user.profile_image}"style="width: 80px; height: 80px;">`
         }
 
-          study_log_html += `<div class="col-4">
+          study_log_html += `<div class="col-4 mb-2">
                               <div class="card h-100">
                                 <div class="card-header">
                                   <div>
@@ -119,28 +125,28 @@
                                 </div>
                                 <ul class="list-group">
                                   ${study_log_detail_html}
-                                  <li class="list-group" style="height: 10vh;">
-                                    <div class="card-body memo-relative">
-                                      <div class="memo">
-                                      memo
-                                      </div>
-                                      <div class="mt-2">
-                                        ${study_log.memo}
-                                      </div>
+                                  <li class="list-group" style="height: 20vh;">
+                                    <div class="card-body pt-2">
+                                    <div class="memo">
+                                        <span class="col-3">メモ</span>
                                     </div>
-                                  </li>
-                                </ul>
-                                <div class="memo-detail-relative mt-3">
-                                 <div class="card-footer">
-                                    <!-- いいね機能の処理 -->
-                                    <span id="study-log-favorite-${study_log.id}">
-                                      ${study_log_favorite_html}
-                                    </span>
-                                    <span class="ml-2 mr-2"><a href="/study_logs/${study_log.id}">詳細へ</a></span>
+                                    <div class="mt-2 col-12">
+                                        ${study_log.memo}
+                                    </div>
                                   </div>
+                                </li>
+                              </ul>
+                              <div class="memo-detail-relative mt-3">
+                                <div class="card-footer">
+                                  <!-- いいね機能の処理 -->
+                                  <span id="study-log-favorite-${study_log.id}">
+                                    ${study_log_favorite_html}
+                                  </span>
+                                  <span class="ml-2 mr-2"><a href="/study_logs/${study_log.id}">詳細へ</a></span>
                                 </div>
                               </div>
-                            </div>`
+                            </div>
+                          </div>`
          });
     html +=  study_log_html;
     return html;
@@ -170,9 +176,9 @@
 
         // ユーザ画像が登録されているか確認
         if(note.user.profile_image == null){
-         note_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" width="100" height="100">`
+         note_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style="width: 100px; height: 100px;">`
         } else {
-          note_image =`<img class="attachment user profile_image pull-left profile-img" src="${note.user.profile_image}"width="100" ,height="100">`
+          note_image =`<img class="attachment user profile_image pull-left profile-img" src="${note.user.profile_image}" style= "width: 100px; ,height: 100px;">`
         }
 
 
@@ -195,12 +201,13 @@
                             <div class="col-10">
                               <h4>${note.title}</h4>
                               ${note.body}
-                            <div class="text-right">
-                              <a class="btn btn-primary" href="/notes/${note.id}">記事を見る</a>
-                            </div>
+                              <div class="text-right">
+                                <a class="btn btn-primary" href="/notes/${note.id}">記事を見る</a>
+                              </div>
                             <div class="text-right">
                             </div>
                           </div>
+                        </div>
                         </div>  `
     });
     html += note_html;
@@ -217,9 +224,9 @@
 
         // ユーザ画像が登録されているか確認
         if(user.profile_image == null){
-         user_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" width="100" height="100">`
+         user_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style= "width: 100px; ,height: 100px;">`
         } else {
-          user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}"width="100" ,height="100">`
+          user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; ,height: 100px; object-fit: cover;">`
         }
 
       user_html +=`  <a href="/users/${user.id}"%>

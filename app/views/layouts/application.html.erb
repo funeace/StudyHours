@@ -11,18 +11,55 @@
   </head>
 
   <body>
-    <%= link_to "探す",searchs_path %>
-
-    <% if user_signed_in? %>
-      <%= link_to "マイページ",timelines_path %>
-      <%= link_to "ユーザ詳細ページ",detail_user_path(current_user.id) %>
-      <%= link_to "学習記録を投稿する",new_study_log_path,data: {:turbolinks => "false" }  %>
-      <%= link_to "ノートを投稿する",new_note_path,data: {:turbolinks => "false" }  %>
-      <%= link_to "ログアウト",destroy_user_session_path,method: :delete %>
-    <% else %>
-      <%= link_to "会員登録",new_user_registration_path %>
-      <%= link_to "ログイン",new_user_session_path %>
-    <% end %>
+      <nav class="navbar navbar-expand-lg justify-content-end mb-3 p-3" style="background-color:#9be3de">
+        <div class="navbar-left">          
+        </div>
+        <div class="navbar-right">
+          <ul class="nav navbar-nav">
+            <li class="nav-item">
+              <%= link_to searchs_path ,class: "nav-link" do %>
+                <i class="fas fa-search"> 探す</i>
+              <% end %>
+            </li>
+            <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to timelines_path,class: "nav-link" do%>
+                <i class="fas fa-home"> マイページ</i>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_study_log_path,data: {:turbolinks => "false" },class: "nav-link" do %>
+               <i class="fas fa-pencil-alt"> 学習記録を書く</i>
+               <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_note_path,data: {:turbolinks => "false" },class: "nav-link" do %>
+               <i class="fas fa-book"> ノートを書く</i>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to destroy_user_session_path,method: :delete,class: "nav-link" do %>
+                <i class="fas fa-sign-out-alt"> ログアウト</i>
+              <% end %>
+            </li>
+            <% else %>
+            <li class="nav-item">
+              <%= link_to new_user_registration_path,class: "nav-link" do %>
+                <i class="fas fa-edit"> 会員登録</i>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_user_session_path,class: "nav-link"  do %>
+                <i class="fas fa-sign-in-alt"> ログイン</i>
+              <% end %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </div>     
+  </div>
+</div>
     <%= yield %>
   </body>
 </html>
