@@ -28,8 +28,11 @@
    <canvas id="pie" style="position: relative;width:60vw; height:40vh"></canvas>
 </div>
 
-<div class="doughnut ">
+<div class="#doughnut-area" style="position:relative;">
    <canvas id="doughnut" style="position: relative;width:60vw; height:40vh"></canvas>
+   <div class="inner">
+     88
+   </div>
 </div>
 
 
@@ -86,9 +89,7 @@
     }
   });
   $(function(){
-    $('#doughnut p.chart_txt').text(progress);//進捗率を表示
+    $('.inner').text("進捗率"+ progress+"%");//進捗率を表示
   });
-</script>
-
 </script>
 

@@ -94,11 +94,8 @@ a {
   }
 }
 
-.note-list {
 
-}
-
-timeline-sidebar {
+.timeline-sidebar {
   .make {
        font-size:0.9rem;
      }
@@ -107,6 +104,15 @@ timeline-sidebar {
         font-size:0.9rem;
    }
 }
+
+  .inner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 50%;
+  }
+
 @media screen and (max-width:1024px){
   
 }
