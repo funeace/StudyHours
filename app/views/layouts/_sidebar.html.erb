@@ -1,5 +1,5 @@
 <!-- サイドバー -->
-<div class="col-3 card h-100">
+<div class="col-lg-3 col-md-12 card h-100 timeline-sidebar mb-3">
   <div class="d-flex justify-content-center mt-3">
     <%= attachment_image_tag user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
   </div>
@@ -30,13 +30,13 @@
     </div>
   </div>
   <hr>
-  <div class="ml-3 mb-2" style="font-size:0.9rem;">
+  <div class="ml-3 mb-2 target">
     今週の目標
   </div>
   <div class="text-center">
     <%= user.goal_hour%>時間<%= user.goal_minute %>分
   </div>
-  <div class="mt-3 ml-3 mb-2" style="font-size:0.9rem;">
+  <div class="mt-3 ml-3 mb-2 make">
     今週の積み上げ
   </div>
   <div class="d-flex justify-content-center">
