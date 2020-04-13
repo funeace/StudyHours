@@ -19,6 +19,8 @@
 
 $bg-color: #fffdf9;
 $top-bg-color: #f0f8ff;
+$a-color: #000;
+$a-visited-color: #808080;
 
 * {
   margin: 0;
@@ -32,9 +34,9 @@ body {
 
 a {
   text-decoration: none;
-  color:#000;
+  color: $a-color;
   :visited {
-    color: #808080;
+    color: $a-visited-color;
   }
 }
 
@@ -66,3 +68,83 @@ a {
   }
 }
 
+// study_log newアクションの処理
+.study-log-new-width {
+  width: 50%;
+
+  & .content {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+  }
+
+  & .width {
+    width: 25%;
+  }
+
+  & .margin-right {
+    margin-right: 1rem;
+  }
+}
+
+
+.study-log-show {
+  &.width {
+    width: 50%;
+  }
+}
+
+.note-list {
+
+}
+
+timeline-sidebar {
+  .make {
+       font-size:0.9rem;
+     }
+
+ .target {
+        font-size:0.9rem;
+   }
+}
+@media screen and (max-width:1024px){
+  
+}
+
+@media screen and (max-width: 768px){
+  
+}
+
+@media screen and (max-width: 425px){
+
+.study-log-new-width {
+  width: 100%;
+
+  & .content {
+    padding: 0.4rem;
+  }
+
+  & .width {
+    width: 22%;
+  }
+
+  & .margin-right{
+      margin-right: 0.25rem;
+  }
+}
+
+// study-log-showのアクション
+.study-log-show {
+  &.width {
+    width: 100%;
+  }
+}
+
+
+// タイムラインのサイドバーの非表示
+.note-list-img {
+  display: none;
+}
+
+
+}

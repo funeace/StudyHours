@@ -4,12 +4,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   # twitterのOmniAuth
   def twitter
+    flash[:notice] = "ログインに成功しました"
     callback(:twitter)
   end
 
   # googleのOmniAuth
   def google
     # binding.pry
+    flash[:notice] = "ログインに成功しました"
     callback(:google)
   end
 
