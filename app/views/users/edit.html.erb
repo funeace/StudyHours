@@ -3,6 +3,7 @@
     <div class="col-10">
       <div class="row">
         <%= form_with model: @user, local: true do |f| %>
+          <%= render 'layouts/error_messages', model: @user %>
           <div class="d-flex">
             <div class="image">
               <%= attachment_image_tag @user, :profile_image, :fill, 150, 150, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>

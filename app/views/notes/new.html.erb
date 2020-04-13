@@ -4,7 +4,8 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <%= form_with model: @note do |f| %>
+      <%= form_with model: @note,local:true do |f| %>
+        <%= render 'layouts/error_messages', model: @note %>
         <h6>タイトル</h6>
         <%= f.text_field :title, class: "form-control mb-2" %>
         <h6>タグ</h6>
@@ -25,7 +26,7 @@
           記述する
         </div>
         <div id="preview" class="btn btn-info mr-5">
-          プレビューする      
+          プレビューする
         </div>
           <%= f.submit "投稿する",class: "btn btn-success mt-2" %>
 
