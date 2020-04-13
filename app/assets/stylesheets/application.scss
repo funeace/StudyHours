@@ -66,3 +66,51 @@ a {
   }
 }
 
+.study-log-new-width {
+  width: 50%;
+
+  & .content {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+  }
+
+  & .width {
+    width: 25%;
+  }
+
+  & .margin-right {
+    margin-right: 1rem;
+  }
+}
+
+.study-log-new-content {
+  
+}
+
+@media screen and (max-width:1024px){
+  
+}
+
+@media screen and (max-width: 768px){
+  
+}
+
+@media screen and (max-width: 425px){
+
+.study-log-new-width {
+  width: 100%;
+
+  & .content {
+    padding: 0.4rem;
+  }
+
+  & .width {
+    width: 22%;
+  }
+
+  & .margin-right{
+      margin-right: 0.25rem;
+  }
+}
+}

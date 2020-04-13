@@ -12,7 +12,7 @@
       <%= user.introduction %>
     </div>
     <div style="position: absolute;right:0;bottom:0;">
-      <%= link_to "詳細へ",detail_user_path(user) %>    
+      <%= link_to "詳細へ",detail_user_path(user),data: {:turbolinks => "false" } %>    
     </div>
   </div>
   <hr style="margin: 0.5rem 1rem;">
