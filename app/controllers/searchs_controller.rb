@@ -6,17 +6,6 @@ class SearchsController < ApplicationController
     @study_logs = StudyLog.all.order(id: "DESC")
   end
 
-
-  # 本当は以下の形にしたい(メソッド作る）
-  # SELECT
-  #   a.study_log_id
-  #   NVL(count(b.study_log_id),0)
-  # FROM
-  #   StudyLog a
-  #   StudyLogFavorite b
-  # WHERE
-  #   a.id = b.study_log_id(+)
-  #
   def sort
     # binding.pry
     @user = current_user
@@ -29,20 +18,20 @@ class SearchsController < ApplicationController
     case sort
     # お気に入り順に並び替える
     when "study_favorite_sort" then
-      @study_logs = StudyLog.find(StudyLogFavorite.group(:study_log_id).order('count(study_log_id) desc').pluck(:study_log_id))
+      @study_logs =  StudyLog.all.left_joins(:study_log_favorites).group(:id).select('study_logs.*,COUNT("study_log_favorites"."id") AS favorites_count').order(favorites_count: "DESC")
     # 作成日順
     when "study_created_sort" then
       @study_logs = StudyLog.all.order(id: "DESC")
     # ノートお気に入り順
     when "note_favorite_sort" then
-      @notes = Note.find(NoteFavorite.group(:note_id).order('count(note_id) desc').pluck(:note_id))
+      @notes = Note.all.left_joins(:note_favorites).group(:id).select('notes.*,COUNT("note_favorites"."id") AS note_count').order(note_count: "DESC")
     # ノート作成日順
     when "note_created_sort" then
       @notes = Note.all.order(id:"DESC")
     # フォロワー数
     when "user_follower_sort" then
-      @users = User.find(Relationship.group(:follow_id).order('count(follow_id) desc').pluck(:follow_id))
-    # ユーザ作成日順
+      @users = User.all.left_joins(:reverse_of_relationships).group(:id).select('users.*,COUNT("relationships"."id") AS follower_count').order(follower_count: "DESC")
+      # ユーザ作成日順
     when "user_created_sort" then
       @users = User.all.order(id: "DESC")
     end

@@ -58,7 +58,7 @@
 <script>
   $(document).on('turbolinks:load', function () {
 
-    // 各HTMLを作成する処理ここから---------------------------
+// 各HTMLを作成する処理ここから---------------------------
     // StudyLogのHTMLを作成
     function StudyLog_HTML(study_log) {
       var study_log_html = '';
@@ -68,6 +68,7 @@
       var study_log_image = '';
       var html = '';
 
+      // １件ずつデータを受け取り、HTMLを形成
       study_log.forEach(function(study_log){
         var study_log_favorites = 0;
         var study_log_own_favorite = false;
@@ -96,11 +97,13 @@
         // 勉強詳細時間の処理
         study_log.study_log_details.forEach(function(study_log_detail){
           let study_log_detail_tags = '';
+          // タグのHTMLを形成
           study_log_detail.tags.forEach(function(tags,index_tag){
             study_log_detail_tags += `<span class="badge badge-primary p-2">
                                         ${study_log_detail.tags[index_tag].tag}
                                       </span>`
           });
+          // 学習内容詳細のHTMLを形成
             study_log_detail_html = `<li class="list-group-item">
                                       <span class="col-3">学習内容</span>
                                       <span class="col-9">${study_log_detail_tags}</span>
@@ -110,13 +113,14 @@
                                       <span class="col-9">${study_log_detail.hour}時間${study_log_detail.min}分</span> 
                                     </li>`
         });
-
+        // プロフィール画像が設定されているか確認
         if(study_log.user.profile_image == null){
          study_log_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style="width: 80px; height="80px;">`
         } else {
           study_log_image =`<img class="attachment user profile_image pull-left profile-img" src="${study_log.user.profile_image}"style="width: 80px; height: 80px;">`
         }
 
+        // htmlを生成
           study_log_html += `<div class="col-4 mb-2">
                               <div class="card h-100">
                                 <div class="card-header">
@@ -155,8 +159,7 @@
                             </div>
                           </div>`
          });
-    html +=  study_log_html;
-    return html;
+    return study_log_html;
     };
 
     // NoteのHTMLを作成
@@ -167,6 +170,7 @@
       var note_favorites_count = 0;
       var note_img = '';
 
+      // １件ずつデータを受け取り、HTMLを形成
       note.forEach(function(note){
         // カウントを初期化
         note_comments_count = 0;
@@ -188,7 +192,7 @@
           note_image =`<img class="attachment user profile_image pull-left profile-img" src="${note.user.profile_image}" style= "width: 100px; ,height: 100px;">`
         };
 
-
+        // ノートのhtmlを作成
         note_html +=  ` <div class="card mt-2">
                           <div class="card-header d-flex justify-content-end">
                             <div class="col-3 notes-disp-left">
@@ -217,8 +221,7 @@
                         </div>
                         </div>  `
     });
-    html += note_html;
-    return html;
+    return note_html;
     }
 
     // UserのHTMLを作成
@@ -226,7 +229,7 @@
       var html = '';
       var user_html = '';
       var user_image = '';
-
+      // １件ずつデータを受け取りHTMLを形成する
       user.forEach(function(user){
 
         // ユーザ画像が登録されているか確認
@@ -236,29 +239,30 @@
           user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; ,height: 100px; object-fit: cover;">`
         };
 
-      user_html +=`  <a href="/users/${user.id}"%>
-                      <div class="card mb-2">
-                        <div class="card-body d-flex justify-content-start" style="padding: 0.85rem;">
-                          <div class="col-2">
-                            ${user_image}
-                          </div>
-                          <div class="col-8">
-                            <div style="font-size: 1.5rem">
-                              ${user.name}              
+        // htmlを作成する処理
+        user_html +=`  <a href="/users/${user.id}"%>
+                        <div class="card mb-2">
+                          <div class="card-body d-flex justify-content-start" style="padding: 0.85rem;">
+                            <div class="col-2">
+                              ${user_image}
                             </div>
-                            <div>
-                              ${user.introduction}
+                            <div class="col-8">
+                              <div style="font-size: 1.5rem">
+                                ${user.name}              
+                              </div>
+                              <div>
+                                ${user.introduction}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </a>  `
+                      </a>  `
       });
-    html += user_html;
-    return html;
+    return user_html;
     }
 
-  // 各HTMLを作成する処理ここまで---------------------------
+// 各HTMLを作成する処理ここまで---------------------------
+  // 以下Ajaxの処理
 
     // sortクラスが付与されているボタンがクリックされたら処理を実行
     $('.sort').on('click',function () {
