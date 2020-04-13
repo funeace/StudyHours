@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :searchs,only: [:index] do
     collection do
       get :sort
+      get :search
     end
   end
   resources :timelines,only: [:index]
