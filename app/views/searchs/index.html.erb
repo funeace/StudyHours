@@ -1,6 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
+      <div id="#study_input" class="form-group mb-5">
+        <h6>
+          <label for="form">検索</label>
+          <input type="form" id="form" class="form-control" placeholder="ユーザ名を入力してください" style="width: 250px;" /></h6>
+      </div>
+
       <ul id="myTab" class="nav nav-tabs" role="tablist">
         <li class="nav-item">
           <a href="#study_log" id="study_log-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">積み上げ</a>
@@ -51,6 +57,8 @@
 </div>
 <script>
   $(document).on('turbolinks:load', function () {
+
+// 各HTMLを作成する処理ここから---------------------------
     // StudyLogのHTMLを作成
     function StudyLog_HTML(study_log) {
       var study_log_html = '';
@@ -60,6 +68,7 @@
       var study_log_image = '';
       var html = '';
 
+      // １件ずつデータを受け取り、HTMLを形成
       study_log.forEach(function(study_log){
         var study_log_favorites = 0;
         var study_log_own_favorite = false;
@@ -68,32 +77,33 @@
         study_log.study_log_favorites.forEach(function(study_log_favorite){
           study_log_favorite_html = '';
           study_log_favorites += 1;
-          console.log(study_log_favorite.user_id);
-          console.log(study_log.current_user_id);
+          // console.log(study_log_favorite.user_id);
+          // console.log(study_log.current_user_id);
           // お気に入りをしたユーザと、ログインしているユーザが一致しているか判定する
           if (study_log_favorite.user_id === study_log.current_user_id){
             study_log_own_favorite = true;
           }
-          console.log(study_log_own_favorite + "study_own-------");
+          // console.log(study_log_own_favorite + "study_own-------");
 
       });
         // いいねの処理(分岐)
         if(study_log_own_favorite == true){
-          study_log_favorite_html += `<a data-remote="true" rel="nofollow" data-method="delete" href="/study_log/${study_log.id}/study_log_favorites"><i class="fas fa-heart">${study_log_favorites}</i></a>`
+          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="delete" href="/study_logs/${study_log.id}/study_log_favorites"><i class="fas fa-heart">${study_log_favorites}</i></a>`
         }else{
-          study_log_favorite_html += `<a data-remote="true" rel="nofollow" data-method="post" href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-heart">${study_log_favorites}</i></a>`
+          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="post" href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-heart">${study_log_favorites}</i></a>`
 
         };
-
 
         // 勉強詳細時間の処理
         study_log.study_log_details.forEach(function(study_log_detail){
           let study_log_detail_tags = '';
+          // タグのHTMLを形成
           study_log_detail.tags.forEach(function(tags,index_tag){
             study_log_detail_tags += `<span class="badge badge-primary p-2">
                                         ${study_log_detail.tags[index_tag].tag}
                                       </span>`
           });
+          // 学習内容詳細のHTMLを形成
             study_log_detail_html = `<li class="list-group-item">
                                       <span class="col-3">学習内容</span>
                                       <span class="col-9">${study_log_detail_tags}</span>
@@ -103,13 +113,14 @@
                                       <span class="col-9">${study_log_detail.hour}時間${study_log_detail.min}分</span> 
                                     </li>`
         });
-
+        // プロフィール画像が設定されているか確認
         if(study_log.user.profile_image == null){
          study_log_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style="width: 80px; height="80px;">`
         } else {
           study_log_image =`<img class="attachment user profile_image pull-left profile-img" src="${study_log.user.profile_image}"style="width: 80px; height: 80px;">`
         }
 
+        // htmlを生成
           study_log_html += `<div class="col-4 mb-2">
                               <div class="card h-100">
                                 <div class="card-header">
@@ -148,9 +159,8 @@
                             </div>
                           </div>`
          });
-    html +=  study_log_html;
-    return html;
-    }
+    return study_log_html;
+    };
 
     // NoteのHTMLを作成
     function Note_HTML(note){
@@ -160,6 +170,7 @@
       var note_favorites_count = 0;
       var note_img = '';
 
+      // １件ずつデータを受け取り、HTMLを形成
       note.forEach(function(note){
         // カウントを初期化
         note_comments_count = 0;
@@ -179,9 +190,9 @@
          note_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style="width: 100px; height: 100px;">`
         } else {
           note_image =`<img class="attachment user profile_image pull-left profile-img" src="${note.user.profile_image}" style= "width: 100px; ,height: 100px;">`
-        }
+        };
 
-
+        // ノートのhtmlを作成
         note_html +=  ` <div class="card mt-2">
                           <div class="card-header d-flex justify-content-end">
                             <div class="col-3 notes-disp-left">
@@ -210,8 +221,7 @@
                         </div>
                         </div>  `
     });
-    html += note_html;
-    return html;
+    return note_html;
     }
 
     // UserのHTMLを作成
@@ -219,7 +229,7 @@
       var html = '';
       var user_html = '';
       var user_image = '';
-
+      // １件ずつデータを受け取りHTMLを形成する
       user.forEach(function(user){
 
         // ユーザ画像が登録されているか確認
@@ -227,52 +237,54 @@
          user_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style= "width: 100px; ,height: 100px;">`
         } else {
           user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; ,height: 100px; object-fit: cover;">`
-        }
+        };
 
-      user_html +=`  <a href="/users/${user.id}"%>
-                      <div class="card mb-2">
-                        <div class="card-body d-flex justify-content-start" style="padding: 0.85rem;">
-                          <div class="col-2">
-                            ${user_image}
-                          </div>
-                          <div class="col-8">
-                            <div style="font-size: 1.5rem">
-                              ${user.name}              
+        // htmlを作成する処理
+        user_html +=`  <a href="/users/${user.id}"%>
+                        <div class="card mb-2">
+                          <div class="card-body d-flex justify-content-start" style="padding: 0.85rem;">
+                            <div class="col-2">
+                              ${user_image}
                             </div>
-                            <div>
-                              ${user.introduction}
+                            <div class="col-8">
+                              <div style="font-size: 1.5rem">
+                                ${user.name}              
+                              </div>
+                              <div>
+                                ${user.introduction}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </a>  `
+                      </a>  `
       });
-    html += user_html;
-    return html;
+    return user_html;
     }
 
+// 各HTMLを作成する処理ここまで---------------------------
+  // 以下Ajaxの処理
 
     // sortクラスが付与されているボタンがクリックされたら処理を実行
     $('.sort').on('click',function () {
-    // value値取得(id)
-    var val = $(this).attr('id');
-    var parent = $(this).parent().attr('id');
-    console.log(val);
-    console.log(parent);
-
-    // ajaxでデータを送信
-    $.ajax({
-      // searchコントローラのsortアクションにidをjsonでコントローラへ送る
-      type: 'GET',
-      url: '/searchs/sort',
-      data: {
-        sort_id: val
-      },
-      dataType: 'json'
-    })
+      // value値取得(id)
+      var val = $(this).attr('id');
+      var parent = $(this).parent().attr('id');
+      // console.log(val);
+      // console.log(parent);
+    
+      // ajaxでデータを送信
+      $.ajax({
+        // searchコントローラのsortアクションにsortidをjsonでコントローラへ送る
+        type: 'GET',
+        url: '/searchs/sort',
+        data: {
+          sort_id: val
+        },
+        dataType: 'json'
+      })
       // 成功した時の処理
       .done(function(data){
-        // console.log(data);
+        console.log(data + "---------");
         if (parent == "study_sort"){
           var html = StudyLog_HTML(data.study_logs);
           $('#study-preview').html(html);
@@ -283,7 +295,34 @@
           var html = UserHTML(data.users);
           $('#user-preview').html(html);
         }
+      });
+    });    
+
+    // テキストフォームにデータが入力されたら処理を実行
+    $("#form").on('keyup',function(e){
+      var keyword = $.trim($(this).val());
+      console.log(keyword);
+
+      // ajaxでデータを送信
+      $.ajax({
+        // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
+        type: 'GET',
+        url: '/searchs/search',
+        data: {
+          keyword: keyword
+        },
+        dataType: 'json'
       })
-    })
+      // 検索結果をコントローラから受け取った後の処理
+      .done(function(data){
+        var study_log = StudyLog_HTML(data.study_logs);
+        $('#study-preview').html(study_log);
+        var note = Note_HTML(data.notes);
+        $('#note-preview').html(note);
+        var user = UserHTML(data.users);
+        $('#user-preview').html(user);
+      });
+    });
   });
+
 </script>
