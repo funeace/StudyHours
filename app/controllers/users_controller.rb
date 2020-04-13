@@ -30,10 +30,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def detail
-    @user = User.find(params[:id])
-  end
-
   def edit
     @user = User.find(params[:id])
   end
@@ -49,10 +45,44 @@ class UsersController < ApplicationController
     end
   end
 
+  # ユーザの詳細ページ
+  def detail
+    @user = User.find(params[:id])
+    study_data =[]
+    chart_data = []
+    gon.labels =[]
+    gon.data = []
+
+    # ユーザの投稿内容に紐づいたtagを取得する処理
+    @user.study_logs.each do |study_log|
+      study_data.push(study_log.study_log_details.tags_on(:tags))
+    end
+    # ユーザが投稿したタグの情報を全て取得
+    study_data.each do |sdata|
+      sdata.length.times do |i|
+        chart_data.push(sdata[i].name)
+      end
+    end
+    # 進捗率を表示(目標がない場合はとりあえず0)
+        # binding.pry
+
+    gon.progress = @user.weekly_progress
+
+    # gonにデータを渡す処理
+    chart_data.group_by(&:itself).map{ |k, v| [k, v.size] }.each do |chart|
+      gon.labels.push(chart[0])
+      gon.data.push(chart[1])
+    end
+    gon.background = ["#000","#111","#222","#333","#444","#555","#666"]
+    gon.all_variables 
+  end
+
+  # フォロー中ユーザの一覧
   def following
     @users = User.find(params[:id]).followings
   end
 
+  # フォロワーの一覧
   def followers
     @users = User.find(params[:id]).followers
   end

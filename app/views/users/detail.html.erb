@@ -23,3 +23,72 @@
     </div>
   </div>
 </div>
+
+<div class="pie_chart">
+   <canvas id="pie" style="position: relative;width:60vw; height:40vh"></canvas>
+</div>
+
+<div class="doughnut ">
+   <canvas id="doughnut" style="position: relative;width:60vw; height:40vh"></canvas>
+</div>
+
+
+<script>
+  // chart.jsを使用
+  // 学習記録の割合表示
+  var pie_chart = document.querySelector("#pie");
+  var myPieChart = new Chart(pie_chart, {
+    // 円グラフを指定
+    type: 'pie',
+    data: {
+      labels: gon.labels,
+      datasets: [{
+        backgroundColor: gon.background,
+        data: gon.data
+      }]
+    },
+    options: {
+      // ラベルを非表示
+      legend: {
+        display: false
+      },
+      title: {
+        display: true,
+        text: '学習内容'
+      }
+    }
+  });
+
+  // 今週の進捗の表示
+  var doughnut_chart = document.querySelector("#doughnut");
+  var progress = gon.progress;
+  var target = 100 - progress;
+  console.log(progress)
+  console.log(target);
+  var myDoughnutChart = new Chart(doughnut_chart, {
+    type: 'doughnut',
+    data: {
+      labels: ["目標","達成"],
+      datasets: [{
+        borderWidth: [0,0],
+        backgroundColor: ["#ffff00","#dcdcdc"],
+        data: [progress,target]
+      }]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      title: {
+        display: true,
+        text: '目標達成率'
+      }
+    }
+  });
+  $(function(){
+    $('#doughnut p.chart_txt').text(progress);//進捗率を表示
+  });
+</script>
+
+</script>
+
