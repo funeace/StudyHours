@@ -3,7 +3,7 @@
     <div class="col-10">
       <div class="row">
         <div class="d-flex">
-        <%= attachment_image_tag @user, :profile_image, :fill, 150, 150, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
+        <%= attachment_image_tag @user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
           <div class="col-5 d-flex align-items-center">
             <h3><%= @user.name %></h3>        
           </div>
@@ -28,7 +28,7 @@
    <canvas id="pie" style="position: relative;width:60vw; height:40vh"></canvas>
 </div>
 
-<div class="#doughnut-area" style="position:relative;">
+<div class="doughnut-area" style="position:relative;" >
    <canvas id="doughnut" style="position: relative;width:60vw; height:40vh"></canvas>
    <div class="inner">
      88
@@ -71,7 +71,7 @@
   var myDoughnutChart = new Chart(doughnut_chart, {
     type: 'doughnut',
     data: {
-      labels: ["目標","達成"],
+      labels: ["達成","残り"],
       datasets: [{
         borderWidth: [0,0],
         backgroundColor: ["#ffff00","#dcdcdc"],

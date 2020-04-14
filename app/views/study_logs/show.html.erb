@@ -1,22 +1,26 @@
-<div class="container d-flex justify-content-center">
-  <div class="card study-log-show width">
-    <div style="position: relative;">
-      <div style="position: absolute; top:1%; right:2%;">
+<div class="container study-log-show ">
+  <div class="card width margin-auto">
+    <div class="favorite-parent">
+      <div class="favorite-child">
         <!-- いいねの処理 -->
         <div id="study-log-favorite-<%= @study_log.id %>">
           <%= render 'study_log_favorites/study_log_favorite',study_log: @study_log %>
         </div>
-          <% if user_signed_in? && current_user.id == @study_log.user.id %>
-            <span><%= link_to "編集する",edit_study_log_path %></span>
-          <% end %>
+        <!-- 編集画面へのリンク -->
+        <% if user_signed_in? && current_user.id == @study_log.user.id %>
+          <span><%= link_to "編集する",edit_study_log_path %></span>
+        <% end %>
       </div>
+
       <div class="card-header d-flex">
-        <%= attachment_image_tag @study_log.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>
+        <%= attachment_image_tag @study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
         <div class="ml-3 d-flex flex-column justify-content-center">
-          <h6><%= @study_log.user.name %>さんの</h6>
-          <h6><%= @study_log.working_date.strftime("%Y年%m月%d日") %>の積み上げ</h6>
+          <h6><%= @study_log.working_date.strftime("%Y年%m月%d日")%></h6>
+          <h6><%= @study_log.user.name %></h6>
         </div>
       </div>
+
+      <!-- カードの処理 -->
       <ul class="list-group">
         <% @study_log.study_log_details.each do |detail| %>
           <li class="list-group-item">
@@ -36,14 +40,15 @@
           </div>
         </li>
       </ul>
-  <h4 class="mt-4">コメント</h4>
-  <div id="study-log-comments">
-    <%= render 'study_log_comments/study_log_comments',study_log: @study_log, study_log_comments: @study_log_comments %>  
+    </div>
   </div>
-    <%= render 'study_logs/study_log_form',study_log: @study_log ,study_log_comment: @study_log_comment %>
 
-
-
-
-</div>
+  <div class="width margin-auto">
+    <h4 class="mt-4">コメント</h4>
+    <div id="study-log-comments">
+      <%= render 'study_log_comments/study_log_comments',study_log: @study_log, study_log_comments: @study_log_comments %>  
+    </div>
+      <%= render 'study_logs/study_log_form',study_log: @study_log ,study_log_comment: @study_log_comment %>
+    </div>
+  </div>
 </div>
