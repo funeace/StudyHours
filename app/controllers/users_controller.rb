@@ -63,12 +63,11 @@ class UsersController < ApplicationController
         chart_data.push(sdata[i].name)
       end
     end
-    # 進捗率を表示(目標がない場合はとりあえず0)
-        # binding.pry
-
-    gon.progress = @user.weekly_progress
 
     # gonにデータを渡す処理
+    # 進捗率を表示(目標がない場合はとりあえず0)
+    gon.progress = @user.weekly_progress
+
     chart_data.group_by(&:itself).map{ |k, v| [k, v.size] }.each do |chart|
       gon.labels.push(chart[0])
       gon.data.push(chart[1])
