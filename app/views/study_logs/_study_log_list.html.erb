@@ -9,7 +9,7 @@
             </span>
 
             <%= link_to user_path(study_log.user) do %>
-              <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "    no_image.png",size: "100x100" %>              
+              <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
             <% end %>
             <div class="ml-3 d-flex flex-column justify-content-center">
               <h6><%= study_log.working_date.strftime("%Y年%m月%d日")%></h6>

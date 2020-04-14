@@ -3,9 +3,15 @@
     <div class="col-12">
       <div id="#study_input" class="form-group mb-3">
         <h6>
-          <label for="form">検索</label>
-          <input type="form" id="form" class="form-control" placeholder="ユーザ名を入力してください" style="width: 250px;" /></h6>
+          <div class="d-flex mb-3 mt-3">
+            <select id="search_select" name="search" class="form-control col-1">
+              <option value="name">名前</option>
+              <option value="tag">タグ</option>
+            </select>
+            <input type="form" id="form" class="form-control" placeholder="ユーザ名を入力してください" style="width: 250px;" /></h6>
+          </div>
       </div>
+    </div>
 
       <ul id="myTab" class="nav nav-tabs" role="tablist">
         <li class="nav-item">
@@ -301,7 +307,7 @@
     // テキストフォームにデータが入力されたら処理を実行
     $("#form").on('keyup',function(e){
       var keyword = $.trim($(this).val());
-      console.log(keyword);
+      var genre = $("#search_select").val();
 
       // ajaxでデータを送信
       $.ajax({
@@ -309,20 +315,27 @@
         type: 'GET',
         url: '/searchs/search',
         data: {
-          keyword: keyword
+          keyword: keyword,
+          genre: genre
         },
         dataType: 'json'
       })
       // 検索結果をコントローラから受け取った後の処理
       .done(function(data){
-        var study_log = StudyLog_HTML(data.study_logs);
-        $('#study-preview').html(study_log);
-        var note = Note_HTML(data.notes);
-        $('#note-preview').html(note);
-        var user = UserHTML(data.users);
-        $('#user-preview').html(user);
-      });
+          var study_log = StudyLog_HTML(data.study_logs);
+          var note = Note_HTML(data.notes);
+          var user = UserHTML(data.users);
+          console.log(genre);
+          // タグ検索の際名前は何もしない
+          if(genre === "name"){
+            $('#study-preview').html(study_log);
+            $('#note-preview').html(note);
+            $('#user-preview').html(user);
+          }else if(genre === "tag"){
+            $('#study-preview').html(study_log);
+            $('#note-preview').html(note);            
+          };
+       });
     });
   });
-
 </script>
