@@ -1,65 +1,77 @@
 <!-- サイドバー -->
 <div class="col-lg-3 col-md-12 card h-100 timeline-sidebar mb-3">
-  <div class="d-flex justify-content-center mt-3">
-    <%= attachment_image_tag user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
+  <div class="d-flex justify-content-center mt-3 mb-2">
+    <%= attachment_image_tag user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>    
   </div>
-  <hr>
-  <div class="text-center">
-    <%= user.name %>
-  </div>
-  <div class="card-body" style="position: relative;">
-    <div class="card-text text-center mb-3" style="font-size:0.9rem;">
-      <%= user.introduction %>
-    </div>
-    <div style="position: absolute;right:0;bottom:0;">
-      <%= link_to "詳細へ",detail_user_path(user),data: {:turbolinks => "false" } %>    
-    </div>
-  </div>
-  <hr style="margin: 0.5rem 1rem;">
-  <div>
-    <div class="disp_following d-flex justify-content-around">
-      <div>
-        Follow <%= link_to user.relationships.count ,following_user_path(user) %>
-      </div>
-      <div>
-        Follower <%= link_to user.reverse_of_relationships.count ,followers_user_path(user) %>
-      </div>
-    </div>
-    <div class="text-center mt-3">
-        お気に入り一覧
-    </div>
-  </div>
-  <hr>
-  <div class="ml-3 mb-2 target">
-    今週の目標
-  </div>
-  <div class="text-center">
-    <%= user.goal_hour%>時間<%= user.goal_minute %>分
-  </div>
-  <div class="mt-3 ml-3 mb-2 make">
-    今週の積み上げ
-  </div>
-  <div class="d-flex justify-content-center">
-    <%= user.weekly_study_logs[0] %>時間<%= user.weekly_study_logs[1]%>分
-  </div>
-  <hr>
-  <div class="text-center mb-5">
-    <% if user_signed_in? %>
-      <% if current_user != user %>
-        <% if current_user.following?(user) %>
-          <%= link_to "フォロー解除",relationship_path(user_id: user.id),method: :delete,class: "btn btn-danger" %>
-        <% else %>
-          <%= link_to "フォロー",relationships_path(user_id: user.id),method: :post, class: "btn btn-primary" %>
+
+<table class="table">
+    <tbody>
+      <tr></tr>
+      <tr>
+        <td>
+          <b>ユーザ名</b><span class="offset-3"><%= user.name %></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="s-relative">
+            <b>自己紹介</b>
+            <p class="text-center"><%= user.introduction %></p>
+            <div class="s-absolute"">
+              <%= link_to "詳細へ",detail_user_path(user),data: {:turbolinks => "false" } %>
+            </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <b>今週の目標</b>
+          <div class="text-center">
+            <h4><b><%= user.goal_hour%>時間<%= user.goal_minute %>分</b></h4>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <b>今週の積み上げ</b>
+          <div class="text-center">
+            <h4><b><%= user.weekly_study_logs[0] %>時間<%= user.weekly_study_logs[1]%>分</b></h4>        
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="d-flex justify-content-around">
+          <b><%= link_to "フォロー#{user.relationships.count}" ,following_user_path(user) %></b>
+          <b><%= link_to "フォロワー#{user.reverse_of_relationships.count}" ,followers_user_path(user) %></b>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-center"><b>お気に入り一覧</b></td>
+      </tr>
+      <% if user_signed_in? %>
+        <% if current_user != user %>
+          <tr>
+            <td>
+              <div class="text-center">
+                <% if current_user.following?(user) %>
+                  <%= link_to "フォロー解除",relationship_path(user_id: user.id),method: :delete,class: "btn btn-danger" %>
+                <% else %>
+                  <%= link_to "フォロー",relationships_path(user_id: user.id),method: :post, class: "btn btn-primary" %>
+                <% end %>
+              </div>          
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="text-center">
+                <% if room_chk == true %>
+                  <%= link_to "チャット",room_path(room_id),class:"btn btn-info" %>
+                <% else %>
+                  <%= link_to "チャット",rooms_path(user_id: user.id),method: :post,class:"btn btn-info" %>
+                <% end %>
+              </div>          
+            </td>
+          </tr>
         <% end %>
       <% end %>
-      <% if user.id != current_user.id %>
-      <hr>
-        <% if room_chk == true %>
-          <%= link_to "チャット",room_path(room_id),class:"btn btn-info" %>
-        <% else %>
-          <%= link_to "チャット",rooms_path(user_id: user.id),method: :post,class:"btn btn-info" %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
+    </tbody>
+  </table>
 </div>

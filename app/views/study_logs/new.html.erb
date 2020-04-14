@@ -1,9 +1,9 @@
 <div class="container d-flex justify-content-center">
   <div class="study-log-new-width">    
-    <div class="card">
+    <div class="e-card">
       <%= form_with model: @study_log, local: true do |f| %> 
         <%= render 'layouts/error_messages', model: @study_log %>
-        <div class="card-header">
+        <div class="e-header">
           <h5>学習日</h5>
           <span><%= f.date_field :working_date, value: Date.today, class: "form-control" %></span>
         </div>

@@ -8,7 +8,7 @@
             <h3><%= @user.name %></h3>        
           </div>
           <div class="col-10  d-flex align-items-center">
-            <h3>週の目標 <%= @user.goal_hour %>時間<%= @user.goal_minute %>分</h3>
+            <h3>週間目標 <%= @user.goal_hour %>時間<%= @user.goal_minute %>分</h3>
           </div>
         </div>
       </div>
@@ -83,13 +83,13 @@
         display: false
       },
       title: {
-        display: true,
-        text: '目標達成率'
+        display: false,
+        text: '達成率:'
       }
     }
   });
   $(function(){
-    $('.inner').text("進捗率"+ progress+"%");//進捗率を表示
+    $('.inner').text("目標達成率"+ progress+"%");//進捗率を表示
   });
 </script>
 

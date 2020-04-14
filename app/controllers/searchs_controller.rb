@@ -41,12 +41,14 @@ class SearchsController < ApplicationController
   end
 
   def search
+    # ユーザ検索
     @user = current_user
     @users = User.where('name LIKE(?)',"%#{params[:keyword]}%")
     @notes = Note.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
     @study_logs = StudyLog.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
     # binding.pry
 
+    # タグ検索
     respond_to do |format|
       format.json
     end

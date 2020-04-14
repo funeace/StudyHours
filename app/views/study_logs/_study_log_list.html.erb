@@ -1,14 +1,16 @@
 <!-- 表示される学習記録一覧 -->
     <% study_logs.each do |study_log| %>
-      <div class="col-lg-4 col-12 mb-2">
-        <div class="card h-100 study-log-list">
-          <div class="card-header d-flex favorite-parent">
+      <div class="col-lg-4 col-md-12 mb-2">
+        <div class="e-card h-100 study-log-list">
+          <div class="e-header d-flex favorite-parent">
             <!-- いいね機能の処理 -->
             <span id="study-log-favorite-<%= study_log.id %>" class="favorite-child">
               <%= render 'study_log_favorites/study_log_favorite',study_log: study_log %>                
             </span>
 
-          <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
+            <%= link_to user_path(study_log.user) do %>
+              <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "    no_image.png",size: "100x100" %>              
+            <% end %>
             <div class="ml-3 d-flex flex-column justify-content-center">
               <h6><%= study_log.working_date.strftime("%Y年%m月%d日")%></h6>
               <h6><%= study_log.user.name %></h6>
@@ -30,21 +32,17 @@
                 <span class="col-9"><%= study_log_detail.hour %>時間<%=study_log_detail.min%>分</span>
               </li>
             <% end %>
-            <li class="list-group" style="height: 20vh;">
+            <li class="list-group-item e-card-memo">
               <div class="card-body pt-2">
-                <div class="memo">
-                  <span class="col-3">学習メモ</span>
-                </div>
+                  <span class="absolute">学習メモ</span>
                 <div class="mt-2 col-12">
                   <%= study_log.memo %>
                 </div>
               </div>
             </li>
           </ul>
-          <div class="memo-detail-relative mt-3">
-            <div class="card-footer">
+          <div class="card-footer">
               <span class="ml-2 mr-2"><%= link_to "詳細へ",study_log_path(study_log) %></span>
-            </div>
           </div>
         </div>
       </div>

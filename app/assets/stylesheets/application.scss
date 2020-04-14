@@ -40,6 +40,49 @@ a {
   }
 }
 
+// カードの設定
+.e-card {
+  $background: #f0f8ff;
+  $card-radius: 1rem;
+  @extend .card;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
+  border-radius: $card-radius;
+  & .e-header{
+      @extend .card-header;
+      background-color: $background;
+      border-radius: calc(#{$card-radius} - 1px) calc(#{$card-radius} - 1px) 0 0;
+    // 丸まらないところがあったため追記
+    &:first-child {
+      border-radius: calc(#{$card-radius} - 1px) calc(#{$card-radius} - 1px) 0 0;
+    }
+  }
+  & .e-card-memo {
+    position: relative;
+    height: 20vh;
+    & .absolute{
+      position:absolute;
+      top:5%;
+      left:11%;
+    }
+  }
+}
+
+
+
+//共通部分ここまで----------------------------------------------------
+// サイドバーの設定
+.s-relative {
+ position:relative;
+ & .s-absolute {
+  position: absolute;
+  right:0;
+  bottom:0;
+ }
+}
+
+
+
+
 /*top画面の青い線*/
 .top-bg {
   background-color: $top-bg-color;
