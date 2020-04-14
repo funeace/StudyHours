@@ -21,6 +21,8 @@ $bg-color: #fffdf9;
 $top-bg-color: #f0f8ff;
 $a-color: #000;
 $a-visited-color: #808080;
+$s-card-radius: 1rem;
+$n-card-radius: 0.75rem;
 
 * {
   margin: 0;
@@ -40,23 +42,27 @@ a {
   }
 }
 
+.badge-size {
+  font-size: 14px;
+}
+
+
 // カードの設定
-.e-card {
+.s-card {
   $background: #f0f8ff;
-  $card-radius: 1rem;
   @extend .card;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
-  border-radius: $card-radius;
-  & .e-header{
+  border-radius: $s-card-radius;
+  & .s-header{
       @extend .card-header;
       background-color: $background;
-      border-radius: calc(#{$card-radius} - 1px) calc(#{$card-radius} - 1px) 0 0;
+      border-radius: calc(#{$s-card-radius} - 1px) calc(#{$s-card-radius} - 1px) 0 0;
     // 丸まらないところがあったため追記
     &:first-child {
-      border-radius: calc(#{$card-radius} - 1px) calc(#{$card-radius} - 1px) 0 0;
+      border-radius: calc(#{$s-card-radius} - 1px) calc(#{$s-card-radius} - 1px) 0 0;
     }
   }
-  & .e-card-memo {
+  & .s-card-memo {
     position: relative;
     height: 20vh;
     & .absolute{
@@ -66,6 +72,31 @@ a {
     }
   }
 }
+
+// ノートのカードの設定
+.n-card {
+  $n-border: #9be3de;
+  @extend .card;
+  border-radius: $n-card-radius;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
+  border-left: 10px solid $n-border;
+  & .n-link-position {
+    position:absolute;
+    top:50%;
+    right: 5%;
+  }
+  & .n-value {
+    position:absolute;
+    top:5%;
+    right: 5%;
+  }
+  & .n-badge-position{
+    position:absolute;
+    top:20%;
+    left: 40%;
+  }
+}
+
 
 
 

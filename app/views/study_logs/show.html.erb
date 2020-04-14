@@ -1,5 +1,5 @@
 <div class="container study-log-show ">
-  <div class="card width margin-auto">
+  <div class="s-card width margin-auto">
     <div class="favorite-parent">
       <div class="favorite-child">
         <!-- いいねの処理 -->
@@ -12,7 +12,7 @@
         <% end %>
       </div>
 
-      <div class="card-header d-flex">
+      <div class="s-header d-flex">
         <%= attachment_image_tag @study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
         <div class="ml-3 d-flex flex-column justify-content-center">
           <h6><%= @study_log.working_date.strftime("%Y年%m月%d日")%></h6>

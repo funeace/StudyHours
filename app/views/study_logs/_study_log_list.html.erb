@@ -1,8 +1,8 @@
 <!-- 表示される学習記録一覧 -->
     <% study_logs.each do |study_log| %>
       <div class="col-lg-4 col-md-12 mb-2">
-        <div class="e-card h-100 study-log-list">
-          <div class="e-header d-flex favorite-parent">
+        <div class="s-card h-100 study-log-list">
+          <div class="s-header d-flex favorite-parent">
             <!-- いいね機能の処理 -->
             <span id="study-log-favorite-<%= study_log.id %>" class="favorite-child">
               <%= render 'study_log_favorites/study_log_favorite',study_log: study_log %>                
@@ -23,7 +23,7 @@
                 <div class="col-12">学習内容</div>
                 <div class="col-12">
                 <% study_log_detail.tag_list.each do |tag| %> 
-                  <span class="badge badge-primary p-1"><%= tag %></span>
+                  <span class="badge badge-primary p-1" style="font-size:14px;"><%= tag %></span>
                 <% end %>
               </div>
               </li>
@@ -32,7 +32,7 @@
                 <span class="col-9"><%= study_log_detail.hour %>時間<%=study_log_detail.min%>分</span>
               </li>
             <% end %>
-            <li class="list-group-item e-card-memo">
+            <li class="list-group-item s-card-memo">
               <div class="card-body pt-2">
                   <span class="absolute">学習メモ</span>
                 <div class="mt-2 col-12">

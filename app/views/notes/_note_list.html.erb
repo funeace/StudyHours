@@ -1,26 +1,27 @@
 <% notes.each do |note| %>
-  <div class="card mt-2">
-    <div class="card-header d-flex justify-content-end">
-      <span class="notes-disp-left">
-        <%= note.created_at.strftime("%Y年%m月%d日") %>
-      </span>
-      <span class="mr-2">
-        <i class="far fa-heart"><%= note.note_favorites.count %></i>
-      </span>
-      <span class="mr-4">
-        <i class="far fa-comment"><%= note.note_comments.count %></i>
-      </span>
-    </div>
-    <div class="card-body d-flex justify-content-start">
-      <div class="col-lg-2 note-list-img">
+  <div class="n-card mt-2" >
+    <div class="card-body">
+      <div class="d-flex">
         <%= link_to user_path(note.user) do %>
           <%= attachment_image_tag note.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>
         <% end %>
-      </div>
-      <div class=" col-lg-10 col-12">
-        <h3><%= note.title %></h3>
-        <div class="text-right">
+        <div class="d-flex align-items-center">
+          <div class="ml-3">
+            <h6><%= note.created_at.strftime("%Y年%m月%d日") %></h6>
+            <h3><%= note.title %></h3>        
+          </div>
+          <div class="n-link-position">
             <%= link_to "記事を見る",note_path(note),class: "btn btn-primary" %>
+          </div>
+          <div class="n-value">
+            <i class="far fa-heart mr-2"><%= note.note_favorites.count %></i>
+            <i class="far fa-comment"><%= note.note_comments.count %></i>        
+          </div>
+          <div class="n-badge-position">
+            <% note.tag_list.each do |tag| %>
+              <span class="badge badge-primary p-1 badge-size"><%= tag %></span>
+            <% end %>            
+          </div>
         </div>
       </div>
     </div>
