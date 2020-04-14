@@ -3,7 +3,7 @@
     <div class="col-10">
       <div class="row">
         <div class="d-flex">
-        <%= attachment_image_tag @user, :profile_image, :fill, 150, 150, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
+        <%= attachment_image_tag @user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
           <div class="col-5 d-flex align-items-center">
             <h3><%= @user.name %></h3>        
           </div>
@@ -23,3 +23,73 @@
     </div>
   </div>
 </div>
+
+<div class="pie_chart">
+   <canvas id="pie" style="position: relative;width:60vw; height:40vh"></canvas>
+</div>
+
+<div class="doughnut-area" style="position:relative;" >
+   <canvas id="doughnut" style="position: relative;width:60vw; height:40vh"></canvas>
+   <div class="inner">
+     88
+   </div>
+</div>
+
+
+<script>
+  // chart.jsを使用
+  // 学習記録の割合表示
+  var pie_chart = document.querySelector("#pie");
+  var myPieChart = new Chart(pie_chart, {
+    // 円グラフを指定
+    type: 'pie',
+    data: {
+      labels: gon.labels,
+      datasets: [{
+        backgroundColor: gon.background,
+        data: gon.data
+      }]
+    },
+    options: {
+      // ラベルを非表示
+      legend: {
+        display: false
+      },
+      title: {
+        display: true,
+        text: '学習内容'
+      }
+    }
+  });
+
+  // 今週の進捗の表示
+  var doughnut_chart = document.querySelector("#doughnut");
+  var progress = gon.progress;
+  var target = 100 - progress;
+  console.log(progress)
+  console.log(target);
+  var myDoughnutChart = new Chart(doughnut_chart, {
+    type: 'doughnut',
+    data: {
+      labels: ["達成","残り"],
+      datasets: [{
+        borderWidth: [0,0],
+        backgroundColor: ["#ffff00","#dcdcdc"],
+        data: [progress,target]
+      }]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      title: {
+        display: true,
+        text: '目標達成率'
+      }
+    }
+  });
+  $(function(){
+    $('.inner').text("進捗率"+ progress+"%");//進捗率を表示
+  });
+</script>
+

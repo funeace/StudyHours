@@ -84,6 +84,8 @@ gem 'omniauth-google-oauth2'
 gem 'gon'
 gem 'font-awesome-sass'
 gem 'acts-as-taggable-on', '~> 6.0'
+gem 'chart-js-rails'
+
 group :production do
   gem 'mysql2'
 end

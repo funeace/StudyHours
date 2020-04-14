@@ -16,8 +16,7 @@
         <%= attachment_image_tag note.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>     
       </div>
       <div class=" col-lg-10 col-12">
-        <h4><%= note.title %></h4>
-        <%= note.body %>
+        <h3><%= note.title %></h3>
         <div class="text-right">
             <%= link_to "記事を見る",note_path(note),class: "btn btn-primary" %>
         </div>

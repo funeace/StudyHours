@@ -68,10 +68,21 @@ a {
   }
 }
 
+// study_log-list 一覧の処理
+.study-log-list {
+  & .favorite-parent {
+    position: relative;
+    & .favorite-child {
+      position: absolute;
+      top:3%;
+      right:5%
+    }
+  }
+}
+
 // study_log newアクションの処理
 .study-log-new-width {
   width: 50%;
-
   & .content {
     flex: 1 1 auto;
     min-height: 1px;
@@ -87,18 +98,33 @@ a {
   }
 }
 
-
+// study_log showアクションの処理
 .study-log-show {
-  &.width {
+  & .width {
+    width: 50%;
+  }
+  & .favorite-parent {
+  position: relative;
+    & .favorite-child {
+      position: absolute;
+      top:1%;
+      right:2%
+    }
+  }
+  & .margin-auto{
+    margin: 0 auto;
+  }
+}
+
+// study_log editアクションの処理
+.study-log-edit {
+  & .width {
     width: 50%;
   }
 }
 
-.note-list {
 
-}
-
-timeline-sidebar {
+.timeline-sidebar {
   .make {
        font-size:0.9rem;
      }
@@ -107,6 +133,15 @@ timeline-sidebar {
         font-size:0.9rem;
    }
 }
+
+  .inner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 50%;
+  }
+
 @media screen and (max-width:1024px){
   
 }

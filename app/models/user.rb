@@ -51,6 +51,35 @@ class User < ApplicationRecord
     self.relationships.find_by(follow_id: user.id).destroy
   end
 
+  # １週間の学習時間を表示するメソッド
+  def weekly_study_logs
+    hour = 0
+    min = 0
+    # 月曜日~日曜日で集計を行う(rubyの標準)
+    self.study_logs.where(working_date: (Date.today.beginning_of_week)..(Date.today.end_of_week)).each do |weekly_study_log|
+      weekly_study_log.study_log_details.each do |detail|
+        hour += detail.hour
+        min += detail.min
+      end
+    end
+    calchour = min / 60
+    hour += calchour
+    min = min % 60
+    return [hour,min]
+  end
+
+  # 今週の目標に対する進捗率を表示するメソッド(分単位で計算・return値は%現在何%か)
+  def weekly_progress
+    study_hours = (self.weekly_study_logs[0] * 60 + self.weekly_study_logs[1]).to_f
+    goal_hours = (self.goal_hour * 60 + self.goal_minute).to_f
+    if goal_hours == 0
+      return 100
+    else
+      return ((study_hours / goal_hours).floor(1) * 100).to_i
+    end
+  end
+
+
 protected
   def self.from_omniauth(auth)
     # twitterの場合メールアドレスが持ってこれないため、ダミーデータが登録されている
