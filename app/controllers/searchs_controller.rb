@@ -42,12 +42,24 @@ class SearchsController < ApplicationController
 
   def search
     # ユーザ検索
-    @user = current_user
-    @users = User.where('name LIKE(?)',"%#{params[:keyword]}%")
-    @notes = Note.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
-    @study_logs = StudyLog.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
+    genre = params[:genre]
     # binding.pry
-
+    # 名前検索
+    @user = current_user
+    if genre == "name"
+      @users = User.where('name LIKE(?)',"%#{params[:keyword]}%")
+      @notes = Note.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
+      @study_logs = StudyLog.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
+    # binding.pry
+    # タグ検索(名前は引かない)
+    elsif(genre =="tag")
+      @users = User.all
+      @study_logs = []
+      StudyLogDetail.tagged_with(params[:keyword]).each do |detail|
+        @study_logs.push(detail.study_log)
+      end
+      @notes = Note.tagged_with(params[:keyword])
+    end
     # タグ検索
     respond_to do |format|
       format.json

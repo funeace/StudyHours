@@ -24,15 +24,19 @@
   </div>
 </div>
 
-<div class="pie_chart">
-   <canvas id="pie" style="position: relative;width:60vw; height:40vh"></canvas>
-</div>
+<div style="margin:0;auto;position:relative;">  
+  <div class="pie_chart" style="float:left;width:40%;">
+     <canvas id="pie" style="position: relative;width:80vw; height:80vh;"></canvas>
+  </div>
 
-<div class="doughnut-area" style="position:relative;" >
-   <canvas id="doughnut" style="position: relative;width:60vw; height:40vh"></canvas>
-   <div class="inner">
-     88
-   </div>
+  <div class="doughnut-chart" style="float:left;width:40%;">
+    <div class="doughnut-area" style="position:relative;" >
+      <canvas id="doughnut" style="position: relative;width:80vw; height:80vh"></canvas>
+      <div class="inner">
+      88
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -83,8 +87,8 @@
         display: false
       },
       title: {
-        display: false,
-        text: '達成率:'
+        display: true,
+        text: '達成率'
       }
     }
   });
