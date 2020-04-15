@@ -215,13 +215,13 @@ a {
    }
 }
 
-  .inner {
-    position: absolute;
-    left: 0;
-    right: 0;
-    text-align: center;
-    top: 50%;
-  }
+.inner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 50%;
+}
 
 // モーダルのリンクをボタン形式にする
 .study-modal-button {
@@ -261,6 +261,7 @@ a {
   top: 0;
   left: 0;
   background-color: rgba(0,0,0,0.8);
+  overflow-y: scroll;
   display: none;
 
 // モーダル自体の表示
@@ -273,7 +274,8 @@ a {
     & .note-modal-bg {
       background-color: orange;
       padding: 30px;
-      border-radius: 2em;
+      border-radius: 1em;
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
     }
   }
 }

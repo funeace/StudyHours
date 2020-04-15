@@ -86,9 +86,12 @@
     $('.study-modal-button').on('click',function(){
         $('.study-modal-wrapper').show();
         $('.study-modal').fadeIn();
+        $('body').css('overflow','hidden');
+
 
         $(function(){
           $('.study-modal-wrapper').on('click',function(){
+            $('body').css('overflow','');
             $(this).fadeOut();
           });
           $('.study-log-new-width').on('click',function(e){
@@ -100,9 +103,11 @@
     $('.note-modal-button').on('click',function(){
         $('.note-modal-wrapper').show();
         $('.note-modal').fadeIn();
+        $('body').css('overflow','hidden');
 
         $(function(){
           $('.note-modal-wrapper').on('click',function(){
+            $('body').css('overflow','');
             $(this).fadeOut();
           });
           $('.note-modal-bg').on('click',function(e){
