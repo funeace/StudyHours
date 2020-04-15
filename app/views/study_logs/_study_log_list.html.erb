@@ -23,7 +23,7 @@
                 <div class="col-12">学習内容</div>
                 <div class="col-12">
                 <% study_log_detail.tag_list.each do |tag| %> 
-                  <span class="badge badge-primary p-1" style="font-size:14px;"><%= tag %></span>
+                  <span class="badge badge-primary p-1" style="font-size:14px;"><%= link_to tag,searchs_path(tag_name:tag,search_id:1) %></span>
                 <% end %>
               </div>
               </li>

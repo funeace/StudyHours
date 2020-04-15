@@ -1,9 +1,23 @@
 class SearchsController < ApplicationController
   def index
     # デフォルト設定
-    @users = User.all.order(id: "DESC")
-    @notes = Note.all.order(id: "DESC")
-    @study_logs = StudyLog.all.order(id: "DESC")
+    @search_id = params[:search_id]
+    @tag_name = params[:tag_name]
+
+    case @search_id
+      when nil
+        @users = User.all.order(id: "DESC")
+        @notes = Note.all.order(id: "DESC")
+        @study_logs = StudyLog.all.order(id: "DESC")
+      when "1"
+        @users = User.all.order(id: "DESC")
+        @notes = Note.tagged_with(@tag_name)
+        @study_logs = []
+        StudyLogDetail.tagged_with(@tag_name).each do |detail|
+          @study_logs.push(detail.study_log)
+        end
+      end
+    # binding.pry
   end
 
   def sort
