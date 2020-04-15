@@ -17,7 +17,8 @@
             <b>自己紹介</b>
             <p class="text-center"><%= user.introduction %></p>
             <div class="s-absolute"">
-              <%= link_to "詳細へ",detail_user_path(user),data: {:turbolinks => "false" } %>
+              <span class="user-modal-button">詳細へ</span>
+              <%#=# link_to "詳細へ",detail_user_path(user),data: {:turbolinks => "false" } %>
             </div>
         </td>
       </tr>
@@ -73,3 +74,31 @@
     </tbody>
   </table>
 </div>
+
+<div class="user-modal-wrapper">
+  <div class="user-detail-modal">
+    <%= render 'users/modal-detail',user: user %>                  
+  </div>                
+</div>
+
+<script>
+  $(document).on('turbolinks:load', function () {
+    $('.user-modal-button').on('click',function(){
+        $('.user-modal-wrapper').show();
+        $('.user-modal').fadeIn();
+        $('body').css('overflow','hidden');
+
+
+        $(function(){
+          $('.user-modal-wrapper').on('click',function(){
+            $('body').css('overflow','');
+            $(this).fadeOut();
+          });
+          $('.study-log-new-width').on('click',function(e){
+            e.stopPropagation();
+          });
+        });
+    });
+  });
+</script>
+

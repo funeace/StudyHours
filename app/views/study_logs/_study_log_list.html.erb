@@ -19,11 +19,13 @@
           <ul class="list-group">
             <!-- 登録された学習内容を表示 -->
             <% study_log.study_log_details.each do |study_log_detail| %>
-              <li class="list-group-item" style="height: 10vh;">
-                <div class="col-12">学習内容</div>
+              <li class="list-group-item"style="height:13vh;" >
                 <div class="col-12">
+                <div>学習内容</div>                  
+                </div>
+                <div class="col-12" style="height:10vh;">
                 <% study_log_detail.tag_list.each do |tag| %> 
-                  <span class="badge badge-primary p-1" style="font-size:14px;"><%= link_to tag,searchs_path(tag_name:tag,search_id:1) %></span>
+                  <span class="badge badge-success p-1" style="font-size:14px;width:100px;display:inline-block;overflow:hidden;text-overflow:ellipsis;"><%= link_to tag,searchs_path(tag_name:tag,search_id:1) %></span>
                 <% end %>
               </div>
               </li>
