@@ -1,6 +1,6 @@
 <!-- 表示される学習記録一覧 -->
     <% study_logs.each do |study_log| %>
-      <div class="col-lg-4 col-md-12 mb-2">
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-2">
         <div class="s-card h-100 study-log-list">
           <div class="s-header d-flex favorite-parent">
             <!-- いいね機能の処理 -->
@@ -23,7 +23,7 @@
                 <div class="col-12">学習内容</div>
                 <div class="col-12">
                 <% study_log_detail.tag_list.each do |tag| %> 
-                  <span class="badge badge-primary p-1" style="font-size:14px;"><%= tag %></span>
+                  <span class="badge badge-primary p-1" style="font-size:14px;"><%= link_to tag,searchs_path(tag_name:tag,search_id:1) %></span>
                 <% end %>
               </div>
               </li>

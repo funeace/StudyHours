@@ -126,6 +126,13 @@ a {
   margin-right: auto;
 }
 
+.note-area {
+  width: 100%;
+}
+ 
+ #md-textarea {
+  height: 50vh;
+ }
 
 /*カード情報のmemoを左上に配置*/
 .memo-relative {
@@ -221,7 +228,10 @@ a {
 }
 
 @media screen and (max-width: 768px){
-  
+   #md-textarea {
+    height: 40vh;
+  }
+
 }
 
 @media screen and (max-width: 425px){

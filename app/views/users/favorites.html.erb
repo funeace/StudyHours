@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="row">
+      <%= render 'layouts/sidebar',user: @user %>    
+    <div class="col-lg-9">
+      <ul id="myTab" class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a href="#study_log" id="study_log-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">積み上げ</a>
+        </li>
+        <li class="nav-item">
+          <a href="#note" id="note-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="note" aria-selected="false">ノート</a>
+        </li>
+      </ul>
+      <div id="myTabContent" class="tab-content mt-3">
+        <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
+          <div class="row">
+            <%= render 'study_logs/study_log_list', study_logs: @study_logs,user: @user %>  
+          </div>
+        </div>
+        <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
+          <%= render 'notes/note_list', notes: @notes %>              
+        </div>
+      </div>
+    </div>    
+  </div>
+</div>

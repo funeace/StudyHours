@@ -11,8 +11,8 @@ class StudyLog < ApplicationRecord
   validates :working_date,presence: true
   # ユーザIDが存在していることを確認
   validates :user_id,presence: true
-  # memoは100文字まで
-  validates :memo,length: {maximum: 100}
+  # memoは50文字まで
+  validates :memo,length: {maximum: 50}
 
   # 既にいいね ボタンを押しているか確認
   def favorited_by?(user)
