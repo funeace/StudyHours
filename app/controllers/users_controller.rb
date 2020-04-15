@@ -86,6 +86,22 @@ class UsersController < ApplicationController
     @users = User.find(params[:id]).followers
   end
 
+  def favorites
+    @user = User.find(params[:id])
+    @study_logs = []
+    @notes = []
+
+    study_favorites = @user.study_log_favorites
+    study_favorites.each do |favorite|
+      @study_logs.push(favorite.study_log)
+    end
+
+    note_favorites = @user.note_favorites
+    note_favorites.each do |favorite|
+      @notes.push(favorite.note)
+    end
+  end
+
 private
   def user_params
   params.require(:user).permit(:name,:email,:goal_hour,:goal_minute,:introduction,:profile_image)
