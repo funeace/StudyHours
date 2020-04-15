@@ -43,7 +43,6 @@ class StudyLogsController < ApplicationController
     redirect_to timelines_path
   end
 
-
 private
   def study_log_params
     params.require(:study_log).permit(:working_date,:memo,study_log_details_attributes:[:tag_list,:hour,:min])

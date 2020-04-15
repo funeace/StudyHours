@@ -51,11 +51,9 @@
           <tr>
             <td>
               <div class="text-center">
-                <% if current_user.following?(user) %>
-                  <%= link_to "フォロー解除",relationship_path(user_id: user.id),method: :delete,class: "btn btn-danger" %>
-                <% else %>
-                  <%= link_to "フォロー",relationships_path(user_id: user.id),method: :post, class: "btn btn-primary" %>
-                <% end %>
+                <div id="follow-<%=user.id%>">
+                  <%= render 'relationships/follow',user: user%>
+                </div>
               </div>          
             </td>
           </tr>

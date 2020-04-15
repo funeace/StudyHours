@@ -223,6 +223,61 @@ a {
     top: 50%;
   }
 
+// モーダルのリンクをボタン形式にする
+.study-modal-button {
+  cursor: pointer;
+}
+
+/* モーダル 　背景を作る処理*/
+.study-modal-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: none;
+// モーダル自体の表示
+  & .study-modal {
+    position: absolute;
+    top: 15%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+  }
+}
+
+.note-modal-button {
+  cursor: pointer;
+}
+
+/* モーダル 　背景を作る処理*/
+
+.note-modal-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: none;
+
+// モーダル自体の表示
+  & .note-modal {
+    position: absolute;
+    top: 2%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    & .note-modal-bg {
+      background-color: orange;
+      padding: 30px;
+      border-radius: 2em;
+    }
+  }
+}
+
 @media screen and (max-width:1024px){
   
 }
