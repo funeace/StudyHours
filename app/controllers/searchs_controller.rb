@@ -69,6 +69,7 @@ class SearchsController < ApplicationController
     elsif(genre =="tag")
       @users = User.all
       @study_logs = []
+      # binding.pry
       StudyLogDetail.tagged_with(params[:keyword]).each do |detail|
         @study_logs.push(detail.study_log)
       end

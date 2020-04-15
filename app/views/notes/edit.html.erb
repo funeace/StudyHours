@@ -11,7 +11,7 @@
         <h6>タグ</h6>
         <%= f.text_field :tag_list,value: @note.tag_list.join(','), class: "form-control mb-2" %>
         <div class="d-flex mb-3">
-          <div class="w-100">
+          <div class="note-area">
             <h6>本文</h6>
             <!-- プレビュー用のタグ -->
             <div id="preview-area">
@@ -29,7 +29,7 @@
           プレビューする      
         </div>
           <%= f.submit "投稿する",class: "btn btn-success" %>
-
+          <%= link_to "ノートを削除する",note_path(@note),method: :delete,class: "offset-6"%>
       <% end %>   
     </div>
   </div>  
