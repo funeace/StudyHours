@@ -17,7 +17,8 @@
             <b>自己紹介</b>
             <p class="text-center"><%= user.introduction %></p>
             <div class="s-absolute"">
-              <%= link_to "詳細へ",detail_user_path(user),data: {:turbolinks => "false" } %>
+              <span class="user-modal-button">詳細へ</span>
+              <%#=# link_to "詳細へ",detail_user_path(user),data: {:turbolinks => "false" } %>
             </div>
         </td>
       </tr>
@@ -51,11 +52,9 @@
           <tr>
             <td>
               <div class="text-center">
-                <% if current_user.following?(user) %>
-                  <%= link_to "フォロー解除",relationship_path(user_id: user.id),method: :delete,class: "btn btn-danger" %>
-                <% else %>
-                  <%= link_to "フォロー",relationships_path(user_id: user.id),method: :post, class: "btn btn-primary" %>
-                <% end %>
+                <div id="follow-<%=user.id%>">
+                  <%= render 'relationships/follow',user: user %>
+                </div>
               </div>          
             </td>
           </tr>
@@ -75,3 +74,24 @@
     </tbody>
   </table>
 </div>
+<script>
+  $(document).on('turbolinks:load', function () {
+    $('.user-modal-button').on('click',function(){
+        $('.user-modal-wrapper').show();
+        $('.user-modal').fadeIn();
+        $('body').css('overflow','hidden');
+
+
+        $(function(){
+          $('.user-modal-wrapper').on('click',function(){
+            $('body').css('overflow','');
+            $(this).fadeOut();
+          });
+          $('.study-log-new-width').on('click',function(e){
+            e.stopPropagation();
+          });
+        });
+    });
+  });
+</script>
+

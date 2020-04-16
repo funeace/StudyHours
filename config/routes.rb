@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   resources :study_logs,only: [:show,:new,:create,:edit,:update,:destroy] do
     resources :study_log_comments, only: [:create,:destroy]
     resource :study_log_favorites, only: [:create,:destroy]
+    collection do
+      get :modal_study_log_new
+    end
   end
   resources :notes,only: [:show,:new,:create,:edit,:update,:destroy] do
     resources :note_comments, only: [:create,:destroy]

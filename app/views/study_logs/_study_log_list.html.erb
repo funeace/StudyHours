@@ -1,49 +1,51 @@
 <!-- 表示される学習記録一覧 -->
-    <% study_logs.each do |study_log| %>
-      <div class="col-xl-4 col-lg-6 col-md-12 mb-2">
-        <div class="s-card h-100 study-log-list">
-          <div class="s-header d-flex favorite-parent">
-            <!-- いいね機能の処理 -->
-            <span id="study-log-favorite-<%= study_log.id %>" class="favorite-child">
-              <%= render 'study_log_favorites/study_log_favorite',study_log: study_log %>                
-            </span>
+<% study_logs.each do |study_log| %>
+  <div class="col-xl-4 col-lg-6 col-md-12 mb-2">
+    <div class="s-card h-100 study-log-list">
+      <div class="s-header d-flex favorite-parent">
+        <!-- いいね機能の処理 -->
+        <span id="study-log-favorite-<%= study_log.id %>" class="favorite-child">
+          <%= render 'study_log_favorites/study_log_favorite',study_log: study_log %>                
+        </span>
 
-            <%= link_to user_path(study_log.user) do %>
-              <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
-            <% end %>
-            <div class="ml-3 d-flex flex-column justify-content-center">
-              <h6><%= study_log.working_date.strftime("%Y年%m月%d日")%></h6>
-              <h6><%= study_log.user.name %></h6>
-            </div>
-          </div>
-          <ul class="list-group">
-            <!-- 登録された学習内容を表示 -->
-            <% study_log.study_log_details.each do |study_log_detail| %>
-              <li class="list-group-item" style="height: 10vh;">
-                <div class="col-12">学習内容</div>
-                <div class="col-12">
-                <% study_log_detail.tag_list.each do |tag| %> 
-                  <span class="badge badge-primary p-1" style="font-size:14px;"><%= link_to tag,searchs_path(tag_name:tag,search_id:1) %></span>
-                <% end %>
-              </div>
-              </li>
-              <li class="list-group-item">
-                <span class="col-3">学習時間</span>
-                <span class="col-9"><%= study_log_detail.hour %>時間<%=study_log_detail.min%>分</span>
-              </li>
-            <% end %>
-            <li class="list-group-item s-card-memo">
-              <div class="card-body pt-2">
-                  <span class="absolute">学習メモ</span>
-                <div class="mt-2 col-12">
-                  <%= study_log.memo %>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <div class="card-footer">
-              <span class="ml-2 mr-2"><%= link_to "詳細へ",study_log_path(study_log) %></span>
-          </div>
+        <%= link_to user_path(study_log.user) do %>
+          <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
+        <% end %>
+        <div class="ml-3 d-flex flex-column justify-content-center">
+          <h6><%= study_log.working_date.strftime("%Y年%m月%d日")%></h6>
+          <h6><%= study_log.user.name %></h6>
         </div>
       </div>
-    <% end %>
+      <ul class="list-group">
+        <!-- 登録された学習内容を表示 -->
+        <% study_log.study_log_details.each do |study_log_detail| %>
+          <li class="list-group-item"style="height:13vh;" >
+            <div class="col-12">
+            <div>学習内容</div>                  
+            </div>
+            <div class="col-12" style="height:10vh;">
+            <% study_log_detail.tag_list.each do |tag| %> 
+              <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge badge-success p-1 badge-tag" %>
+            <% end %>
+          </div>
+          </li>
+          <li class="list-group-item">
+            <span class="col-3">学習時間</span>
+            <span class="col-9"><%= study_log_detail.hour %>時間<%=study_log_detail.min%>分</span>
+          </li>
+        <% end %>
+        <li class="list-group-item s-card-memo">
+          <div class="card-body pt-2">
+              <span class="absolute">学習メモ</span>
+            <div class="mt-2 col-12">
+              <%= study_log.memo %>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="card-footer">
+          <span class="ml-2 mr-2"><%= link_to "詳細へ",study_log_path(study_log) %></span>
+      </div>
+    </div>
+  </div>
+<% end %>

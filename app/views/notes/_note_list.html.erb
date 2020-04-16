@@ -19,7 +19,7 @@
           </div>
           <div class="n-badge-position">
             <% note.tag_list.each do |tag| %>
-              <span class="badge badge-primary p-1" style="font-size:14px;"><%= link_to tag,searchs_path(tag_name:tag,search_id:1) %></span>
+              <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge badge-success p-1 badge-tag" %>
             <% end %>            
           </div>
         </div>

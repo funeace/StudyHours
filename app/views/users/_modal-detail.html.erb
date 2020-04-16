@@ -3,22 +3,22 @@
     <div class="col-10">
       <div class="row">
         <div class="d-flex">
-        <%= attachment_image_tag @user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
+        <%= attachment_image_tag user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
           <div class="col-5 d-flex align-items-center">
-            <h3><%= @user.name %></h3>        
+            <h3><%= user.name %></h3>        
           </div>
           <div class="col-10  d-flex align-items-center">
-            <h3>週間目標 <%= @user.goal_hour %>時間<%= @user.goal_minute %>分</h3>
+            <h3>週間目標 <%= user.goal_hour %>時間<%= user.goal_minute %>分</h3>
           </div>
         </div>
       </div>
       <div class="row card mt-2">
         <div class="card-body">
-          <%= @user.introduction %>            
+          <%= user.introduction %>            
         </div>
       </div>
       <div class="text-right mt-2">
-        <%= link_to "編集",edit_user_path(@user),class: "btn btn-primary" %>
+        <%= link_to "編集",edit_user_path(user),class: "btn btn-primary" %>
       </div>
     </div>
   </div>
@@ -43,7 +43,6 @@
 <script>
   // chart.jsを使用
   // 学習記録の割合表示
-$(document).on('turbolinks:load', function () {
   var pie_chart = document.querySelector("#pie");
   var myPieChart = new Chart(pie_chart, {
     // 円グラフを指定
@@ -96,6 +95,5 @@ $(document).on('turbolinks:load', function () {
   $(function(){
     $('.inner').text("目標達成率"+ progress+"%");//進捗率を表示
   });
-});
 </script>
 
