@@ -43,6 +43,7 @@
 <script>
   // chart.jsを使用
   // 学習記録の割合表示
+$(document).on('turbolinks:load', function () {
   var pie_chart = document.querySelector("#pie");
   var myPieChart = new Chart(pie_chart, {
     // 円グラフを指定
@@ -95,5 +96,6 @@
   $(function(){
     $('.inner').text("目標達成率"+ progress+"%");//進捗率を表示
   });
+});
 </script>
 

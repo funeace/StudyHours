@@ -1,9 +1,8 @@
 class SearchsController < ApplicationController
+  # デフォルト設定
   def index
-    # デフォルト設定
     @search_id = params[:search_id]
     @tag_name = params[:tag_name]
-
     case @search_id
       when nil
         @users = User.all.order(id: "DESC")
@@ -20,6 +19,7 @@ class SearchsController < ApplicationController
     # binding.pry
   end
 
+  # ユーザソート
   def sort
     # binding.pry
     @user = current_user
@@ -54,8 +54,8 @@ class SearchsController < ApplicationController
     end
   end
 
+  # ユーザ検索
   def search
-    # ユーザ検索
     genre = params[:genre]
     # binding.pry
     # 名前検索

@@ -67,28 +67,24 @@
     <%= yield %>
 
 <% if user_signed_in? %>
-<div class="study-modal-wrapper">
-  <div class="study-modal">
-      <%= render 'study_logs/modal_new',study_log: current_user.study_logs.new%>    
+  <div class="study-modal-wrapper">
+    <div class="study-modal">
+        <%= render 'study_logs/modal_new',study_log: current_user.study_logs.new%>    
+    </div>
   </div>
-</div>
 
-<div class="note-modal-wrapper">
-  <div class="note-modal">
-      <%= render 'notes/modal_new',note: current_user.notes.new%>    
+  <div class="note-modal-wrapper">
+    <div class="note-modal">
+        <%= render 'notes/modal_new',note: current_user.notes.new%>    
+    </div>
   </div>
-</div>
-
-
 <% end %>
 <script>
   $(document).on('turbolinks:load', function () {
     $('.study-modal-button').on('click',function(){
-        $('.study-modal-wrapper').show();
+        $('.study-modal-wrapper').fadeIn();
         $('.study-modal').fadeIn();
         $('body').css('overflow','hidden');
-
-
         $(function(){
           $('.study-modal-wrapper').on('click',function(){
             $('body').css('overflow','');
@@ -99,9 +95,11 @@
           });
         });
     });
+  });
 
+  $(document).on('turbolinks:load', function () {
     $('.note-modal-button').on('click',function(){
-        $('.note-modal-wrapper').show();
+        $('.note-modal-wrapper').fadeIn();
         $('.note-modal').fadeIn();
         $('body').css('overflow','hidden');
 
@@ -115,8 +113,6 @@
           });
         });
     });
-
-
   });
 </script>
 </body>

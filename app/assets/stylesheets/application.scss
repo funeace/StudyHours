@@ -46,6 +46,14 @@ a {
   font-size: 14px;
 }
 
+.badge-tag {
+  font-size:14px;
+  width:100px;
+  display:inline-block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
 
 // カードの設定
 .s-card {
@@ -125,6 +133,11 @@ a {
 
 .note-area {
   width: 100%;
+}
+
+.note-under {
+  margin-top:0;
+  margin-bottom:0;
 }
  
  #md-textarea {
@@ -294,13 +307,14 @@ a {
   display: none;
   z-index: 1;
 // モーダル自体の表示
-  & .user-modal {
-    position: absolute;
-    top: 15%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: none;
+  & .user-detail-modal {
+    width:80%;
+    position:absolute;
+    top:5%;
+    left:10%;
+    background-color:white;
+    padding:5%;
+    border-radius:1rem;
   }
 }
 
