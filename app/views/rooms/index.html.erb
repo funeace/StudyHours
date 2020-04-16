@@ -1,0 +1,88 @@
+<div class="container">
+  <h5 class="mb-3">チャットする相手を選んでください</h5>
+  <div id="#study_input" class="form-group mb-3">
+    <div class="d-flex mb-4 mt-3">
+      <input type="form" id="user-search" class="form-control" placeholder="ユーザ名を入力してください" style="width: 250px;" />
+    </div>
+  </div>
+
+  <div id="rooms-preview">
+    <% @users.each do |user| %>
+      <div class="u-card mt-2">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <%= attachment_image_tag user, :profile_image, :fill, 80, 80, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "80x80" %>
+            <div class="ml-3">
+              <h3><%= user.name %></h3>
+              <h6><%= user.introduction %></h6>
+            </div>
+          </div>
+          <div class="n-link-position">
+            <%= link_to "チャット" ,rooms_path(user_id: user.id),method: :post,class:"btn btn-info" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<script>
+  $(document).on('turbolinks:load', function () {
+    function RoomHTML(users){
+      var html = '';
+      var user_image = '';
+      // １件ずつデータを受け取りHTMLを形成する
+      // console.log(user);
+      users.forEach(function(user){
+        // ユーザ画像が登録されているか確認
+        if(user.profile_image == null){
+          user_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style= "width: 100px; ,height: 100px;">`
+        } else {
+          user_image = `<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; ,height: 100px; object-fit: cover;">`
+        };
+
+        // htmlを作成する処理
+        html +=`
+                <div class="u-card mt-2">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      ${user_image}
+                      <div class="ml-3">
+                        <h3>${user.name}</h3>
+                        <h6>${user.introduction}</h6>
+                      </div>
+                    </div>
+                    <div class="n-link-position">
+                      <a class="btn btn-info" rel="nofollow" data-method="post" href="/rooms?user_id=${user.id}">チャット</a>
+                    </div>
+                  </div>
+                </div>
+              `
+      });
+    return html;
+    };
+
+// 各HTMLを作成する処理ここまで---------------------------
+  // 以下Ajaxの処理
+  // 各HTMLを作成する処理ここから---------------------------
+  // ユーザ検索のHTMLを作成
+  $("#user-search").on('keyup',function(e){
+    var keyword = $.trim($(this).val());
+    // ajaxでデータを送信
+      $.ajax({
+        // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
+        type: 'GET',
+        url: '/rooms/search',
+        data: {
+          keyword: keyword,
+        },
+        dataType: 'json'
+      })
+      // 検索結果をコントローラから受け取った後の処理
+      .done(function(data){
+        // console.log(data);
+        var html = RoomHTML(data.users);
+        $('#rooms-preview').html(html);
+       });
+    });
+  });
+</script>

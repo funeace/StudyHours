@@ -37,5 +37,9 @@ Rails.application.routes.draw do
     end
   end
   resources :timelines,only: [:index]
-  resources :rooms
+  resources :rooms,only:[:index,:show,:create] do
+    collection do
+      get :search
+    end
+  end
 end

@@ -61,11 +61,7 @@
           <tr>
             <td>
               <div class="text-center">
-                <% if room_chk == true %>
-                  <%= link_to "チャット",room_path(room_id),class:"btn btn-info" %>
-                <% else %>
                   <%= link_to "チャット",rooms_path(user_id: user.id),method: :post,class:"btn btn-info" %>
-                <% end %>
               </div>          
             </td>
           </tr>
