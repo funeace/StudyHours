@@ -79,6 +79,24 @@ class User < ApplicationRecord
     end
   end
 
+  # 投稿情報を集計して配列で返すメソッド(最終的なgonの処理はコントローラで行う)
+  def chart_create
+    # ユーザの投稿内容に紐づいたtagを取得する処理
+    study_data =[]
+    chart_data = []
+
+    self.study_logs.each do |study_log|
+      study_data.push(study_log.study_log_details.tags_on(:tags))
+    end
+    # ユーザが投稿したタグの情報を全て取得
+    study_data.each do |sdata|
+      sdata.length.times do |i|
+        chart_data.push(sdata[i].name)
+      end
+    end
+    return chart_data.group_by(&:itself).map{ |k, v| [k, v.size] }
+  end
+
 
 protected
   def self.from_omniauth(auth)

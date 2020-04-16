@@ -111,9 +111,6 @@ a {
  }
 }
 
-
-
-
 /*top画面の青い線*/
 .top-bg {
   background-color: $top-bg-color;
@@ -293,6 +290,7 @@ a {
   top: 0;
   left: 0;
   background-color: rgba(0,0,0,0.8);
+  overflow-y: scroll;
   display: none;
   z-index: 1;
 // モーダル自体の表示
