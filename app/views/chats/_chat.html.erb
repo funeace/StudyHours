@@ -1,1 +1,4 @@
-<%= chat.content %><br>
+<div class="mb-1 chat-border" style="background-color:#fdf5e6; border: 0.1em solid #ffd700; position:relative;border-radius:1em; padding:0.3em;">
+    <%= attachment_image_tag chat.user, :profile_image, :fill, 60, 60,  class: "pull-left profile-img ml-2",style:"border-radius: 20%;", fallback: "no_image.png",size: "60x60" %>    
+  <%= chat.content %><br>  
+</div>
