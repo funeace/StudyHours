@@ -29,8 +29,6 @@ $cNote-border-color: #9be3de;
 $cUser-border-color: #9400d3;
 $cChat: #99dddd;
 
-
-
 * {
   margin: 0;
   padding: 0;
@@ -49,11 +47,16 @@ a {
   }
 }
 
-.badge-size {
-  font-size: 14px;
+// top画面の青い線
+.top-bg {
+  background-color: $top-bg-color;
+  height: 200px;
 }
 
+
+// バッヂの設定
 .badge-tag {
+  @extend .badge;
   font-size:14px;
   width:100px;
   display:inline-block;
@@ -62,7 +65,7 @@ a {
 }
 
 
-// カードの設定
+// 学習記録のカード設定
 .s-card {
   $background: #f0f8ff;
   @extend .card;
@@ -88,26 +91,34 @@ a {
   }
 }
 
-// ノートのカードの設定
-.n-card {
+// ノートのカード設定
+.note-card {
   @extend .card;
   border-radius: $n-card-radius;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
   border-left: 10px solid $cNote-border-color;
-  & .n-link-position {
-    position:absolute;
-    top:50%;
-    right: 5%;
-  }
-  & .n-value {
+  & .value {
     position:absolute;
     top:5%;
     right: 5%;
   }
-  & .n-badge-position{
-    position:absolute;
-    top:20%;
-    left: 40%;
+  & .title {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-size: 1.5em;
+    white-space: nowrap;
+    width: 500px;
+  }
+  & .badge-position{
+    position: absolute;
+    bottom: 5%;
+    right: 3%;
+    & .tag-list:nth-child(n + 6){
+      display: none;
+    }
+  }
+  & .margin-left {
+    margin-left: 1em;
   }
 }
 
@@ -130,25 +141,16 @@ a {
 }
 
 
-
-
 //共通部分ここまで----------------------------------------------------
 // サイドバーの設定
-.s-relative {
+.sidebar-relative {
  position:relative;
- & .s-absolute {
+ & .absolute {
   position: absolute;
   right:0;
   bottom:0;
  }
 }
-
-/*top画面の青い線*/
-.top-bg {
-  background-color: $top-bg-color;
-  height: 200px;
-}
-
 
 /*ノートの一覧画面を表示する画面で日付を左寄せする処理*/
 .notes-disp-left {
@@ -364,7 +366,6 @@ a {
     border: solid 1px;border-radius: 100%;
   }
   &.other-user{
-    // align-items: flex-start;
     justify-content: flex-start;
     & .icon {
       margin-right:1em;
@@ -376,7 +377,6 @@ a {
   }
   &.self-user {
     display:flex;
-    // align-items: flex-start;
     justify-content:flex-end;
     & .icon {
       margin-left:1em;
@@ -388,15 +388,15 @@ a {
     }
   }
   // actioncableでデータ作成後の処理
+  // 自分の投稿
   &.self {
-  // align-items: flex-start;
     justify-content:flex-end;
     & .icon {
       margin-left:1em;
     } 
   }
+  // 相手の投稿
   &.other {
-    // align-items: flex-start;
     justify-content: flex-start;
     & .icon {
       order: 0;
@@ -412,9 +412,6 @@ a {
   }
 }
 
-@media screen and (max-width:1024px){
-  
-}
 
 @media screen and (max-width: 768px){
    #md-textarea {
@@ -425,17 +422,36 @@ a {
 
 @media screen and (max-width: 425px){
 
+// ノートのカード設定
+.note-card {
+  & .title {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-size: 1.5em;
+    white-space: nowrap;
+    width: 300px;
+  }
+  & .badge-position{
+    & .tag-list{
+      display: none;
+    }
+  }
+  & .list-img {
+    display: none;
+  }
+  & .margin-left {
+    margin-left: 0;
+  }
+}
+
 .study-log-new-width {
   width: 100%;
-
   & .content {
     padding: 0.4em;
   }
-
   & .width {
     width: 22%;
   }
-
   & .margin-right{
       margin-right: 0.25em;
   }
@@ -447,12 +463,5 @@ a {
     width: 100%;
   }
 }
-
-
-// タイムラインのサイドバーの非表示
-.note-list-img {
-  display: none;
-}
-
 
 }
