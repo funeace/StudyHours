@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class="d-flex">
         <%= link_to user_path(note.user) do %>
-          <%= attachment_image_tag note.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left list-img", fallback: "no_image.png",size: "100x100" %>
+          <%= attachment_image_tag note.user, :profile_image, :fill, 70, 70, format: 'jpeg', class: "pull-left list-img", fallback: "no_image.png",size: "70x70" %>
         <% end %>
         <div class="d-flex align-items-center">
           <div class="margin-left">

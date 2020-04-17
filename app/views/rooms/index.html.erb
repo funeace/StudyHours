@@ -5,21 +5,17 @@
       <input type="form" id="user-search" class="form-control" placeholder="ユーザ名を入力してください" style="width: 250px;" />
     </div>
   </div>
-
   <div id="rooms-preview">
     <% @users.each do |user| %>
-      <div class="u-card mt-2">
+      <div class="user-card mt-2">
         <div class="card-body">
-          <div class="d-flex align-items-center">
-            <%= attachment_image_tag user, :profile_image, :fill, 80, 80, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "80x80" %>
-            <div class="ml-3">
-              <h3><%= user.name %></h3>
-              <h6><%= user.introduction %></h6>
-            </div>
-          </div>
-          <div class="n-link-position">
-            <%= link_to "チャット" ,rooms_path(user_id: user.id),method: :post,class:"btn btn-info" %>
-          </div>
+          <%= link_to rooms_path(user_id: user.id),method: :post,class:"d-flex align-items-center col-lg-6 col-12" do %>
+              <%= attachment_image_tag user, :profile_image, :fill, 80, 80, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "80x80" %>
+              <div class="ml-3 col-lg-6">
+                <h3 class="card-title"><%= user.name %></h3>
+                <h6 class="card-subtitle text-muted"><%= user.introduction %></h6>
+              </div>
+          <% end %>
         </div>
       </div>
     <% end %>
@@ -42,18 +38,15 @@
 
         // htmlを作成する処理
         html +=`
-                <div class="u-card mt-2">
+                <div class="user-card mt-2">
                   <div class="card-body">
-                    <div class="d-flex align-items-center">
+                    <a class="d-flex align-items-center col-lg-6 col-12" rel="nofollow" data-method="post" href="/rooms?user_id=${user.id}">
                       ${user_image}
-                      <div class="ml-3">
-                        <h3>${user.name}</h3>
-                        <h6>${user.introduction}</h6>
+                      <div class="ml-3 col-lg-6">
+                        <h3 class="card-title">${user.name}</h3>
+                        <h6 class="card-subtitle text-muted">${user.introduction}</h6>
                       </div>
-                    </div>
-                    <div class="n-link-position">
-                      <a class="btn btn-info" rel="nofollow" data-method="post" href="/rooms?user_id=${user.id}">チャット</a>
-                    </div>
+                    </a>
                   </div>
                 </div>
               `

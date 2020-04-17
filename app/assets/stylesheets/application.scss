@@ -133,20 +133,15 @@ a {
 }
 
 // ユーザのカードの設定
-.u-card {
+.user-card {
   @extend .card;
   border-radius: $u-card-radius;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
   border-left: 10px solid $cUser-border-color;
-  & .n-link-position {
-    position:absolute;
-    top:50%;
-    right: 5%;
-  }
-  & .n-value {
-    position:absolute;
-    top:5%;
-    right: 5%;
+  & .follow {
+     position:absolute;
+     top:5%;
+     right:5%;
   }
 }
 
