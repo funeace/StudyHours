@@ -1,16 +1,18 @@
 <div class="container">
   <h1>Chat room</h1>
-
   <!-- 配信するroomidを宣言 -->
-  <div id="chats" data-room_id="<%= @room.id %>">
+  <div id="chats" data-room_id="<%= @room.id %>" data-user_id="<%= current_user.id %>">
     <!-- 非同期でチャットデータを更新 -->
-    <%= render @chats %>
+    <% @chats.each do |chat| %>
+      <% if current_user.id == chat.user_id %>
+        <%= render 'chats/login_user', chat: chat, user: current_user.id %>
+      <% else %>
+        <%= render 'chats/other_user', chat: chat, user: current_user.id %>        
+      <% end %>
+    <% end %>
   </div>
-
   <div class="form-group mt-5">
-    <form>
       <label>発言する</label><br>
       <input type="text" id="chat-input" class="form-control">
-    </form>
   </div>
 </div>    

@@ -1,0 +1,6 @@
+<div class="mb-2 other-user chat-border chat" data-chat_user_id="<%= chat.user_id %>">
+  <div class="icon">
+    <%= attachment_image_tag chat.user, :profile_image, :fill, 70, 70,  class: "chat-img", fallback: "no_image.png",size: "70x70" %>
+  </div>
+  <div class="says"><%= chat.content %></div>
+</div>
