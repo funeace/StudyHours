@@ -1,26 +1,27 @@
 <% notes.each do |note| %>
-  <div class="n-card mt-2" >
+  <div class="note-card mt-2" >
     <div class="card-body">
       <div class="d-flex">
         <%= link_to user_path(note.user) do %>
-          <%= attachment_image_tag note.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>
+          <%= attachment_image_tag note.user, :profile_image, :fill, 70, 70, format: 'jpeg', class: "pull-left list-img", fallback: "no_image.png",size: "70x70" %>
         <% end %>
         <div class="d-flex align-items-center">
-          <div class="ml-3">
-            <h6><%= note.created_at.strftime("%Y年%m月%d日") %></h6>
-            <h3><%= note.title %></h3>        
+          <div class="margin-left">
+            <div class="link-position">
+              <%= link_to note_path(note) do %>
+                <h6><%= note.created_at.strftime("%Y年%m月%d日") %></h6>
+                <div class="title"><%= note.title %></div>        
+              <% end %>
+            </div>
           </div>
-          <div class="n-link-position">
-            <%= link_to "記事を見る",note_path(note),class: "btn btn-primary" %>
-          </div>
-          <div class="n-value">
+          <div class="value">
             <i class="far fa-heart mr-2"><%= note.note_favorites.count %></i>
             <i class="far fa-comment"><%= note.note_comments.count %></i>        
           </div>
-          <div class="n-badge-position">
+          <div class="badge-position">
             <% note.tag_list.each do |tag| %>
-              <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge badge-success p-1 badge-tag" %>
-            <% end %>            
+              <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge-success p-1 badge-tag tag-list" %>
+            <% end %>
           </div>
         </div>
       </div>
