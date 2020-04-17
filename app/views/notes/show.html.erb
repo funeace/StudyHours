@@ -23,7 +23,7 @@
       <div class="row card-body">
       <h4 class="col-3">タグ</h4>
       <% @note.tag_list.each do |tag| %> 
-        <h3 class="badge badge-primary p-2 mr-2"><%= tag %></h3>    
+        <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge badge-success p-1 badge-tag" %>
       <% end %>
       </div>
       <hr class="note-under">

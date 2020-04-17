@@ -9,10 +9,18 @@ document.addEventListener 'turbolinks:load', ->
 
     received: (data) ->
       # 受け取ったデータをチャット欄に追記する処理
-      $('#chats').append data['chat']
+      $('#chats').append $(data['chat'])
+      current_user_id = $('#chats').data('user_id')
+      chat_user_id = $('.chat:last-child').data('chat_user_id')
+      if (current_user_id == chat_user_id)
+        $('.chat:last-child').addClass('self')
+      else
+        $('.chat:last-child').addClass('other')
 
     speak: (chat) ->
       @perform 'speak', chat: chat
+
+  
 
   # Enterを押下したタイミングでデータが送信される処理
   $('#chat-input').on 'keypress', (event) ->

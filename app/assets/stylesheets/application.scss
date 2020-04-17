@@ -21,12 +21,14 @@ $bg-color: #fffdf9;
 $top-bg-color: #f0f8ff;
 $a-color: #000;
 $a-visited-color: #808080;
-$s-card-radius: 1rem;
-$n-card-radius: 0.75rem;
-$u-card-radius: 0.75rem;
+$s-card-radius: 1em;
+$n-card-radius: 0.75em;
+$u-card-radius: 0.75em;
 $cNote-bg-color: #f0ffff;
 $cNote-border-color: #9be3de;
 $cUser-border-color: #9400d3;
+$cChat: #99dddd;
+
 
 
 * {
@@ -199,7 +201,7 @@ a {
   & .content {
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 1.25rem;
+    padding: 1.25em;
   }
 
   & .width {
@@ -207,7 +209,7 @@ a {
   }
 
   & .margin-right {
-    margin-right: 1rem;
+    margin-right: 1em;
   }
 }
 
@@ -239,11 +241,11 @@ a {
 
 .timeline-sidebar {
   .make {
-       font-size:0.9rem;
+       font-size:0.9em;
      }
 
  .target {
-        font-size:0.9rem;
+        font-size:0.9em;
    }
 }
 
@@ -336,10 +338,79 @@ a {
     left:10%;
     background-color:white;
     padding:5%;
-    border-radius:1rem;
+    border-radius:1em;
   }
 }
 
+
+// チャット機能のレイアウト
+.chat {
+  display:flex;
+  & .says {
+      width: 40%;
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      padding: 1em;
+      border-radius: 1.5em;
+      background: $cChat;
+      &:after{
+        content: "";
+        position:absolute;
+        border: 10px solid transparent;
+      }
+  }
+  & .chat-img{
+    border: solid 1px;border-radius: 100%;
+  }
+  &.other-user{
+    // align-items: flex-start;
+    justify-content: flex-start;
+    & .icon {
+      margin-right:1em;
+    }
+    & .says:after {
+      left: -26px;
+      border-right: 20px solid  $cChat;
+    }
+  }
+  &.self-user {
+    display:flex;
+    // align-items: flex-start;
+    justify-content:flex-end;
+    & .icon {
+      margin-left:1em;
+      order: 2;
+      } 
+    & .says:after {
+      right: -26px;
+      border-left: 20px solid $cChat;
+    }
+  }
+  // actioncableでデータ作成後の処理
+  &.self {
+  // align-items: flex-start;
+    justify-content:flex-end;
+    & .icon {
+      margin-left:1em;
+    } 
+  }
+  &.other {
+    // align-items: flex-start;
+    justify-content: flex-start;
+    & .icon {
+      order: 0;
+      margin-left: 0;
+      margin-right: 1em;
+    }
+    & .says:after {
+      right: initial;
+      left: -16px;
+      border-right: 20px solid $cChat;
+      border-left: initial;
+    }
+  }
+}
 
 @media screen and (max-width:1024px){
   
@@ -358,7 +429,7 @@ a {
   width: 100%;
 
   & .content {
-    padding: 0.4rem;
+    padding: 0.4em;
   }
 
   & .width {
@@ -366,7 +437,7 @@ a {
   }
 
   & .margin-right{
-      margin-right: 0.25rem;
+      margin-right: 0.25em;
   }
 }
 
