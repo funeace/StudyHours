@@ -3,28 +3,32 @@
     <h3>ノート</h3>
   </div>
   <div class="row">    
-    <div class="card w-100">
-      <div class="row card-body">
-      <h4 class="col-3">タイトル</h4>
-        <div style="position:absolute; right:5%;">
-          <span id="note-favorite-<%= @note.id %>" >
-            <%= render 'note_favorites/note_favorite', note: @note%>
-          </span>
-          <div>
-            <% if user_signed_in? && current_user.id == @note.user.id %>
-              <%= link_to "編集する",edit_note_path(@note)%>
-              <%= link_to "ノートを削除する",note_path(@note),method: :delete%>
-            <% end %>
-          </div>
+    <div class="note-card w-100">
+      <div class="link">
+        <% if user_signed_in? && current_user.id == @note.user.id %>
+          <%= link_to "編集する",edit_note_path(@note)%>
+          <%= link_to "ノートを削除する",note_path(@note),method: :delete%>
+        <% end %>
+        <div class="d-flex justify-content-end" id="note-favorite-<%= @note.id %>" >
+          <%= render 'note_favorites/note_favorite', note: @note%>
         </div>
-        <h4><%= @note.title %></h4>
+      </div>
+      <div class="row card-body">
+      <div class="col-6 mb-2 font-size">タイトル</div>
+        <div class="col-12 font-size">
+          <%= @note.title %>
+        </div>
       </div>
       <hr class="note-under">
       <div class="row card-body">
-      <h4 class="col-3">タグ</h4>
-      <% @note.tag_list.each do |tag| %> 
-        <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge badge-success p-1 badge-tag" %>
-      <% end %>
+        <div class="col-12  mb-2 font-size">
+          タグ
+        </div>
+        <div class="col-12">
+          <% @note.tag_list.each do |tag| %> 
+            <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge badge-success p-1 badge-tag" %>
+          <% end %>                    
+        </div>
       </div>
       <hr class="note-under">
       <div class="row card-body">

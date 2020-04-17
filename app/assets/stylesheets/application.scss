@@ -120,6 +120,16 @@ a {
   & .margin-left {
     margin-left: 1em;
   }
+  // 編集・削除・お気に入りのリンク
+  & .link {
+    position:absolute;
+    top:2%;
+    right:5%;
+  }
+
+  & .font-size{
+   font-size:1.5em;
+  }
 }
 
 // ユーザのカードの設定
@@ -140,8 +150,6 @@ a {
   }
 }
 
-
-//共通部分ここまで----------------------------------------------------
 // サイドバーの設定
 .sidebar-relative {
  position:relative;
@@ -264,7 +272,7 @@ a {
   cursor: pointer;
 }
 
-/* モーダル 　背景を作る処理*/
+// モーダル 　背景を作る処理
 .study-modal-wrapper {
   position: fixed;
   width: 100%;
@@ -273,7 +281,7 @@ a {
   left: 0;
   background-color: rgba(0,0,0,0.8);
   display: none;
-// モーダル自体の表示
+  // モーダル自体の表示
   & .study-modal {
     position: absolute;
     top: 15%;
@@ -284,11 +292,13 @@ a {
   }
 }
 
+
+// ノートのモーダル
 .note-modal-button {
   cursor: pointer;
 }
 
-/* モーダル 　背景を作る処理*/
+// モーダル 　背景を作る処理
 .note-modal-wrapper {
   position: fixed;
   width: 100%;
@@ -315,13 +325,12 @@ a {
   }
 }
 
-
+// ユーザーモーダル
 // モーダルのリンクをボタン形式にする
 .user-modal-button {
   cursor: pointer;
 }
-
-/* モーダル 　背景を作る処理*/
+// モーダル 　背景を作る処理
 .user-modal-wrapper {
   position: fixed;
   width: 100%;
@@ -412,7 +421,6 @@ a {
   }
 }
 
-
 @media screen and (max-width: 768px){
    #md-textarea {
     height: 40vh;
@@ -422,46 +430,51 @@ a {
 
 @media screen and (max-width: 425px){
 
-// ノートのカード設定
-.note-card {
-  & .title {
-    overflow:hidden;
-    text-overflow:ellipsis;
-    font-size: 1.5em;
-    white-space: nowrap;
-    width: 300px;
-  }
-  & .badge-position{
-    & .tag-list{
+  // ノートのカード設定
+  .note-card {
+    & .title {
+      width: 250px;
+    }
+    & .badge-position{
+      & .tag-list{
+        display: none;
+      }
+    }
+    & .list-img {
       display: none;
     }
+    & .margin-left {
+      margin-left: 0;
+    }
   }
-  & .list-img {
-    display: none;
-  }
-  & .margin-left {
-    margin-left: 0;
-  }
-}
 
-.study-log-new-width {
-  width: 100%;
-  & .content {
-    padding: 0.4em;
+.note-modal-wrapper {
+  // モーダル自体の表示
+    & .note-modal {
+      & .note-modal-bg {
+        padding: 20px;
+        width: 90%;
+      }
+    }
   }
-  & .width {
-    width: 22%;
-  }
-  & .margin-right{
-      margin-right: 0.25em;
-  }
-}
 
-// study-log-showのアクション
-.study-log-show {
-  &.width {
+  .study-log-new-width {
     width: 100%;
+    & .content {
+      padding: 0.4em;
+    }
+    & .width {
+      width: 22%;
+    }
+    & .margin-right{
+        margin-right: 0.25em;
+    }
   }
-}
 
+  // study-log-showのアクション
+  .study-log-show {
+    &.width {
+      width: 100%;
+    }
+  }
 }
