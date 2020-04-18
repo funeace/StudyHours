@@ -26,7 +26,7 @@
 FactoryBot.define do
   factory :user do
     name { 'テスト太郎' }
-    email { 'test@test.com'}
+    email { "test+#{SecureRandom.uuid}@test.com"}
     goal_hour { 10 }
     goal_minute { 30 }
     introduction { "テストテストテストテスト" }

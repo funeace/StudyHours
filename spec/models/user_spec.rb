@@ -26,5 +26,31 @@ require 'rails_helper'
   # end
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @user = build(:user)
+  end
+  it "必要項目が存在すれば有効" do
+    expect(@user).to be_valid
+  end
+
+  it "nameがないと無効" do
+    @user.name = ""
+    expect(@user).not_to be_valid
+  end
+
+  it "emailがないと無効" do
+    @user.email = ""
+    expect(@user).not_to be_valid
+  end
+
+  it "パスワードがないと無効" do
+    @user.password = ""
+    expect(@user).not_to be_valid
+  end
+
+  it "パスワードが不一致" do
+    @user.password_confirmation = ""
+    expect(@user)
+
+  end
 end
