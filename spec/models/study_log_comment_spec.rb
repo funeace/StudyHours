@@ -9,5 +9,27 @@ require 'rails_helper'
 # end
 
 RSpec.describe StudyLogComment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @study_log_comment = FactoryBot.create(:study_log_comment)
+  end
+
+  it "必要項目が存在すれば有効" do
+    expect(@study_log_comment).to be_valid
+  end
+
+  it "study_log_idが存在しなかったら無効" do
+    @study_log_comment.study_log_id = ""
+    expect(@study_log_comment).not_to be_valid
+  end
+
+  it "user_idが存在しなかったら無効" do
+    @study_log_comment.user_id = ""
+    expect(@study_log_comment).not_to be_valid
+  end
+
+  it "commentが存在しなかったら無効" do
+    @study_log_comment.comment = ""
+    expect(@study_log_comment).not_to be_valid
+  end
+
 end

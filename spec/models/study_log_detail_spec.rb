@@ -18,6 +18,11 @@ RSpec.describe StudyLogDetail, type: :model do
     expect(@study_log_detail).to be_valid
   end
 
+  it "study_log_idが存在しなかったら無効" do
+    @study_log_detail.study_log_id = ""
+    expect(@study_log_detail).not_to be_valid
+  end
+
   it "合計時間が0時間0分だったら無効" do
     @study_log_detail.hour = 0
     @study_log_detail.min = 0
