@@ -33,4 +33,16 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
   end
+
+  # classを明示すれば複数書ける
+  factory :other_user,class: User do
+    name { 'テスト太郎' }
+    email { "test+#{SecureRandom.uuid}@test.com"}
+    goal_hour { 10 }
+    goal_minute { 30 }
+    introduction { "テストテストテストテスト" }
+    password { 'password' }
+    password_confirmation { 'password' }
+  end
+
 end

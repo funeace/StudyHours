@@ -9,8 +9,6 @@
 # end
 
 FactoryBot.define do
-  factory :relationships do
-    association :user
-    follow_id { 2 }
+  factory :relationship do
   end
 end

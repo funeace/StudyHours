@@ -11,5 +11,24 @@ require 'rails_helper'
 # end
 
 RSpec.describe Relationship, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    user = FactoryBot.create(:user)
+    other_user = FactoryBot.create(:other_user)
+    @relationship = Relationship.new(user_id: user.id,follow_id: other_user.id)
+  end
+
+  it "必要項目が存在していれば有効" do
+    expect(@relationship).to be_valid
+  end
+
+  it "user_idが存在していなかったら無効" do
+    @relationship.user_id = ""
+    expect(@relationship).not_to be_valid
+  end
+
+  it "follow_idが存在していなかったら無効" do
+    @relationship.follow_id = ""
+    expect(@relationship).not_to be_valid
+  end
+  
 end
