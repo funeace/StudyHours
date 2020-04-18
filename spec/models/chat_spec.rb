@@ -9,5 +9,26 @@ require 'rails_helper'
 # end
 
 RSpec.describe Chat, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @chat = FactoryBot.create(:chat)
+  end
+
+  it "必要項目が存在すれば有効" do
+    expect(@chat).to be_valid
+  end
+
+  it "room_idが存在しなかったら無効" do
+    @chat.room_id = ""
+    expect(@chat).not_to be_valid
+  end
+
+  it "user_idが存在しなかったら無効" do
+    @chat.user_id = ""
+    expect(@chat).not_to be_valid
+  end
+
+  it "contentが存在しなかったら無効" do
+    @chat.content = ""
+    expect(@chat).not_to be_valid
+  end
 end

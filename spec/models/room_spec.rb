@@ -6,5 +6,11 @@ require 'rails_helper'
 # end
 
 RSpec.describe Room, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @room = FactoryBot.create(:room)
+  end
+
+  it "作成されるかの確認" do
+    expect(@room).to be_valid
+  end
 end
