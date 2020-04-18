@@ -5,4 +5,6 @@ class StudyLogDetail < ApplicationRecord
 
   # 学習記録のカラムhourとminがそれぞれ0のときにエラーを返す
   validates_with TimesGreaterThan1
+  validates :hour,presence: true
+  validates :min,presence: true
 end
