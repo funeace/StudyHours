@@ -11,5 +11,26 @@ require 'rails_helper'
 # end
 
 RSpec.describe Note, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @note = FactoryBot.create(:note)
+  end
+
+  it "必要項目が存在していれば有効" do
+    expect(@note).to be_valid
+  end
+
+  it "user_idが存在していなかったら無効" do
+    @note.user_id = ""
+    expect(@note).not_to be_valid
+  end
+
+  it "titleが存在していなかったら無効" do
+    @note.title =""
+    expect(@note).not_to be_valid
+  end
+
+  it "bodyが存在していなかったら無効" do
+    @note.body = ""
+    expect(@note).not_to be_valid
+  end
 end
