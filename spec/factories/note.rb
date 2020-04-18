@@ -11,7 +11,7 @@
 FactoryBot.define do
   factory :note do
     association :user
-    title { "actioncableの使い方" }
+    title { "noteテスト" }
     body { "テストテストテストテストテストテストテストテストテスト" }
   end
 end

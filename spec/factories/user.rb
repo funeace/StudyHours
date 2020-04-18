@@ -32,17 +32,32 @@ FactoryBot.define do
     introduction { "テストテストテストテスト" }
     password { 'password' }
     password_confirmation { 'password' }
+
+    trait :invalid do
+      name {nil}
+    end
+
+    after(:create) do |user|
+      create(:note, user: user)
+      create(:study_log,user: user)
+    end
   end
 
   # classを明示すれば複数書ける
   factory :other_user,class: User do
-    name { 'テスト太郎' }
+    name { 'テスト次郎' }
     email { "test+#{SecureRandom.uuid}@test.com"}
-    goal_hour { 10 }
-    goal_minute { 30 }
-    introduction { "テストテストテストテスト" }
+    goal_hour { 5 }
+    goal_minute { 45 }
+    introduction { "testtesttesttest" }
     password { 'password' }
     password_confirmation { 'password' }
+
+    trait :invalid do
+      name {nil}
+    end
+
+
   end
 
 end
