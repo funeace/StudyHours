@@ -10,5 +10,27 @@ require 'rails_helper'
 # end
 
 RSpec.describe StudyLogDetail, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @study_log_detail = FactoryBot.create(:study_log_detail)
+  end
+
+  it "必要項目が存在すれば有効" do
+    expect(@study_log_detail).to be_valid
+  end
+
+  it "合計時間が0時間0分だったら無効" do
+    @study_log_detail.hour = 0
+    @study_log_detail.min = 0
+    expect(@study_log_detail).not_to be_valid
+  end
+
+  it "hourが空白だったら無効" do
+    @study_log_detail.hour = ""
+    expect(@study_log_detail).not_to be_valid
+  end
+
+  it "minが空白だったら無効" do
+    @study_log_detail.min = ""
+    expect(@study_log_detail).not_to be_valid
+  end
 end
