@@ -15,6 +15,8 @@ class StudyLogsController < ApplicationController
   def create
     @study_log = current_user.study_logs.new(study_log_params)
     if @study_log.save
+      # tagのカラーコードがnilのものにカラーコードを付与
+      grant_color_code
       flash[:notice] = "登録が完了しました。この調子で頑張りましょう"
       redirect_to timelines_path
     else
@@ -52,7 +54,6 @@ private
   def study_log_update_params
     params.require(:study_log).permit(:working_date,:memo,study_log_details_attributes:[:tag_list,:hour,:min,:id,:_destroy])
   end
-
 end
 
 

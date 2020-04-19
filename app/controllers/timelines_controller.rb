@@ -7,18 +7,21 @@ class TimelinesController < ApplicationController
     @notes = Note.where("user_id = ? OR user_id IN (?)",@user.id, @user.followings.ids).order(id: "DESC")
     @study_logs = StudyLog.where("user_id = ? OR user_id IN (?)",@user.id,@user.followings.ids).order(id: "DESC")
 
+
+    # ユーザがログインしている場合、DM機能でroomを作成するため判定を行う
     # gonにデータを渡す処理
     # 進捗率を表示(目標がない場合はとりあえず0)
     gon.labels =[]
     gon.data = []
+    gon.background = []
     gon.progress = @user.weekly_progress
 
     # 自分の投稿情報を集計して配列で返すメソッド(chart_create)
     @user.chart_create.each do |chart|
       gon.labels.push(chart[0])
-      gon.data.push(chart[1])
+      gon.background.push(chart[1])
+      gon.data.push(chart[2])
     end
-    gon.background = ["#000","#111","#222","#333","#444","#555","#666"]
-    gon.all_variables 
+    gon.all_variables
   end
 end

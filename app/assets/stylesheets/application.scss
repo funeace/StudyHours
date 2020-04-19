@@ -344,13 +344,22 @@ a {
    }
 }
 
-.inner {
+.study-log-inner {
   position: absolute;
   left: 0;
   right: 0;
   text-align: center;
   top: 50%;
 }
+
+.achievement-inner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 50%;
+}
+
 
 // モーダルのリンクをボタン形式にする
 .study-modal-button {

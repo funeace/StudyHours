@@ -12,8 +12,8 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require Chart.min
 //= require turbolinks
+//= require Chart.min
 //= require jquery
 //= require jquery_ujs
 //= require jquery3
@@ -21,3 +21,14 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
+$(function(){
+  $('#study_log_study_log_details_attributes_0_tag_list').change(function(){
+    if($(this).val()) {
+      // tagが入力されている状態
+      $('#regist-button').prop("disabled", false)
+    } else {
+      // tagが入力されてない状態
+      $('#regist-button').prop("disabled", true)
+    }
+  })
+})
