@@ -10,6 +10,6 @@ FactoryBot.define do
   factory :study_log do
     association :user
     working_date {Date.today}
-    memo {"頑張りました"}
+    memo {"studyテスト"}
   end
 end

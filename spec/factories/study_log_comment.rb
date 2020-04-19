@@ -10,6 +10,6 @@ FactoryBot.define do
   factory :study_log_comment do
     association :study_log
     association :user
-    comment {"すごいね！"}
+    comment {"てすてすてす"}
   end
 end
