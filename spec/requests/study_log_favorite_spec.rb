@@ -38,7 +38,7 @@ describe StudyLogFavoritesController, type: :request do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe "DELETE #destoroy" do
     let!(:study_log_favorite){ StudyLogFavorite.create(user_id: user.id,study_log_id: study_log.id) }
 
     it "リクエストは成功するか" do
