@@ -18,5 +18,4 @@ class StudyLog < ApplicationRecord
   def favorited_by?(user)
     self.study_log_favorites.where(user_id: user.id).exists?
   end
-
 end

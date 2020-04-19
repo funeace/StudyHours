@@ -1,0 +1,85 @@
+<div class="col-9">
+  <div class="row">
+    <span class="col-4" style="font-size:1.5em;">週の目標</span>
+    <span class="col-7" style="font-size:1.5em;"><%= @user.goal_hour%>時間<%= @user.goal_minute %>分</span>              
+  </div>
+  <div class="row">
+    <span class="col-4" style="font-size:1.5em;">週の積み上げ</span>
+    <span class="col-7" style="font-size:1.5em;"><%= @user.weekly_study_logs[0] %>時間<%= @user.weekly_study_logs[1]%>分</span>
+  </div>
+  <div class="row">
+    <span class="col-4" style="font-size:1.5em;">これまでの積み上げ</span>
+    <span class="col-7" style="font-size:1.5em;"><%= @user.total_study_logs[0] %>時間<%= @user.total_study_logs[1]%>分</span>
+  </div>
+  <div class="pie_chart" style="float:left;width:50%; position:absolute; left:10%; padding:5%;">
+    <canvas id="pie" style="position: relative;width:200px; height:200px;"></canvas>
+    <div class="study-log-inner">
+      学習内容
+    </div>
+  </div>
+  <div class="doughnut-chart" style="float:left;width:50%; position:absolute; right:-15%; padding:5%;">
+    <div class="doughnut-area" style="position:relative;" >
+      <canvas id="doughnut" style="position: relative;width:200px; height:200px;"></canvas>
+      <div class="achievement-inner"></div>
+    </div>
+  </div>
+</div>
+<script>
+  // chart.jsを使用
+  // 学習記録の割合表示
+$(document).on('turbolinks:load', function () {
+  var pie_chart = document.querySelector("#pie");
+  var myPieChart = new Chart(pie_chart, {
+    // 円グラフを指定
+    type: 'doughnut',
+    data: {
+      labels: gon.labels,
+      datasets: [{
+        backgroundColor: gon.background,
+        data: gon.data
+      }]
+    },
+    options: {
+      // ラベルを非表示
+      legend: {
+        display: false
+      },
+      title: {
+        display: false,
+        text: '学習内容'
+      }
+    }
+  });
+
+  // 今週の進捗の表示
+  var doughnut_chart = document.querySelector("#doughnut");
+  var progress = gon.progress;
+  var target = 100 - progress;
+  console.log(progress)
+  console.log(target);
+  var myDoughnutChart = new Chart(doughnut_chart, {
+    type: 'doughnut',
+    data: {
+      labels: ["達成","残り"],
+      datasets: [{
+        borderWidth: [0,0],
+        backgroundColor: ["#ffff00","#dcdcdc"],
+        data: [progress,target]
+      }]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      title: {
+        display: false,
+        text: '達成率'
+      }
+    }
+  });
+  $(function(){
+    $('.achievement-inner').text("目標達成率"+ progress+"%");//進捗率を表示
+    $('.study-log-inner').text("学習内容");//進捗率を表示
+  });
+});
+</script>

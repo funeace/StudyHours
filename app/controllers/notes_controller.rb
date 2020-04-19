@@ -8,6 +8,8 @@ class NotesController < ApplicationController
   def create
     @note = current_user.notes.new(note_params)
     if @note.save
+      # tagのカラーコードがnilのものにカラーコードを付与するメソッド
+      grant_color_code
       flash[:notice] = "ノートを投稿しました。"
       redirect_to note_path(@note)
     else

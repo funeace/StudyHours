@@ -51,6 +51,22 @@ class User < ApplicationRecord
     self.relationships.find_by(follow_id: user.id).destroy
   end
 
+  # 通算の学習時間を表示するメソッド
+  def total_study_logs
+    hour = 0
+    min = 0
+    self.study_logs.each do |total_study_log|
+      total_study_log.study_log_details.each do |detail|
+        hour += detail.hour
+        min += detail.min
+      end
+    end
+    calchour = min / 60
+    hour += calchour
+    min = min % 60
+    return [hour,min]
+  end
+
   # １週間の学習時間を表示するメソッド
   def weekly_study_logs
     hour = 0
@@ -91,10 +107,10 @@ class User < ApplicationRecord
     # ユーザが投稿したタグの情報を全て取得
     study_data.each do |sdata|
       sdata.length.times do |i|
-        chart_data.push(sdata[i].name)
+        chart_data.push([sdata[i].name,sdata[i].color_code])
       end
     end
-    return chart_data.group_by(&:itself).map{ |k, v| [k, v.size] }
+    return chart_data.group_by(&:itself).map{ |x,z| [x.flatten,z.size].flatten }
   end
 
 

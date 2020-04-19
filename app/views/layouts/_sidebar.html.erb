@@ -1,10 +1,9 @@
 <!-- サイドバー -->
 <div class="col-lg-3 col-md-12 card h-100 timeline-sidebar mb-3">
   <div class="d-flex justify-content-center mt-3 mb-2">
-    <%= attachment_image_tag user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>    
+    <%= attachment_image_tag user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>   
   </div>
-
-<table class="table">
+  <table class="table">
     <tbody>
       <tr></tr>
       <tr>
@@ -14,12 +13,8 @@
       </tr>
       <tr>
         <td class="sidebar-relative">
-            <b>自己紹介</b>
-            <p class="text-center"><%= user.introduction %></p>
-            <div class="absolute"">
-              <span class="user-modal-button">詳細へ</span>
-              <%#=# link_to "詳細へ",detail_user_path(user),data: {:turbolinks => "false" } %>
-            </div>
+          <b>自己紹介</b>
+          <p class="text-center"><%= user.introduction %></p>
         </td>
       </tr>
       <tr>
@@ -70,24 +65,3 @@
     </tbody>
   </table>
 </div>
-<script>
-  $(document).on('turbolinks:load', function () {
-    $('.user-modal-button').on('click',function(){
-        $('.user-modal-wrapper').show();
-        $('.user-modal').fadeIn();
-        $('body').css('overflow','hidden');
-
-
-        $(function(){
-          $('.user-modal-wrapper').on('click',function(){
-            $('body').css('overflow','');
-            $(this).fadeOut();
-          });
-          $('.study-log-new-width').on('click',function(e){
-            e.stopPropagation();
-          });
-        });
-    });
-  });
-</script>
-
