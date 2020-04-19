@@ -15,4 +15,5 @@ class RelationshipsController < ApplicationController
     # 非同期化
     # redirect_back(fallback_location: root_path)
   end
+
 end
