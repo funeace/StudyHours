@@ -9,6 +9,6 @@ FactoryBot.define do
   factory :note_comment do
     association :user
     association :note
-    comment { "ああああああ" }
+    comment { "てすてすてすてす" }
   end
 end
