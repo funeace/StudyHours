@@ -4,6 +4,7 @@ class StudyLog < ApplicationRecord
   accepts_nested_attributes_for :study_log_details
   has_many :study_log_favorites ,dependent: :destroy
   has_many :study_log_comments ,dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   acts_as_taggable
 

@@ -22,6 +22,14 @@
               <i class="fas fa-home"> マイページ</i>
             <% end %>
             </li>
+            <li class="nav-item notification-relative">
+              <% if unchecked_notifications.any? %>
+                <i class="fa fa-circle notifications-absoluite"></i>
+              <% end %>
+              <%= link_to notifications_path, class: "nav-link" do %>
+                <i class="fas fa-bell"> 通知</i>
+              <% end %>
+            </li>
             <li class="nav-item">
               <%= link_to searchs_path ,class: "nav-link" do %>
                 <i class="fas fa-search"> 探す</i>

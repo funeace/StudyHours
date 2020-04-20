@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_014233) do
+ActiveRecord::Schema.define(version: 2020_04_19_235607) do
 
   create_table "chats", force: :cascade do |t|
     t.integer "room_id", null: false
@@ -52,6 +52,19 @@ ActiveRecord::Schema.define(version: 2020_04_10_014233) do
     t.datetime "updated_at", null: false
     t.index ["title"], name: "index_notes_on_title"
     t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "visit_id", null: false
+    t.integer "study_log_id"
+    t.integer "study_log_comment_id"
+    t.integer "note_id"
+    t.integer "note_comment_id"
+    t.string "action", default: "", null: false
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", force: :cascade do |t|
