@@ -3,6 +3,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable,omniauth_providers: [:twitter,:google]
 
+  after_create :send_welcome_mail
+         
   # ノートのアソシエーション
   has_many :notes ,dependent: :destroy
   has_many :note_favorites ,dependent: :destroy
@@ -117,6 +119,10 @@ class User < ApplicationRecord
     return chart_data.group_by(&:itself).map{ |x,z| [x.flatten,z.size].flatten }
   end
 
+  # ユーザ登録後にメールを送信する処理
+  def send_welcome_mail
+    WelcomeMailer.welcome_mail(self).deliver
+  end
 
 protected
   def self.from_omniauth(auth)
