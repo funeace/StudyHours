@@ -1,7 +1,7 @@
 <div class="container">
   <div class="d-flex justify-content-center">
     <!-- flexboxで１つのボックスと判定させるためにクラスを定義 -->
-    <div class="regist style="width: 600px;">
+    <div class="regist">
       <div class="row header">
         <h4>パスワード再設定</h4>  
       </div>
@@ -14,7 +14,7 @@
             <%= f.password_field :password, autofocus: true, autocomplete: "new-password",placeholder: "6文字以上で入力してください",class: "form-control devise-password-form" %>
           </div>
           <div class="form-group">
-            <%= f.label :password_confirmation, "新しいパスワード（再入力）" %><br />
+            <%= f.label :password_confirmation, "新しいパスワード（再入力）" %><br/>
             <%= f.password_field :password_confirmation, autocomplete: "new-password",placeholder: "6文字以上で入力してください", class: "form-control devise-password-form" %>
           </div>
           <div class="actions">
