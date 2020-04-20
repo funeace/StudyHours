@@ -31,7 +31,8 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # メールアドレスとパスワードを環境変数から呼び出す
-  address = ENV['MAIL_ADDRESS']
+  password = ENV['MAIL_PASSWORD']
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
