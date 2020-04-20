@@ -8,4 +8,12 @@ class Notification < ApplicationRecord
   belongs_to :study_log_comment,optional: true
   belongs_to :note_favorite,optional: true
   belongs_to :note_comment,optional: true
+
+  # user_idが空白じゃない
+  validates :user_id, presence: true
+  # visit_idが空白じゃない
+  validates :user_id, presence: true
+  # visit_idが空白じゃない
+  validates :action, presence: true
+
 end
