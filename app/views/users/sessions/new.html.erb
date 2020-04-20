@@ -1,13 +1,13 @@
 <div class="container">
   <div class="d-flex justify-content-center">
-    <div class="session" style="width:400px;">
+    <div class="session">
       <div class="row header">
         <h4>ログイン</h4>
       </div>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-field row mt-2">
           <div class="col-4">
-            <%= f.label :email,"メールアドレス" %><br />            
+            <%= f.label :email,"メールアドレス",class: "devise-session-font" %><br />            
           </div>
           <div class="col-8">
             <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>            
@@ -32,20 +32,24 @@
           <%= f.submit "ログイン",class:"btn btn-primary btn-block" %>        
         </div>
         <div class="row mt-2 justify-content-start">
-          <div class="col-6">
+          <div class="col-lg-6 devise-omni-icon mr-1">
             <%= link_to user_twitter_omniauth_authorize_path do %>
               <%= image_tag "Twitter_Logo_Blue.png",size: "46x46",id:"image" %>Twitterでログイン
             <% end %>
           </div>
-          <div class="col-5">
+          <div class="col-lg-5 devise-omni-icon">
             <%= link_to user_google_omniauth_authorize_path do%>
               <%= image_tag "google_icon.png" %>              
             <% end %>
           </div>
         </div>
-        <div class="row mt-2 justify-content-end">
+        <div class="row mt-4 justify-content-end mr-1">
           <%= link_to "新規登録", new_registration_path(resource_name) %>
         </div>
+        <div class="row mt-2 justify-content-end mr-1">
+          <%= link_to "パスワード再設定", new_user_password_path(resource_name) %>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>

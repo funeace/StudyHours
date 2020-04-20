@@ -64,6 +64,7 @@ a {
   right:10%;
 }
 
+
 .profile-img {
   border-radius: 100%;
 }
@@ -607,5 +608,12 @@ a {
     &.width {
       width: 100%;
     }
+  }
+  .devise-omni-icon{
+    text-align: right;
+  }
+
+  .devise-session-font {
+    font-size: 0.8em;
   }
 }
