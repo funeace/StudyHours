@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # Ajaxリクエストにセキュリティトークンを含ませる(OmniAuth)
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_host
 
   protected
     def configure_permitted_parameters
@@ -12,4 +13,9 @@ class ApplicationController < ActionController::Base
     def after_sign_in_path_for(resource)
       timelines_path
     end
+
+    def set_host
+      Rails.application.routes.default_url_options[:host] = request.host_with_port
+    end
+
 end

@@ -47,6 +47,24 @@ a {
   }
 }
 
+.devise-password-form {
+  width:300px;
+}
+
+.devise-regist-font {
+  font-size: 0.9em;
+}
+
+.devise-relative {
+  position: relative;
+}
+
+.devise-absolute{
+  position: absolute;
+  right:10%;
+}
+
+
 .profile-img {
   border-radius: 100%;
 }
@@ -590,5 +608,12 @@ a {
     &.width {
       width: 100%;
     }
+  }
+  .devise-omni-icon{
+    text-align: right;
+  }
+
+  .devise-session-font {
+    font-size: 0.8em;
   }
 }

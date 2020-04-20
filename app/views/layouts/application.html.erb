@@ -73,55 +73,61 @@
       <div id="sp-menu">
        <h2>StudyHours</h2>
         <ul>
-        <ul>
           <li>
-          <% if user_signed_in? %>
-            <%= link_to timelines_path,class: "nav-link" do%>
-              <i class="fas fa-home"> マイページ</i>
+            <% if user_signed_in? %>
+              <%= link_to timelines_path,class: "nav-link" do%>
+                <i class="fas fa-home"> マイページ</i>
+              <% end %>
+          </li>
+          <li class="notification-relative">
+            <% if unchecked_notifications.any? %>
+              <i class="fa fa-circle notifications-absoluite"></i>
             <% end %>
-            </li>
-            <li>
-              <%= link_to searchs_path ,class: "nav-link" do %>
-                <i class="fas fa-search"> 探す</i>
-              <% end %>
-            </li>
-            <li>
-              <div class= "nav-link study-modal-button">
-                <%= link_to new_study_log_path,class: "nav-link" do %>
-                  <i class="fas fa-sign-in-alt">学習記録を書く</i>     
-                <% end %>           
-              </div>
-            </li>
-            <li>
-              <div class= "nav-link note-modal-button">
-                <%= link_to new_note_path,class: "nav-link" do %>
-                  <i class="fas fa-book"> ノートを書く</i>
-                <% end %>
-              </div>
-            </li>
-            <li>
-              <%= link_to rooms_path ,class: "nav-link" do %>
-                <i class="fas fa-comment-dots"> チャットする</i>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to destroy_user_session_path,method: :delete,class: "nav-link" do %>
-                <i class="fas fa-sign-out-alt"> ログアウト</i>
-              <% end %>
-            </li>
-            <% else %>
-            <li>
-              <%= link_to new_user_registration_path,class: "nav-link" do %>
-                <i class="fas fa-edit"> 会員登録</i>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to new_user_session_path,class: "nav-link"  do %>
-                <i class="fas fa-sign-in-alt"> ログイン</i>
-              <% end %>
-            </li>
+            <%= link_to notifications_path, class: "nav-link" do %>
+              <i class="fas fa-bell"> 通知</i>
             <% end %>
-          </ul>
+          </li>
+          <li>
+            <%= link_to searchs_path ,class: "nav-link" do %>
+              <i class="fas fa-search"> 探す</i>
+            <% end %>
+          </li>
+          <li>
+            <div class= "nav-link study-modal-button">
+              <%= link_to new_study_log_path,class: "nav-link" do %>
+                <i class="fas fa-sign-in-alt">学習記録を書く</i>     
+              <% end %>           
+            </div>
+          </li>
+          <li>
+            <div class= "nav-link note-modal-button">
+              <%= link_to new_note_path,class: "nav-link" do %>
+                <i class="fas fa-book"> ノートを書く</i>
+              <% end %>
+            </div>
+          </li>
+          <li>
+            <%= link_to rooms_path ,class: "nav-link" do %>
+              <i class="fas fa-comment-dots"> チャットする</i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_user_session_path,method: :delete,class: "nav-link" do %>
+              <i class="fas fa-sign-out-alt"> ログアウト</i>
+            <% end %>
+          </li>
+          <% else %>
+          <li>
+            <%= link_to new_user_registration_path,class: "nav-link" do %>
+              <i class="fas fa-edit"> 会員登録</i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_session_path,class: "nav-link"  do %>
+              <i class="fas fa-sign-in-alt"> ログイン</i>
+            <% end %>
+          </li>
+          <% end %>
         </ul>
       </div>
       <div id="hm-icon">
@@ -141,6 +147,7 @@
       <div class="box"></div>
       </nav>
       <%= render 'layouts/flash_messages' %>
+      <p class="alert"><%= alert %></p>
     </div>     
   </div>
 </div>
