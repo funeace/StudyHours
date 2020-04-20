@@ -22,6 +22,10 @@ class User < ApplicationRecord
   has_many :rooms, through: :entries
   has_many :chats
 
+  # 通知機能のアソシエーション
+  has_many :notifications, dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visit_id', dependent: :destroy
+
   # refileを使うための設定
   attachment :profile_image
 

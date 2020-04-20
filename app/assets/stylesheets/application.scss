@@ -47,6 +47,19 @@ a {
   }
 }
 
+.profile-img {
+  border-radius: 100%;
+}
+
+.notification-relative {
+  position: relative;
+}
+.notifications-absolute {
+  color: gold;
+  position:absolute;
+  top:10%;
+}
+
 // ハンバーガーメニュー
 
 #hm-icon{
@@ -468,9 +481,6 @@ a {
         position:absolute;
         border: 10px solid transparent;
       }
-  }
-  & .chat-img{
-    border: solid 1px;border-radius: 100%;
   }
   &.other-user{
     justify-content: flex-start;

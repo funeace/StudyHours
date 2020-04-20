@@ -11,6 +11,7 @@ class NoteCommentsController < ApplicationController
     #   render 'show'
     # end
     @note_comments = @note.note_comments.all
+    @note.create_notification_comment!(current_user,@note_comment.id,"note_comment")
   end
 
   def destroy
