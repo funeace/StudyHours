@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <h3>ユーザープロフィール</h3>   
+  </div>
+  <div class="card col-lg-10 p-4">
+    <div class="user-profile">      
+    <div class="col-lg-3">
+      <div class="d-flex flex-column admin-user-show-float">
+        <%= attachment_image_tag @user, :profile_image, :limit, 150, 150, fallback: "no_image.png",size: "150x150",id: "preview",class: "pull-left profile-img" %>
+      </div>
+    </div>
+    <div class="col-lg-8 admin-user-show-float">
+      <div class="form-group row">
+        <span class="col-lg-3">ユーザー名</span>
+        <div class="col-lg-6">
+          <div>
+            <%= @user.name %>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <span class="col-lg-3">週の目標</span>
+          <div class="d-flex justify-content-left col-lg-8">
+            <span class= "col-4 col-lg-2" ><%= @user.goal_hour%></span>
+            <span class="align-items-center d-flex mr-1 ml-1">時間</span>
+            <span class="col-4 col-lg-2"><%= @user.goal_minute%></span>
+            <span class="align-items-center d-flex ml-1">分</span>
+          </div>
+        </div>
+        <hr>
+        <div class="form-group row">
+          <span class="col-lg-3">自己紹介</span>
+            <div class="col-lg-6">
+              <div>
+                <%= @user.introduction %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-right mt-2">
+        退会させる
+      </div>
+  </div>
+</div>

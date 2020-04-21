@@ -272,6 +272,17 @@ a {
   }
 }
 
+// ユーザedit
+.user-edit-image{
+  float:left;
+}
+
+// adminユーザshow
+.admin-user-show-float{
+  float: left;
+}
+
+
 // サイドバーの設定
 .sidebar-relative {
  position:relative;
@@ -566,7 +577,7 @@ a {
 
   .user-edit-image{
     justify-content: center;
-    display: flex;
+    float: none;
   }
 }
 
