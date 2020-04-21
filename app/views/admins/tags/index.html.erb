@@ -1,0 +1,25 @@
+<div class="container">
+  <h3 class="row mb-4">タグリスト</h3>
+  <div class="row d-flex justify-content-center">
+    <table class="table table-hover">
+      <thead>
+        <th>タグ</th>
+        <th>グラフカラー</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <% @tags.each do |tag| %>
+          <tr>
+            <td style="width:200px;">
+              <%= tag.name %>
+            </td>
+            <td style="background-color: <%=tag.color_code%>; width: 150px;"></td>
+            <td class="text-right">
+              <%= link_to "変更する",edit_admins_tag_path(tag),class: "btn btn-primary" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
