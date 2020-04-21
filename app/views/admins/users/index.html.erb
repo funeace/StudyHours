@@ -5,6 +5,8 @@
         <th>ユーザ名</th>
         <th>メールアドレス</th>
         <th>自己紹介</th>
+        <th>ステータス</th>
+        <th></th>
       </thead>
       <tbody>
         <% @users.each do |user| %>
@@ -12,6 +14,7 @@
               <td style="width:200px;"><%= link_to user.name, admins_user_path(user)%></td>
               <td style="width:400px;"><%= user.email %></td>
               <td><%= user.introduction %></td>
+              <td><%= link_to "詳細へ",admins_user_path(user),class: "btn btn-primary" %></td>
           </tr>
         <% end %>
       </tbody>

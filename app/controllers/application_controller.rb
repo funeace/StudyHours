@@ -11,7 +11,12 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_in_path_for(resource)
-      timelines_path
+      case resource
+      when Admin
+        admins_users_path
+      when User
+        timelines_path
+      end
     end
 
     def set_host
