@@ -16,7 +16,7 @@ class StudyLogsController < ApplicationController
     @study_log = current_user.study_logs.new(study_log_params)
     if @study_log.save
       # tagのカラーコードがnilのものにカラーコードを付与
-      grant_color_code
+      create_tag_color
       flash[:notice] = "登録が完了しました。この調子で頑張りましょう"
       redirect_to timelines_path
     else

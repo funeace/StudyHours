@@ -5,6 +5,9 @@ class Admins::TagsController < ApplicationController
 
   def edit
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
+
+    # jsに現在のカラーコードを渡す
+    gon.color = @tag.color_code
   end
 
   def update
@@ -16,7 +19,6 @@ class Admins::TagsController < ApplicationController
       render 'edit'
     end
   end
-
 private
   #acts_as_taggable_onのテーブルを更新するため
   def tag_params

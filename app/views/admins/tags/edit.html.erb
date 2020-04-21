@@ -1,11 +1,12 @@
 <div class="container">
-  <h3 class="row">チャートグラフのカラーコード変更</h3>
+  <h3 class="row">カラーコード変更</h3>
   <div class="row mt-4">
     <div class="col-8">
       <%= form_with model: @tag, url: admins_tag_path(@tag) do |f|%>
-        <%= f.label :color_code, "カラーコード" %>
-        <%= f.text_field :color_code %>
-        <%= f.submit "登録",class: "btn btn-primary" %>
+        <%= render 'layouts/error_messages', model: @tag %>
+        <%= f.label :color_code, "カラーコード",class: "mr-3" %>
+        <%= f.text_field :color_code,id: "picker",class: "mb-3" %>
+        <%= f.submit "更新",class: "btn btn-primary", style: "margin-left:5em;" %>
       <% end %>      
     </div>
   </div>
