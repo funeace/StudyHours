@@ -4,8 +4,18 @@ class Notification < ApplicationRecord
   belongs_to :user
   belongs_to :visit,class_name: "User", foreign_key: 'visit_id'
   # 以下は外部キーがnullの可能性があるのでoptional: trueを指定
-  belongs_to :study_log_favorite,optional: true
+  belongs_to :study_log,optional: true
   belongs_to :study_log_comment,optional: true
-  belongs_to :note_favorite,optional: true
+  belongs_to :note,optional: true
   belongs_to :note_comment,optional: true
+
+  # user_idが空白じゃない
+  validates :user_id, presence: true
+  # visit_idが空白じゃない
+  validates :user_id, presence: true
+  # actionが空白じゃない
+  validates :action, presence: true
+  # checkedはtrue or false
+  validates :checked, inclusion: {in: [true, false]}
+
 end
