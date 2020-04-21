@@ -13,7 +13,7 @@ require 'rails_helper'
   #   t.datetime "updated_at", null: false
   # end
 RSpec.describe Notification, type: :model do
-    let!(:notification){ create(:notification) }
+    let!(:notification){ create(:notification_follow) }
   it "必要項目が存在していれば有効" do
     expect(notification).to be_valid
   end
@@ -25,6 +25,11 @@ RSpec.describe Notification, type: :model do
     notification.visit_id = ""
     expect(notification).not_to be_valid
   end
+  it "checkedが存在していなければ無効" do
+    notification.checked = ""
+    expect(notification).not_to be_valid
+  end
+
   it "actionが存在していなければ無効" do
     notification.action = ""
     expect(notification).not_to be_valid
