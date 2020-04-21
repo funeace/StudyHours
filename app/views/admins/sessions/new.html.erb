@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="session">
+      <h4 class="row header mb-4">管理者ページログイン</h4>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="form-field row mt-2">
+          <div class="col-5">
+            <%= f.label :email,"メールアドレス",class: "devise-session-font" %><br />            
+          </div>
+          <div class="col-7">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>            
+          </div>
+        </div>
+        <div class="form-field row mt-2">
+          <div class="col-5">
+            <%= f.label :password,"パスワード" %><br />
+          </div>
+          <div class="col-7">
+            <%= f.password_field :password, autocomplete: "current-password",class:"form-control" %>          
+          </div>
+        </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="form-check row mt-2 ml-1">
+            <%= f.check_box :remember_me,class: "form-check-input" %>
+            <%= f.label :remember_me,"ログイン情報を保存する",class: "form-check-label" %>
+          </div>
+        <% end %>
+        <div class="row mt-2 justify-content-center">
+          <%= f.submit "ログイン",class:"btn btn-primary btn-block" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

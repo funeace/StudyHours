@@ -1,0 +1,49 @@
+<div class="container study-log-show ">
+  <div class="s-card width margin-auto">
+    <div class="favorite-parent">
+      <div class="favorite-child">
+        <span><%= link_to "削除する",admins_study_log_path(@study_log),method: :delete %></span>
+      </div>
+    </div>
+    <div class="s-header d-flex">
+      <%= attachment_image_tag @study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
+      <div class="ml-3 d-flex flex-column justify-content-center">
+        <h6><%= @study_log.working_date.strftime("%Y年%m月%d日")%></h6>
+        <h6><%= @study_log.user.name %></h6>
+      </div>
+    </div>
+    <!-- カードの処理 -->
+    <ul class="list-group">
+      <% @study_log.study_log_details.each do |detail| %>
+        <li class="list-group-item">
+          <span class="col-3">学習内容</span>
+            <span class="col-6">
+              <% detail.tag_list.each do |tag| %> 
+                <span clas= "badge-success p-1 badge-tag"><%= tag %></span>
+              <% end %>
+            </span>
+          <hr>
+          <span class="col-3">学習時間</span><span class="col-6"><%= detail.hour%>時間<%= detail.min %>分</span>
+        </li>
+      <% end %>
+      <li class="list-group-item" style="position: relative;">
+        <div class="card-body pt-2">
+          <div class="col-3" style="position: absolute;left:5%;top:2%;">
+            メモ
+          </div>
+          <div class="offset-2 ">
+            <%= @study_log.memo %>            
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <% unless @study_log_comments.empty? %>
+    <div class="width margin-auto">
+      <h4 class="mt-4">コメント</h4>
+      <div id="study-log-comments">
+        <%= render 'study_log_comments/study_log_comments',study_log: @study_log, study_log_comments: @study_log_comments %>  
+      </div>
+    </div>
+  <% end %>
+</div>

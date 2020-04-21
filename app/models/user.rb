@@ -4,7 +4,10 @@ class User < ApplicationRecord
          :omniauthable,omniauth_providers: [:twitter,:google]
 
   after_create :send_welcome_mail
-         
+ 
+  # 論理削除
+  acts_as_paranoid
+
   # ノートのアソシエーション
   has_many :notes ,dependent: :destroy
   has_many :note_favorites ,dependent: :destroy

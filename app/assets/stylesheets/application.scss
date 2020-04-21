@@ -10,6 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require spectrum
  *= require_tree .
  *= require_self
  */
@@ -187,6 +188,10 @@ a {
 }
 
 
+.user-edit-image {
+  float: left;
+}
+
 // 学習記録のカード設定
 .s-card {
   $background: #f0f8ff;
@@ -266,6 +271,18 @@ a {
      right:5%;
   }
 }
+
+// ユーザedit
+.user-edit-image{
+  float:left;
+}
+
+// adminユーザshow
+.admin-user-show{
+  float: left;
+  flex-direction: column;
+}
+
 
 // サイドバーの設定
 .sidebar-relative {
@@ -559,6 +576,17 @@ a {
     display: inherit
   }
 
+  .user-edit-image{
+    justify-content: center;
+    float: none;
+  }
+
+  .admin-user-show{
+    justify-content: center;
+    flex-direction: unset;
+    float: none;
+  }
+
 }
 
 @media screen and (max-width: 425px){
@@ -616,4 +644,5 @@ a {
   .devise-session-font {
     font-size: 0.8em;
   }
+
 }

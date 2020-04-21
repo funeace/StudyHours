@@ -85,6 +85,9 @@ gem 'gon'
 gem 'font-awesome-sass'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'chart-js-rails'
+gem 'spectrum-rails'
+gem "paranoia", "~> 2.2"
+
 
 group :production do
   gem 'mysql2'

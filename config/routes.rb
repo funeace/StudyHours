@@ -7,7 +7,10 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks',
     passwords: 'users/passwords'
   }
-  
+  devise_for :admins,controllers: {
+    sessions: 'admins/sessions'
+  }
+ 
   resources :users,only:[:index,:show,:edit,:update] do
     member do
       get :detail
@@ -16,7 +19,9 @@ Rails.application.routes.draw do
       get :favorites
     end
   end
+
   resources :relationships, only: [:create,:destroy]
+
   resources :study_logs,only: [:show,:new,:create,:edit,:update,:destroy] do
     resources :study_log_comments, only: [:create,:destroy]
     resource :study_log_favorites, only: [:create,:destroy]
@@ -24,6 +29,7 @@ Rails.application.routes.draw do
       get :modal_study_log_new
     end
   end
+
   resources :notes,only: [:show,:new,:create,:edit,:update,:destroy] do
     resources :note_comments, only: [:create,:destroy]
     resource :note_favorites, only: [:create,:destroy]
@@ -31,17 +37,27 @@ Rails.application.routes.draw do
       get :preview
      end
   end
+
   resources :searchs,only: [:index] do
     collection do
       get :sort
       get :search
     end
   end
+
   resources :timelines,only: [:index]
   resources :rooms,only:[:index,:show,:create] do
     collection do
       get :search
     end
   end
+
   resources :notifications, only: [:index]
+
+  namespace :admins do
+    resources :users, only: [:index,:show,:destroy,:update]
+    resources :study_logs, only: [:index,:show,:destroy]
+    resources :notes, only: [:index,:show,:destroy]
+    resources :tags,only: [:index,:edit,:update]
+  end
 end

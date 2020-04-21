@@ -12,7 +12,7 @@ def tag_color
 end
 
 # tagのカラーコードがnilのものにカラーコードを付与
-def grant_color_code
+def create_tag_color
   ActsAsTaggableOn::Tag.where(color_code: nil).each do |tag|
     tag.update(color_code: tag_color)  
   end
