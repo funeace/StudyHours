@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">    
+    <table class="table table-hover">
+      <thead>
+        <th>学習日</th>
+        <th>学習内容</th>
+        <th>学習時間</th>
+        <th>メモ</th>
+        <th>投稿者</th>
+      </thead>
+      <tbody>
+        <% @study_logs.each do |study_log| %>
+          <tr>
+              <td style="width:200px;"><%= study_log.working_data %></td>
+              <td style="width:400px;"><%= study_log %></td>
+              <td><%#= user.introduction %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

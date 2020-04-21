@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks',
     passwords: 'users/passwords'
   }
+  devise_for :admins,controllers: {
+    sessions: 'admins/sessions'
+  }
+
   
   resources :users,only:[:index,:show,:edit,:update] do
     member do
@@ -44,4 +48,10 @@ Rails.application.routes.draw do
     end
   end
   resources :notifications, only: [:index]
+
+ namespace :admins do
+  resources :users, only: [:index,:show,:destroy]
+  resources :study_logs, only: [:index,:show,:destroy]
+  resources :notes, only: [:index,:show,:destroy]
+ end
 end
