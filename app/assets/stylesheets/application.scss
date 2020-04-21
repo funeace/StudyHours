@@ -188,6 +188,10 @@ a {
 }
 
 
+.user-edit-image {
+  float: left;
+}
+
 // 学習記録のカード設定
 .s-card {
   $background: #f0f8ff;
@@ -560,6 +564,10 @@ a {
     display: inherit
   }
 
+  .user-edit-image{
+    justify-content: center;
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 425px){

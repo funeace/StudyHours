@@ -1,43 +1,46 @@
 <div class="container">
   <div class="row">
-    <div class="col-10">
-      <div class="row">
-        <%= form_with model: @user, local: true do |f| %>
-          <%= render 'layouts/error_messages', model: @user %>
-          <div class="d-flex">
-            <div class="image">
-              <%= attachment_image_tag @user, :profile_image, :fill, 150, 150, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
-            </div>
-            <div class="col-4 d-flex align-items-center">
-              <%= f.text_field :name,class:"form-control" %>        
-            </div>
-            <div class="col-10  d-flex align-items-center">
-              <h3>週の目標</h3>
-              <div class="col-2">
-                <%= f.select :goal_hour, Array.new(100){|index| index },{},class: "form-control" %>
-              </div>
-              <h3>時間</h3>
-                <div class="col-2">
-                  <%= f.select :goal_minute,Array.new(60){|index| index},{},class: "form-control" %>                
-                </div>
-              <h3>分</h3>
-            </div>
-          </div>
-          <div class="row col-2 ml-2 mt-2">              
-            <label for="user_img" class= "btn btn-primary btn-block">
-              <%= f.attachment_field :profile_image,id: :user_img, style: "display: none;" %>
-              画像選択
-            </label>
-          </div>              
-          <div class="mt-2 form-group">
-            <%= f.text_area :introduction,class: "form-control" %>
-          </div>
-          <div class="text-right mt-2">
-            <%= f.submit "更新",class: "btn btn-primary",data: {:turbolinks => "false" } %>
-          </div>
-        <% end %>
+    <h3>プロフィール編集</h3>   
+  </div>
+  <div class="card col-lg-10 p-4">
+    <%= form_with model: @user, local: true do |f| %>
+      <%= render 'layouts/error_messages', model: @user %>
+      <div class="col-lg-3 user-edit-image">
+        <div class="d-flex flex-column">
+          <%= attachment_image_tag @user, :profile_image, :limit, 150, 150, fallback: "no_image.png",size: "150x150",id: "preview",class: "pull-left profile-img" %>
+          <label for="user_img" class= "col-lg-8 ml-2 mt-3 btn btn-primary label-img">
+            <%= f.attachment_field :profile_image,id: "user_img", style: "display: none;" %>画像選択
+          </label>    
       </div>
     </div>
+    <div class="col-lg-8" style="float:left;">
+      <div class="form-group row">
+        <%= f.label :name,"ユーザー名",class: "col-lg-3" %>
+        <div class="col-lg-6">
+          <%= f.text_field :name,class: "form-control" %>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group row">
+        <span class="col-lg-3">週の目標</span>
+          <div class="d-flex justify-content-left col-lg-8">
+            <%= f.select :goal_hour, Array.new(100){|index| index },{},class: "form-control col-4 col-lg-2" %>
+            <span class="align-items-center d-flex mr-1 ml-1">時間</span>
+            <%= f.select :goal_minute,Array.new(60){|index| index},{},class: "form-control col-4 col-lg-2"%>
+            <span class="align-items-center d-flex ml-1">分</span>        
+          </div>
+        </div>
+        <hr>
+        <div class="form-group row">
+          <%= f.label :introduction, "自己紹介", class: "col-lg-3" %>
+            <div class="col-lg-6">
+              <%= f.text_area :introduction,class: "form-control" %>          
+            </div>
+        </div>
+        <div class="text-right mt-2">
+          <%= f.submit "更新",class: "btn btn-primary",data: {:turbolinks => "false" } %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
-

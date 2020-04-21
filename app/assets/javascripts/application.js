@@ -34,14 +34,15 @@ $(document).on('turbolinks:load', function() {
       // tagが入力されてない状態
       $('#regist-button').prop("disabled", true)
     }
-  })
-})
+  });
+});
 
 // Admin/Tags #edit
 // グラフの色をカラーピッカーで選択するための処理
 $(document).on('turbolinks:load', function() {
     $("#picker").spectrum({
-        color: gon.color, // 初期値
+        // color: gon.color, // 初期値
+        color: "#ffffff",
         flat: false, // trueの場合、クリックしなくてもピッカーが表示されるようにする
         showInput: true, // コードの入力欄を表示する
         showAlpha: true, // 不透明度の選択バーを表示する
@@ -77,3 +78,31 @@ $(document).on('turbolinks:load', function() {
         selectionPalette: [] // 選択色のパレットの初期値
     });
 });
+
+// Users/edit
+// イメージ画像を設定した時にその場でプレビューを表示する処理
+$(document).on('turbolinks:load', function () {
+    // console.log("hoge")
+  // 画像を呼び出すためのコールバック関数
+  function readURL(input) {
+    // データが存在していることを確認
+    if (input.files && input.files[0]) {
+      // 非同期で読み込むためにFileReader()を呼び出す
+      var reader = new FileReader();
+      // onload はファイルの読み込みが完了したタイミングで発火する
+      reader.onload = function (e) {
+        // avatar_img_prevのimg srcの部分を画像のパラメータとして設定
+        $('#preview').attr('src', e.target.result);
+      }
+      // ファイルを読み込む
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  // post_imgが変更されたタイミングに発火
+  $("#user_img").change(function () {
+    // console.log("hage")
+    readURL(this);
+  });
+});
+

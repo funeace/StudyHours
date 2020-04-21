@@ -20,7 +20,6 @@ class Admins::TagsController < ApplicationController
     end
   end
 private
-  #acts_as_taggable_onのテーブルを更新するため
   def tag_params
     params.require(:acts_as_taggable_on_tag).permit(:color_code)
   end
