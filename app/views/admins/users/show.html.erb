@@ -5,11 +5,11 @@
   <div class="card col-lg-10 p-4">
     <div class="user-profile">      
     <div class="col-lg-3">
-      <div class="d-flex flex-column admin-user-show-float">
+      <div class="d-flex admin-user-show">
         <%= attachment_image_tag @user, :profile_image, :limit, 150, 150, fallback: "no_image.png",size: "150x150",id: "preview",class: "pull-left profile-img" %>
       </div>
     </div>
-    <div class="col-lg-8 admin-user-show-float">
+    <div class="col-lg-8 admin-user-show mt-3">
       <div class="form-group row">
         <span class="col-lg-3">ユーザー名</span>
         <div class="col-lg-6">
@@ -39,8 +39,13 @@
           </div>
         </div>
       </div>
-      <div class="text-right mt-2">
-        退会させる
+      <div class="text-right mt-4">
+        <% if @user.paranoia_destroyed? %>
+          <%= link_to "復元する",admins_user_path(@user),method: :patch,class: "btn btn-primary" %>
+        <% else %>
+          <%= link_to "退会させる",admins_user_path(@user),method: :delete,class: "btn btn-danger" %>
+        <% end %>
       </div>
+    </div>
   </div>
 </div>

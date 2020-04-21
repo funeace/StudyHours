@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   resources :notifications, only: [:index]
 
   namespace :admins do
-    resources :users, only: [:index,:show,:destroy]
+    resources :users, only: [:index,:show,:destroy,:update]
     resources :study_logs, only: [:index,:show,:destroy]
     resources :notes, only: [:index,:show,:destroy]
     resources :tags,only: [:index,:edit,:update]

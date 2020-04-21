@@ -278,8 +278,9 @@ a {
 }
 
 // adminユーザshow
-.admin-user-show-float{
+.admin-user-show{
   float: left;
+  flex-direction: column;
 }
 
 
@@ -579,6 +580,13 @@ a {
     justify-content: center;
     float: none;
   }
+
+  .admin-user-show{
+    justify-content: center;
+    flex-direction: unset;
+    float: none;
+  }
+
 }
 
 @media screen and (max-width: 425px){
@@ -636,4 +644,5 @@ a {
   .devise-session-font {
     font-size: 0.8em;
   }
+
 }
