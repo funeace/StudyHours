@@ -40,9 +40,10 @@ $(document).on('turbolinks:load', function() {
 // Admin/Tags #edit
 // グラフの色をカラーピッカーで選択するための処理
 $(document).on('turbolinks:load', function() {
+  if(document.URL.match("/admins/tags") && document.URL.match("/edit")) {
     $("#picker").spectrum({
-        // color: gon.color, // 初期値
-        color: "#ffffff",
+        color: gon.color, // 初期値
+        // color: "#ffffff",
         flat: false, // trueの場合、クリックしなくてもピッカーが表示されるようにする
         showInput: true, // コードの入力欄を表示する
         showAlpha: true, // 不透明度の選択バーを表示する
@@ -76,7 +77,8 @@ $(document).on('turbolinks:load', function() {
             ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
         ], // パレット
         selectionPalette: [] // 選択色のパレットの初期値
-    });
+      });
+    };
 });
 
 // Users/edit
