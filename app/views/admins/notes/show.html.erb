@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <h3>ノート</h3>
+  </div>
+  <div class="row">    
+    <div class="note-card w-100">
+      <div class="link">
+        <%= link_to "ノートを削除する",admins_note_path(@note),method: :delete%>
+      </div>
+      <div class="row card-body">
+      <div class="col-6 mb-2 font-size">タイトル</div>
+        <div class="col-12 font-size">
+          <%= @note.title %>
+        </div>
+      </div>
+      <hr class="note-under">
+      <div class="row card-body">
+        <div class="col-12  mb-2 font-size">
+          タグ
+        </div>
+        <div class="col-12">
+          <% @note.tag_list.each do |tag| %> 
+            <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge badge-success p-1 badge-tag" %>
+          <% end %>                    
+        </div>
+      </div>
+      <hr class="note-under">
+      <div class="row card-body">
+        <div class="w-100 mb-5">
+          <div class="ml-3">
+            <%= markdown(@note.body) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" id="note-comments">   
+    <h4 class="mt-4">コメント</h4>
+    <%= render 'note_comments/note_comments',note: @note,note_comments: @note_comments %>
+  </div>
+</div>

@@ -15,5 +15,6 @@ class Admins::StudyLogsController < ApplicationController
     # binding.pry
     @study_log.destroy
     redirect_to admins_study_logs_path
+    flash[:info] = "学習記録を削除しました"
   end
 end
