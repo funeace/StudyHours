@@ -20,6 +20,7 @@
 //= require popper
 //= require spectrum
 //= require bootstrap-sprockets
+//= require bootstrap-tagsinput.min
 //= require_tree .
 
 // Admin/Tags #edit
