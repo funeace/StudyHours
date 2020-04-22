@@ -7,6 +7,8 @@ class NotesController < ApplicationController
 
   def create
     @note = current_user.notes.new(note_params)
+    binding.pry
+    @note.set_taglist_exist(params[:note][:tag_list])
     if @note.save
       # tagのカラーコードがnilのものにカラーコードを付与するメソッド
       create_tag_color

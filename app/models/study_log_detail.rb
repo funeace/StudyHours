@@ -4,7 +4,7 @@ class StudyLogDetail < ApplicationRecord
   acts_as_taggable
 
   # 学習記録のカラムhourとminがそれぞれ0のときにエラーを返す
-  validates_with TimesGreaterThan1
+  validates_with StudyTimesCheck
   validates :hour,presence: true
   validates :min,presence: true
 end

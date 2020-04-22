@@ -4,7 +4,6 @@ class Note < ApplicationRecord
   has_many :note_comments,dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-
   # tagsテーブルとの関連付けを作成 defaultは tag_list
   acts_as_taggable
 
@@ -12,10 +11,31 @@ class Note < ApplicationRecord
   validates :title,presence: true
   # bodyが空白じゃないことを確認
   validates :body,presence: true
+  # タグが空白じゃないことを確認
+  validate :valid_note_tag
 
   # 既にいいねを押しているかのチェック
   def favorited_by?(user)
     self.note_favorites.where(user_id: user.id).exists?
+  end
+
+  # タグが存在しているかチェックするインスタンス変数を定義(default:false)
+  @taglist_chk = false
+
+  # 画面から受け取ったパラメータのtag_listが存在しなければtaglist_chkをtrueに変更する
+  def set_taglist_exist(tag_list)
+    if tag_list == ""
+      @taglist_chk = true
+    else
+      @taglist_chk = false
+    end
+  end
+
+  # 実際のバリデーションを行うメソッド
+  def valid_note_tag
+    if @taglist_chk
+      errors[:base] << "タグが入力されていません"
+    end
   end
 
 end
