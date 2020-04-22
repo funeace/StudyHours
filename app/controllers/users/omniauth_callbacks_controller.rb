@@ -42,9 +42,9 @@ private
   # 既に退会済みのユーザか判定するためのメソッド
   def invalid_user?(provider)
     if provider == :twitter
-      invalid = User.with_deleted.find_by(email: User.dummy_email(request.env["omniauth.auth"])).nil?
+      invalid = User.only_deleted.find_by(email: User.dummy_email(request.env["omniauth.auth"])).nil?
     elsif provider == :google
-      invalid = User.with_deleted.find_by(email: request.env["omniauth.auth"]["info"]["email"]).nil?
+      invalid = User.only_deleted.find_by(email: request.env["omniauth.auth"]["info"]["email"]).nil?
     end
     # invalidを反転させることでvalid = trueならば正を作る
     return !invalid

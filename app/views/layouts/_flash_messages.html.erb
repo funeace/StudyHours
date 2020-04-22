@@ -1,5 +1,5 @@
 <% flash.each do |message_type, message| %>
-    <div class="alert alert-<%= bootstrap_class_for(message_type) %>">
+    <div class="alert alert-<%= bootstrap_class_for(message_type)%> text-center">
       <%= message %>
     </div>
 <% end %>
