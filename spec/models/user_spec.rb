@@ -51,6 +51,6 @@ RSpec.describe User, type: :model do
   it "パスワードが不一致" do
     @user.password_confirmation = ""
     expect(@user)
-
   end
+
 end
