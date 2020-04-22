@@ -20,22 +20,8 @@
 //= require popper
 //= require spectrum
 //= require bootstrap-sprockets
+//= require bootstrap-tagsinput.min
 //= require_tree .
-
-
-// StudyLog #new
-// tagを必須入力にする処理
-$(document).on('turbolinks:load', function() {
-  $('#study_log_study_log_details_attributes_0_tag_list').change(function(){
-    if($(this).val()) {
-      // tagが入力されている状態
-      $('#regist-button').prop("disabled", false)
-    } else {
-      // tagが入力されてない状態
-      $('#regist-button').prop("disabled", true)
-    }
-  });
-});
 
 // Admin/Tags #edit
 // グラフの色をカラーピッカーで選択するための処理

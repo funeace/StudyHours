@@ -1,0 +1,78 @@
+ja:
+  activerecord:
+    models:
+      admin: "管理者"
+      user: "ユーザー"
+      study_log: "学習記録"
+      study_log_detail: "学習記録詳細"
+      study_log_comment: "コメント（学習記録）"
+      study_log_favorite: "お気に入り（学習記録）"
+      note: "ノート"
+      note_comment: "コメント（ノート）"
+      note_favorite: "お気に入り（ノート）"
+      notification: "通知"
+      relationship: "フォロー・フォロワー"
+      room: "部屋"
+      chat: "チャット"
+      entry: "エントリー"
+    attributes:
+      admin:
+        email: "メールアドレス"
+        password: "パスワード"
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        profile_image_id: "プロフィール画像"
+        introduction: "自己紹介"
+      study_log:
+        user_id: "ユーザーID"
+        memo: "メモ"
+        working_date: "学習日"
+      study_log_detail:
+        study_log_id: "学習記録ID"
+        hour: "時間"
+        min: "分"
+      study_log_comment:
+        study_log_id: "学習記録ID"
+        user_id: "ユーザーID"
+        comment: "コメント"
+      study_log_favorite:
+        study_log_id: "学習記録ID"
+        user_id: "ユーザーID"
+      note:
+        user_id: "ユーザーID"
+        title: "タイトル"
+        body: "本文"
+      note_comment:
+        user_id: "ユーザーID"
+        note_id: "ノートID"
+        comment: "コメント"
+      note_favorite:
+        user_id: "ユーザーID"
+        note_id: "ノートID"
+      tags:
+        name: "タグ名"
+        color_code: "カラーコード"
+      relationship:
+        user_id: "ユーザーID"
+        follow_id: "フォローID"
+      entry:
+        user_id: "ユーザーID"
+        room_id: "ルームID"
+      chat:
+        user_id: "ユーザーID"
+        room_id: "ルームID"
+        content: "投稿内容"
+      notification:
+        user_id: "ユーザーID"
+        visit_id: "訪問者ID"
+        study_log_id: "学習記録ID"
+        study_log_comment_id: "学習記録コメントID"
+        note_id: "ノートID"
+        note_comment_id: "ノートコメントID"
+    errors:
+      messages:
+        study_log_details:
+          base: "学習時間を入力してください"
+        study_log_detail:
+          base: "学習時間を入力してください"

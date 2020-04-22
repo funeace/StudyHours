@@ -1,6 +1,6 @@
 <div class="row">      
   <span class="mt-2">勉強内容</span>
-  <span class="col-8"><%= detail.text_field :tag_list,value: study_log.tag_list.join(','), class:"form-control" %></span>
+  <span class="col-8"><%= detail.text_field :tag_list,value: study_log.tag_list.join(','),"data-role" => "tagsinput", class:"form-control"%></span>
 </div>
 <hr>
 <div class="row">
