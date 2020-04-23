@@ -9,7 +9,7 @@
       </div>
       <!-- 編集画面へのリンク -->
       <% if user_signed_in? && current_user.id == @study_log.user.id %>
-        <span class="edit-link-child"><%= link_to "編集する",edit_study_log_path %></span>
+        <span class="edit-link-child"><%= link_to "編集する",edit_study_log_path,data: {"turbolinks" => false} %></span>
       <% end %>
 
       <div class="s-header d-flex">

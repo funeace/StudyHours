@@ -20,7 +20,7 @@ class StudyLogsController < ApplicationController
       # tagのカラーコードがnilのものにカラーコードを付与
       create_tag_color
       flash[:success] = "登録が完了しました。この調子で頑張りましょう"
-      redirect_to timelines_path
+      redirect_to study_log_path(@study_log)
     else
       render 'new'
     end
