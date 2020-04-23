@@ -50,6 +50,19 @@ a {
   }
 }
 
+// バッヂの設定
+.badge-tag {
+  @extend .badge;
+  font-size:12px;
+  width:80px;
+  display:inline-block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+
+
+// Deviseの設定---------------------
 .devise-password-form {
   width:300px;
 }
@@ -66,23 +79,12 @@ a {
   position: absolute;
   right:10%;
 }
-
-
+// profile画像の設定--------------------------------
 .profile-img {
   border-radius: 100%;
 }
 
-.notification-relative {
-  position: relative;
-}
-.notifications-absolute {
-  color: gold;
-  position:absolute;
-  top:10%;
-}
-
-// ハンバーガーアイコン
-
+// ハンバーガーアイコンの設定---------------------
 #hm-icon{
   position: fixed;
   display: none;
@@ -164,32 +166,27 @@ a {
   font-weight: bold;
 }
 
+// 通知アイコンの設定---------------------------
+.notification-relative {
+  position: relative;
+}
+.notifications-absolute {
+  color: gold;
+  position:absolute;
+  top:10%;
+}
 
-// ---------------------------------------
 
-// top画面の青い線
+// top画面の設定--------------------
 .top-bg {
   background-color: $top-bg-color;
   height: 200px;
 }
 
-// バッヂの設定
-.badge-tag {
-  @extend .badge;
-  font-size:12px;
-  width:80px;
-  display:inline-block;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.user-edit-image {
-  float: left;
-}
-
-// 学習記録のカード設定
+// 学習記録のカード設定-----------------------------------------
 .s-card {
   $background: #fff0f5;
+  $background-footer: #fffacd;
   @extend .card;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
   border-radius: $s-card-radius;
@@ -211,9 +208,16 @@ a {
       left:11%;
     }
   }
+  & .s-card-footer {
+    @extend .card-footer;
+    background-color: $background-footer;
+    &:last-child {
+      border-radius: 0 0 1rem 1rem;
+    }
+  }
 }
 
-// ノートのカード設定
+// ノートのカード設定----------------------------------------------
 .note-card {
   @extend .card;
   border-radius: $n-card-radius;
@@ -254,7 +258,7 @@ a {
   }
 }
 
-// ユーザのカードの設定
+// ユーザのカードの設定------------------------------------------
 .user-card {
   @extend .card;
   border-radius: $u-card-radius;
@@ -267,7 +271,7 @@ a {
   }
 }
 
-// ユーザedit
+// ユーザeditの設定------------------------------------------
 .user-edit-image{
   float:left;
 }
@@ -289,7 +293,12 @@ a {
  }
 }
 
-/*ノートの一覧画面を表示する画面で日付を左寄せする処理*/
+// profile画面(user/edit)の設定-------------------
+.profile-font-size{
+  font-size:1.5em;
+}
+
+//ノートの一覧画面を表示する画面で日付を左寄せする設定------
 .notes-disp-left {
   margin-right: auto;
 }
@@ -370,14 +379,14 @@ a {
   }
 }
 
-// study_log editアクションの処理
+// study_log editアクションの処理-----------
 .study-log-edit {
   & .width {
     width: 50%;
   }
 }
 
-// サイドバーの処理
+// サイドバーの処理------------------------
 .timeline-sidebar {
   .make {
        font-size:0.9em;
@@ -387,6 +396,7 @@ a {
    }
 }
 
+// チャートグラフの処理-------------------------
 .study-log-inner {
   position: absolute;
   left: 0;
@@ -403,7 +413,7 @@ a {
   top: 48%;
 }
 
-// チャット機能のレイアウト
+// チャット機能のレイアウトの処理---------------
 .chat {
   display:flex;
   & .says {
