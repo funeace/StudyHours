@@ -23,24 +23,24 @@
             </li>
             <li class="nav-item notification-relative">
               <% if unchecked_notifications.any? %>
-                <i class="fa fa-circle notifications-absoluite"></i>
+                <i class="fa fa-circle notification-absolute"></i>
               <% end %>
               <%= link_to notifications_path, class: "nav-link" do %>
                 <i class="fas fa-bell"> 通知</i>
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to searchs_path ,class: "nav-link" do %>
+              <%= link_to searchs_path ,class: "nav-link" ,data: {"turbolinks" => false} do %>
                 <i class="fas fa-search"> 探す</i>
               <% end %>
             </li>
             <li class="nav-item"> 
-              <%= link_to new_study_log_path,class: "nav-link" do %>
+              <%= link_to new_study_log_path,class: "nav-link",data: {"turbolinks" => false} do %>
                 <i class="fas fa-sign-in-alt">学習記録を書く</i>     
               <% end %>           
             </li>
             <li class="nav-item">
-              <%= link_to new_note_path,class: "nav-link" do %>
+              <%= link_to new_note_path,class: "nav-link",data: {"turbolinks" => false} do %>
                 <i class="fas fa-book"> ノートを書く</i>
               <% end %>
             </li>
@@ -106,7 +106,7 @@
             </li>
             <li class="notification-relative">
               <% if unchecked_notifications.any? %>
-                <i class="fa fa-circle notifications-absolute"></i>
+                <i class="fa fa-circle notification-absolute"></i>
               <% end %>
               <%= link_to notifications_path, class: "nav-link" do %>
                 <i class="fas fa-bell"> 通知</i>
