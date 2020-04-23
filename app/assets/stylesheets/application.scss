@@ -50,6 +50,7 @@ a {
   }
 }
 
+
 // バッヂの設定
 .badge-tag {
   @extend .badge;
@@ -59,8 +60,6 @@ a {
   overflow:hidden;
   text-overflow:ellipsis;
 }
-
-
 
 // Deviseの設定---------------------
 .devise-password-form {
@@ -407,23 +406,6 @@ a {
    }
 }
 
-// チャートグラフの処理-------------------------
-.study-log-inner {
-  position: absolute;
-  left: 0;
-  right: 0;
-  text-align: center;
-  top: 48%;
-}
-
-.achievement-inner {
-  position: absolute;
-  left: 0;
-  right: 0;
-  text-align: center;
-  top: 48%;
-}
-
 // チャット機能のレイアウトの処理---------------
 .chat {
   display:flex;
@@ -488,6 +470,51 @@ a {
   }
 }
 
+// チャートグラフの処理-----------------------------
+.pie_chart {
+  float:left;
+  width:50%;
+  position:absolute;
+  left:10%;
+  padding:5%;
+  & #pie {
+    position: relative;
+    width:200px;
+    height:200px;
+  }
+  & .study-log-inner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 48%;
+  }
+}
+
+.doughnut-chart{
+  float:left;
+  width:50%;
+  position:absolute;
+  right:-15%;
+  padding:5%;
+  & .doughnut-area{
+    position:relative;
+    & #doughnut{
+      position: relative;
+    }
+    & .achievement-inner {
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      top: 48%;
+    }
+  }
+}
+
+
+
+
 @media screen and (max-width: 768px){
    #md-textarea {
     height: 40vh;
@@ -509,6 +536,7 @@ a {
   .user-edit-image{
     justify-content: center;
     float: none;
+    display: flex;
   }
 
   .admin-user-show{
@@ -526,6 +554,23 @@ a {
       }
     }
   }
+
+.pie_chart {
+  & .study-log-inner {
+    top: 40%;
+  }
+}
+
+.doughnut-chart{
+  & .doughnut-area{
+    position:relative;
+    & .achievement-inner {
+      top: 35%;
+    }
+  }
+}
+
+
 
 }
 
