@@ -23,6 +23,18 @@
 //= require bootstrap-tagsinput.min
 //= require_tree .
 
+
+
+// ハンバーガーメニューの処理
+  $(document).on('turbolinks:load', function () {
+    $('.menu-trigger').on('click',function(){
+      $(this).toggleClass('active');
+      $('#sp-menu').fadeToggle();
+      return false;
+    });
+  });
+
+
 // Admin/Tags #edit-----------------------------------------------
 // グラフの色をカラーピッカーで選択するための処理
 $(document).on('turbolinks:load', function() {
@@ -124,7 +136,7 @@ $(document).on('turbolinks:load', function () {
     });
   });
 
-  // 
+  // プレビューを停止し、記述を開始する時の処理
   $(document).on('turbolinks:load', function () {
     $('#markdown').on('click',function(){
       $('#md-textarea').parent().css('display','');
