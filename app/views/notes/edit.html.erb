@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h3>ノート</h3>
+    <h3>ノート編集</h3>
   </div>
   <div class="row">
     <div class="col-12">
@@ -29,45 +29,10 @@
           プレビューする      
         </div>
           <%= f.submit "投稿する",class: "btn btn-success" %>
-          <%= link_to "ノートを削除する",note_path(@note),method: :delete,class: "offset-6"%>
+          <div class="row col-12 mt-3">
+            <%= link_to "ノートを削除する",note_path(@note),method: :delete,class: "btn btn-danger"%>
+          </div>
       <% end %>   
     </div>
   </div>  
 </div>
-
-<script>
-  $(document).on('turbolinks:load', function () {
-    // previewが押された時の処理
-    $('#preview').on('click',function(){
-      // textにtextareaの値を代入
-      var text = $('#md-textarea').val()
-      // テキストが空白だった場合何もしない
-      if (text ==""){
-        return ;
-      }
-      // データをコントローラに受け渡す処理
-      $.ajax({
-        url: '/notes/preview',
-        type: 'GET',
-        dataType: 'json',
-        data: {body: text}
-      })
-      // 成功した時の処理
-      .done(function(data){
-        $('#md-textarea').parent().css('display','none');
-        console.log(data.body);
-        $('#preview-area').append(data.body);
-        $('#markdown').removeClass('disabled');
-        $('#preview').addClass('disabled');
-      })
-    })
-
-    // markdownが押された時の処理
-    $('#markdown').on('click',function(){
-      $('#md-textarea').parent().css('display','');
-      $('#preview-area').empty();
-      $('#preview').removeClass('disabled');
-      $('#markdown').addClass('disabled');
-    })
-  })
-</script>

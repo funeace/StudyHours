@@ -34,6 +34,8 @@ class NotesController < ApplicationController
     if @note.update(note_params)
       flash[:notice] = "ノートを更新しました"
       redirect_to note_path(@note)
+      # tagのカラーコードがnilのものにカラーコードを付与
+      create_tag_color
     else
       render 'edit'
     end

@@ -60,6 +60,14 @@
               </div>          
             </td>
           </tr>
+        <% else %>
+          <tr>
+            <td>
+              <div class="text-center">
+                  <%= link_to "プロフィール編集", edit_user_path(user),class: "btn btn-info" %>
+              </div>
+            </td>
+          </tr>
         <% end %>
       <% end %>
     </tbody>

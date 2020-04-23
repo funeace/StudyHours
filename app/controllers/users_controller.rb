@@ -31,30 +31,10 @@ class UsersController < ApplicationController
     # binding.pry
     if @user.update(user_params)
       flash[:info] = "更新しました"
-      redirect_to detail_user_path(@user)
+      redirect_to timelines_path
     else
       render 'edit'
     end
-  end
-
-  # ユーザの詳細ページ
-  def detail
-    @user = User.find(params[:id])
-
-    # gonにデータを渡す処理
-    # 進捗率を表示(目標がない場合はとりあえず0)
-    gon.labels =[]
-    gon.data = []
-    gon.background = []
-    gon.progress = @user.weekly_progress
-
-    # 自分の投稿情報を集計して配列で返すメソッド(chart_create)
-    @user.chart_create.each do |chart|
-      gon.labels.push(chart[0])
-      gon.data.push(chart[1])
-      gon.background = (chart[2])
-    end
-    gon.all_variables 
   end
 
   # フォロー中ユーザの一覧

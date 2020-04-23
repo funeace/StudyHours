@@ -23,7 +23,17 @@
 //= require bootstrap-tagsinput.min
 //= require_tree .
 
-// Admin/Tags #edit
+
+// ハンバーガーメニューの処理
+  $(document).on('turbolinks:load', function () {
+    $('.menu-trigger').on('click',function(){
+      $(this).toggleClass('active');
+      $('#sp-menu').fadeToggle();
+      return false;
+    });
+  });
+
+// Admin/Tags #edit-----------------------------------------------
 // グラフの色をカラーピッカーで選択するための処理
 $(document).on('turbolinks:load', function() {
   if(document.URL.match("/admins/tags") && document.URL.match("/edit")) {
@@ -67,7 +77,7 @@ $(document).on('turbolinks:load', function() {
     };
 });
 
-// Users/edit
+// Users/edit------------------------------------------
 // イメージ画像を設定した時にその場でプレビューを表示する処理
 $(document).on('turbolinks:load', function () {
     // console.log("hoge")
@@ -94,3 +104,78 @@ $(document).on('turbolinks:load', function () {
   });
 });
 
+
+// Note/new・edit -------------------------------------------
+// ノートのプレビューボタンを押した時にプレビューが表示される処理
+$(document).on('turbolinks:load', function () {
+  // previewが押された時の処理
+  $('#preview').on('click',function(){
+    // textにtextareaの値を代入
+    var text = $('#md-textarea').val()
+    // テキストが空白だった場合何もしない
+    if (text ==""){
+      return ;
+    }
+    // データをコントローラに受け渡す処理
+    $.ajax({
+      url: '/notes/preview',
+      type: 'GET',
+      dataType: 'json',
+      data: {body: text}
+    })
+    // 成功した時の処理
+    .done(function(data){
+      $('#md-textarea').parent().css('display','none');
+      console.log(data);
+      $('#preview-area').append(data.body);
+      $('#markdown').removeClass('disabled');
+      $('#preview').addClass('disabled');
+    });
+  });
+});
+
+// プレビューを停止し、記述を開始する時の処理
+$(document).on('turbolinks:load', function () {
+  $('#markdown').on('click',function(){
+    $('#md-textarea').parent().css('display','');
+    $('#preview-area').empty();
+    $('#preview').removeClass('disabled');
+    $('#markdown').addClass('disabled');
+  });
+});
+
+// search-------------------------------------
+// 検索方法によってタブを変更する処理
+$(document).on('turbolinks:load', function () {
+  $("#search_select").change(function(){
+    search = $(this).val()
+    if(search !== "tag"){
+      // 表示用の設定を初期化
+      $("#myTab .nav-item").find(".active").attr('aria-selected','false');
+      $("#study_log-tab").removeClass("active");
+      $("#note-tab").removeClass("active");
+      $("#user-tab").removeClass("active");
+      $("#study_log").removeClass("active show");
+      $("#note").removeClass("active show");
+      $("#user").removeClass("active show");
+
+      // 選択されたリストにアクティブをつける
+      if(search === "name"){
+        // tab要素
+        study_log_tab = $("#study_log-tab");
+        study_log_tab.addClass("active");
+        study_log_tab.attr("aria-selected","true");
+        // content
+        $("#study_log").addClass("active show");
+      }else if(search === "note"){
+        console.log("aaaaa");
+        // tab要素
+        note_tab = $("#note-tab");
+        note_tab.addClass("active");
+        note_tab.attr("aria-selected","true");
+        // content
+        $("#note").addClass("active show");
+      };
+    };
+  });
+});
