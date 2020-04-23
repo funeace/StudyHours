@@ -7,7 +7,6 @@
         <span id="study-log-favorite-<%= study_log.id %>" class="favorite-child">
           <%= render 'study_log_favorites/study_log_favorite',study_log: study_log %>                
         </span>
-
         <%= link_to user_path(study_log.user) do %>
           <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "80x80" %>              
         <% end %>

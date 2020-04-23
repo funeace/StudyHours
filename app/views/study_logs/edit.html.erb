@@ -1,46 +1,51 @@
-<div class="container d-flex justify-content-center study-log-edit">
-  <div class="width">
+<div class="container d-flex justify-content-center">
+  <div class="study-log-new-width">    
     <div class="s-card">
-      <%= form_with model: @study_log,local:true do |f|%>
+      <%= form_with model: @study_log, local: true do |f| %> 
         <%= render 'layouts/error_messages', model: @study_log %>
-          <div class="s-header d-flex">
-            <%= attachment_image_tag @study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
-            <div class="ml-3 d-flex flex-column justify-content-center">
-              <h6><%= @study_log.working_date.strftime("%Y年%m月%d日")%></h6>
-              <h6><%= @study_log.user.name %></h6>
-            </div>
-          </div>
-
-          <% @study_log.study_log_details.each do |detail| %>
-            <%= f.fields_for :study_log_details, detail do |ff| %>
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <span class="col-3">学習内容</span>
-                    <%= ff.text_field :tag_list,value: detail.tag_list.join(','), class: "form-control col-6 d-inline-block" %>
-                  <hr>
-                  <span class="col-3">学習時間</span>
-                    <%= ff.select :hour, Array.new(24){|index| index },{},class: "form-control col-3 d-inline-block" %>
-                  <span class="mr-2 ml-1 mt-2">時間</span>
-                    <%= ff.select :min,Array.new(60){|index| index},{},class: "form-control col-3 d-inline-block" %>
-                  <span class="mr-2 ml-1 mt-2">分</span>
-                </li>
+        <div class="s-header">
+          <h5>学習日</h5>
+          <span><%= f.date_field :working_date, value: Date.today, class: "form-control" %></span>
+        </div>
+        <div class="d-flex card-body">
+          <div class="content">
+            <!-- 子要素と親要素を同時に更新するための処理,今後非同期で列の追加等を行う予定であるため、パーシャル化 -->
+            <%= f.fields_for :study_log_details do |detail| %> 
+              <div class="row">      
+                <span class="mt-2">
+                  勉強内容
+                </span>
+                <span class="col-8">
+                  <% @study_log.study_log_details.each do |tag| %>
+                    <%= detail.text_field :tag_list,value: tag.tag_list.join(','),"data-role" => "tagsinput", class:"form-control"%>
+                  <% end %>
+                </span>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="w-100  d-flex align-items-center ">
+                  <h6 class="mt-2">勉強時間</h6>
+                  <div class="width ml-3 mr-1">
+                    <%= detail.select :hour, Array.new(24){|index| index },{},class: "form-control" %>
+                  </div>
+                  <h6 class="margin-right ml-1 mt-2">時間</h6>
+                  <div class="width">
+                    <%= detail.select :min,Array.new(60){|index| index},{},class: "form-control" %>                
+                  </div>
+                  <h6 class="ml-2 mt-2">分</h6>
+                </div>
+              </div>
             <% end %>
-          <% end %>
-          <li class="list-group-item" style="position: relative;">
-            <div class="card-body pt-2">
-              <div class="col-3" style="position: absolute;left:5%;top:2%;">
-                メモ
-              </div>
-              <div class="offset-2 ">
-                <%=f.text_area :memo ,class: "form-control" %>              
-              </div>
-            </div>
-          </li>
-        </ul>
+          </div>
+        </div>
+        <div class="card-body pt-0">
+          <%= f.label :memo,"メモ" %>
+          <%= f.text_area :memo ,class: "form-control" %>
+        </div>
       </div>
-        <%= f.submit "更新する",class: "mt-2 btn btn-primary" %>
-        <%= link_to "削除する",study_log_path(@study_log),method: :delete,class: "btn btn-danger mt-2" %>     
-        <% end %>
+      <div class="mt-2 d-flex justify-content-end">
+        <%= f.submit "登録する",class: "btn btn-primary"%>
       </div>
-    </div>
-
+    <% end %>
+  </div>
+</div>
