@@ -23,7 +23,7 @@
 //= require bootstrap-tagsinput.min
 //= require_tree .
 
-// Admin/Tags #edit
+// Admin/Tags #edit-----------------------------------------------
 // グラフの色をカラーピッカーで選択するための処理
 $(document).on('turbolinks:load', function() {
   if(document.URL.match("/admins/tags") && document.URL.match("/edit")) {
@@ -67,7 +67,7 @@ $(document).on('turbolinks:load', function() {
     };
 });
 
-// Users/edit
+// Users/edit------------------------------------------
 // イメージ画像を設定した時にその場でプレビューを表示する処理
 $(document).on('turbolinks:load', function () {
     // console.log("hoge")
@@ -93,4 +93,44 @@ $(document).on('turbolinks:load', function () {
     readURL(this);
   });
 });
+
+
+  // Note/new・edit -------------------------------------------
+  // ノートのプレビューボタンを押した時にプレビューが表示される処理
+  $(document).on('turbolinks:load', function () {
+    // previewが押された時の処理
+    $('#preview').on('click',function(){
+      // textにtextareaの値を代入
+      var text = $('#md-textarea').val()
+      // テキストが空白だった場合何もしない
+      if (text ==""){
+        return ;
+      }
+      // データをコントローラに受け渡す処理
+      $.ajax({
+        url: '/notes/preview',
+        type: 'GET',
+        dataType: 'json',
+        data: {body: text}
+      })
+      // 成功した時の処理
+      .done(function(data){
+        $('#md-textarea').parent().css('display','none');
+        console.log(data);
+        $('#preview-area').append(data.body);
+        $('#markdown').removeClass('disabled');
+        $('#preview').addClass('disabled');
+      });
+    });
+  });
+
+  // 
+  $(document).on('turbolinks:load', function () {
+    $('#markdown').on('click',function(){
+      $('#md-textarea').parent().css('display','');
+      $('#preview-area').empty();
+      $('#preview').removeClass('disabled');
+      $('#markdown').addClass('disabled');
+    });
+  });
 
