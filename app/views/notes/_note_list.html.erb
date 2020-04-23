@@ -3,16 +3,18 @@
     <div class="card-body">
       <div class="d-flex">
         <%= link_to user_path(note.user) do %>
-          <%= attachment_image_tag note.user, :profile_image, :fill, 70, 70, format: 'jpeg', class: "pull-left list-img", fallback: "no_image.png",size: "70x70" %>
+          <%= attachment_image_tag note.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "pull-left list-img profile-img", fallback: "no_image.png",size: "100x100" %>
         <% end %>
         <div class="d-flex align-items-center">
           <div class="margin-left">
-            <div class="link-position">
+            <div class="link-position  mb-3 mt-2">
               <%= link_to note_path(note) do %>
-                <h6><%= note.created_at.strftime("%Y年%m月%d日") %></h6>
-                <div class="title"><%= note.title %></div>        
+                <div class="title"><%= note.title %></div>
               <% end %>
             </div>
+            <h6 class="text-muted"><%= note.created_at.strftime("%Y年%m月%d日") %><br>
+              <%= note.user.name %>
+            </h6>
           </div>
           <div class="value">
             <i class="far fa-heart mr-2"><%= note.note_favorites.count %></i>

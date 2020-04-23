@@ -65,8 +65,14 @@ class SearchsController < ApplicationController
       @notes = Note.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
       @study_logs = StudyLog.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
     # binding.pry
-    # タグ検索(名前は引かない)
-    elsif(genre =="tag")
+    # ノート検索
+    elsif genre == "note"
+      @users = User.all
+      @study_logs = StudyLog.all
+      @notes = Note.where('title LIKE(?)',"%#{params[:keyword]}%")
+
+    # タグ検索(名前は引かない)      
+    elsif genre =="tag"
       @users = User.all
       @study_logs = []
       # binding.pry

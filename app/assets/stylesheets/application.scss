@@ -39,6 +39,7 @@ $cChat: #99dddd;
 
 body {
     background-color: $bg-color;
+    color: #545454;
 }
 
 a {
@@ -80,7 +81,7 @@ a {
   top:10%;
 }
 
-// ハンバーガーメニュー
+// ハンバーガーアイコン
 
 #hm-icon{
   position: fixed;
@@ -139,12 +140,7 @@ a {
   background-color: #fff;
 }
 
-
-/* ------------------------ */
-/* ------ spメニュー ------ */
-/* ------------------------ */
- 
- 
+// spメニュー 
 #sp-menu {
   position: fixed;
   top: 0;
@@ -177,17 +173,15 @@ a {
   height: 200px;
 }
 
-
 // バッヂの設定
 .badge-tag {
   @extend .badge;
-  font-size:14px;
-  width:100px;
+  font-size:12px;
+  width:80px;
   display:inline-block;
   overflow:hidden;
   text-overflow:ellipsis;
 }
-
 
 .user-edit-image {
   float: left;
@@ -195,7 +189,7 @@ a {
 
 // 学習記録のカード設定
 .s-card {
-  $background: #f0f8ff;
+  $background: #fff0f5;
   @extend .card;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
   border-radius: $s-card-radius;
@@ -398,7 +392,7 @@ a {
   left: 0;
   right: 0;
   text-align: center;
-  top: 50%;
+  top: 48%;
 }
 
 .achievement-inner {
@@ -406,9 +400,8 @@ a {
   left: 0;
   right: 0;
   text-align: center;
-  top: 50%;
+  top: 48%;
 }
-
 
 // チャット機能のレイアウト
 .chat {
