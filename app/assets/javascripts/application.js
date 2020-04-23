@@ -24,7 +24,6 @@
 //= require_tree .
 
 
-
 // ハンバーガーメニューの処理
   $(document).on('turbolinks:load', function () {
     $('.menu-trigger').on('click',function(){

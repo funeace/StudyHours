@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h3>ノート</h3>
+    <h3>ノート編集</h3>
   </div>
   <div class="row">
     <div class="col-12">
@@ -29,7 +29,9 @@
           プレビューする      
         </div>
           <%= f.submit "投稿する",class: "btn btn-success" %>
-          <%= link_to "ノートを削除する",note_path(@note),method: :delete,class: "offset-6"%>
+          <div class="row col-12 mt-3">
+            <%= link_to "ノートを削除する",note_path(@note),method: :delete,class: "btn btn-danger"%>
+          </div>
       <% end %>   
     </div>
   </div>  
