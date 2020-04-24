@@ -5,11 +5,12 @@
         <h6>
           <div class="d-flex mb-3 mt-3">
             <select id="search_select" name="search" class="form-control col-lg-2 col-3">
-              <option value="name">投稿者(ユーザ)</option>
-              <option value="note">ノートタイトル</option>
+              <option value="name">ユーザー名</option>
+              <option value="note">ノートのタイトル</option>
               <option value="tag">タグ</option>
             </select>
-            <input type="form" id="form" class="form-control" placeholder="を入力してください" style="width: 250px;" /></h6>
+            <div class="d-flex align-items-center">で検索</div>
+            <input type="form" id="form" class="form-control ml-5" placeholder="入力してください" style="width: 250px;" /></h6>
           </div>
       </div>
     </div>
@@ -28,21 +29,19 @@
         <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
 
         <div class="btn-group mb-3 study_btn" id="study_sort" role="group">
-          <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいねランキング</button>
-          <button type="button" class="sort btn btn-secondary" id="study_created_sort">作成順</button>
+          <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいね順</button>
+          <button type="button" class="sort btn btn-secondary" id="study_created_sort">投稿順</button>
         </div>
-
         <div id="study-preview" class="row">
-          <%= render 'study_logs/study_log_list', study_logs: @study_logs %>          
+          <%= render 'study_logs/study_log_list', study_logs: @study_logs %>
         </div>
       </div>
 
       <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
         <div class="btn-group mb-3 study_btn" id="note_sort" role="group">
-          <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいねランキング</button>
-          <button type="button" class="sort btn btn-secondary" id="note_posted_sort">作成順</button>
+          <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいね順</button>
+          <button type="button" class="sort btn btn-secondary" id="note_posted_sort">投稿順</button>
         </div>
-
         <div id="note-preview">
           <%= render 'notes/note_list', notes: @notes %>
         </div>
@@ -51,10 +50,10 @@
       <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
         <div class="btn-group mb-3 study_btn" id="user_sort" role="group">
           <button type="button" class="sort btn btn-secondary" id="user_follower_sort">フォロワー数順</button>
-          <button type="button" class="sort btn btn-secondary" id="user_posted_sort">作成順</button>
+          <button type="button" class="sort btn btn-secondary" id="user_posted_sort">登録順</button>
         </div>
         <div id="user-preview">
-          <%= render 'users/user_list', users: @users %>          
+          <%= render 'users/user_list', users: @users %>      
         </div>
       </div>
     </div>
@@ -289,13 +288,19 @@
       })
       // 成功した時の処理
       .done(function(data){
-        console.log(data + "---------");
         if (parent == "study_sort"){
+          console.log("true");
+
           var html = StudyLog_HTML(data.study_logs);
           $('#study-preview').html(html);
+          // 応急処置
+          $('#paginate_study_logs nav').hide();
         }else if(parent == "note_sort"){
           var html = Note_HTML(data.notes);
           $('#note-preview').html(html);
+
+          // 応急処置
+          $('#paginate_notes nav').hide();
         }else if(parent == "user_sort"){
           var html = UserHTML(data.users);
           $('#user-preview').html(html);

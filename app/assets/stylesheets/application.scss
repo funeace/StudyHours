@@ -219,6 +219,9 @@ a {
     &:last-child {
       border-radius: 0 0 1rem 1rem;
     }
+    & .s-card-footer-margin{
+      margin-left: auto;
+    }
   }
 }
 

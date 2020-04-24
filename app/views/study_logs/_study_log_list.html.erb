@@ -2,11 +2,7 @@
 <% study_logs.each do |study_log| %>
   <div class="col-xl-4 col-lg-6 col-md-12 mb-2">
     <div class="s-card h-100 study-log-list">
-      <div class="s-header d-flex favorite-parent">
-        <!-- いいね機能の処理 -->
-        <span id="study-log-favorite-<%= study_log.id %>" class="favorite-child">
-          <%= render 'study_log_favorites/study_log_favorite',study_log: study_log %>                
-        </span>
+      <div class="s-header d-flex">
         <%= link_to user_path(study_log.user) do %>
           <%= attachment_image_tag study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "80x80" %>              
         <% end %>
@@ -42,8 +38,12 @@
           </div>
         </li>
       </ul>
-      <div class="s-card-footer text-right">
-          <span class="ml-2 mr-2"><%= link_to "詳細へ",study_log_path(study_log) %></span>
+      <div class="s-card-footer d-flex">
+        <!-- いいね機能の処理 -->
+        <span id="study-log-favorite-<%= study_log.id %>">
+          <%= render 'study_log_favorites/study_log_favorite',study_log: study_log %>                
+        </span>
+        <span class="s-card-footer-margin"><%= link_to "詳細へ",study_log_path(study_log) %></span>
       </div>
     </div>
   </div>

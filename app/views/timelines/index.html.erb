@@ -14,18 +14,91 @@
         </li>
       </ul>
       <div id="myTabContent" class="tab-content mt-3">
+        <!-- ユーザのプロフィールを表示するための処理 -->
         <div id="profile" class="tab-pane fade active show" role="tabpanel" aria-labelledby="profile-tab">
           <%= render 'users/profile',user: current_user %>
-        </div>        
+        </div>
+
+        <!-- 学習記録を表示するための処理 -->
         <div id="study_log" class="tab-pane fade" role="tabpanel" aria-labelledby="study_log-tab">
-          <div class="row">
-            <%= render 'study_logs/study_log_list', study_logs: @study_logs,user: current_user %>  
+          <div id="study-preview" class="row">
+            <%= render 'study_logs/study_log_list', study_logs: @study_logs,user: current_user %> 
+            <div id="paginate_study_logs" class="col-12 d-flex justify-content-center mt-3">
+              <%= paginate @study_logs, :param_name =>"study_log_page",params: {tab_code: 1} %>
+            </div>
           </div>
         </div>
+
+        <!-- ノートを表示するための処理 -->
         <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
-          <%= render 'notes/note_list', notes: @notes %>              
+          <div id="note-preview">
+            <%= render 'notes/note_list', notes: @notes %>
+            <div id="paginate_notes" class="d-flex justify-content-center mt-3">
+              <%= paginate @notes,:param_name =>"note_page",params: {tab_code: 2} %>  
+            </div>
+          </div>
         </div>
       </div>
     </div>    
   </div>
 </div>
+
+<script>
+//kaminariでページネーションを行った時に、遷移前の状態が学習記録なら学習記録を、ノートならノートを開く処理
+  // 画面の読み込み後に発火
+  $(window).on('turbolinks:load', function () {
+    if(document.URL.match("/timelines")) {
+      // location.searchで画面のsearch?以下を取得
+      var getLocation = location.search;
+      // 取得したパラメータを格納しておくobjectを定義
+      var getParams = new Object();
+      console.log(getParams)
+
+      // searchが存在するときに発火
+      if(getLocation){
+        getLocation = getLocation.substring(1);
+        // 取得したパラメータを&で区切る
+        var parameters = getLocation.split('&');
+        // 取得したパラメータをeach文で１件ずつ確認
+        parameters.forEach(function(param){
+          var element = param.split('=');
+          var paramName = decodeURIComponent(element[0]);
+          var paramGenre = decodeURIComponent(element[1]);
+          getParams[paramName] = paramGenre;
+        });
+        // searchに画面から取得してきたsearch_idを格納
+        if( getParams["tab_code"].length){
+          genre = getParams["tab_code"];
+          $("#myTab .nav-item").find(".active").attr('aria-selected','false');
+          $("#study_log-tab").removeClass("active");
+          $("#note-tab").removeClass("active");
+          $("#profile-tab").removeClass("active");
+          $("#study_log").removeClass("active show");
+          $("#note").removeClass("active show");
+          $("#profile").removeClass("active show");
+
+          $("#search_select").val("tag");
+          $("#form").val(getParams["tag_name"]);
+          // study_logだったらsearch_id = 1
+          if( genre == 1 ){
+            // 以下クラスの処理
+            // tab
+            study_log_tab = $("#study_log-tab");
+            study_log_tab.addClass("active");
+            study_log_tab.attr("aria-selected","true");
+
+            // content
+            $("#study_log").addClass("active show");
+          }else if( genre == 2 ){
+            // tab
+            note_tab = $("#note-tab");
+            note_tab.addClass("active");
+            note_tab.attr("aria-selected","true");
+            // content          
+            $("#note").addClass("active show");
+          };
+        };
+      };
+    };
+  });
+</script>

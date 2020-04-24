@@ -3,7 +3,7 @@
     <h6>まだ週の目標が登録されていません。
       <%= link_to "登録はこちら",edit_user_path(user) %>
     </h6>
-  <% elsif user.goal_hour == 0 && user.goal_minute == 0 %>
+  <% elsif current_user.id != @user.id && user.goal_hour == 0 && user.goal_minute == 0 %>
     <h6><%= user.name %>さんはまだ週の目標を登録していません。</h6>
   <% else %>
     <div class="row">

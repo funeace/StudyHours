@@ -6,14 +6,14 @@ class SearchsController < ApplicationController
     case @search_id
       when nil
         @users = User.all.order(id: "DESC")
-        @notes = Note.all.order(id: "DESC")
-        @study_logs = StudyLog.all.order(id: "DESC")
+        @notes = Note.all.order(id: "DESC").page(params[:note_page])
+        @study_logs = StudyLog.all.order(id: "DESC").page(params[:study_log_page])
       when "1"
         @users = User.all.order(id: "DESC")
-        @notes = Note.tagged_with(@tag_name)
+        @notes = Note.tagged_with(@tag_name).page(params[:note_page])
         @study_logs = []
         StudyLogDetail.tagged_with(@tag_name).each do |detail|
-          @study_logs.push(detail.study_log)
+          @study_logs.push(detail.study_log).page(params[:study_log_page])
         end
       end
     # binding.pry
