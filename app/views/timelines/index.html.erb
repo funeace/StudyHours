@@ -23,7 +23,7 @@
         <div id="study_log" class="tab-pane fade" role="tabpanel" aria-labelledby="study_log-tab">
           <div id="study-preview" class="row">
             <%= render 'study_logs/study_log_list', study_logs: @study_logs,user: current_user %> 
-            <div id="paginate_study_logs" class="col-12 d-flex justify-content-center mt-3">
+            <div id="paginate_study_logs" class="col-12 d-flex justify-content-end mt-3">
               <%= paginate @study_logs, :param_name =>"study_log_page",params: {tab_code: 1} %>
             </div>
           </div>
@@ -33,7 +33,7 @@
         <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
           <div id="note-preview">
             <%= render 'notes/note_list', notes: @notes %>
-            <div id="paginate_notes" class="d-flex justify-content-center mt-3">
+            <div id="paginate_notes" class="d-flex justify-content-end mt-3">
               <%= paginate @notes,:param_name =>"note_page",params: {tab_code: 2} %>  
             </div>
           </div>
