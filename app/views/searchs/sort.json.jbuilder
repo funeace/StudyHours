@@ -59,4 +59,14 @@ json.users @users do |user|
   json.profile_image Refile.attachment_url(user, :profile_image)
   json.name user.name
   json.introduction user.introduction
+  json.relationships user.relationships do |relation|
+    json.user_id relation.user_id
+    json.follow_id relation.follow_id
+  end
+  json.reverse_of_relationships user.reverse_of_relationships do |relation|
+    json.user_id relation.user_id
+    json.follow_id relation.follow_id
+  end
+
+
 end

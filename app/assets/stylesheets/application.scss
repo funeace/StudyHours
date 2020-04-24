@@ -30,6 +30,9 @@ $cNote-bg-color: #f0ffff;
 $cNote-border-color: #9be3de;
 $cUser-border-color: #9400d3;
 $cChat: #99dddd;
+$menu-trigger: #F0FFFF;
+$profile-img-border: #F0F8FF;
+$profile-img-background-color: white;
 
 * {
   margin: 0;
@@ -47,6 +50,15 @@ a {
   color: $a-color;
   :visited {
     color: $a-visited-color;
+  }
+}
+
+// top画面の設定
+.top-bar {
+  height:8vh;
+  background-color:#3cb371;
+  & a{
+    color: #F0FFFF;
   }
 }
 
@@ -81,6 +93,8 @@ a {
 // profile画像の設定--------------------------------
 .profile-img {
   border-radius: 100%;
+  border: solid 2px $profile-img-border;
+  background-color: $profile-img-background-color;
 }
 
 // ハンバーガーアイコンの設定---------------------
@@ -109,7 +123,7 @@ a {
   left: 0;
   width: 100%;
   height: 4px;
-  background-color: #000;
+  background-color: $menu-trigger;
   border-radius: 4px;
 }
  
@@ -348,6 +362,9 @@ a {
       top:3%;
       right:5%
     }
+  }
+  & .study-log-list-tag {
+    height:13vh;
   }
 }
 
