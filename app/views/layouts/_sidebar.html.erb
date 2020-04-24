@@ -1,7 +1,9 @@
 <!-- サイドバー -->
 <div class="col-lg-3 col-md-12 card h-100 timeline-sidebar mb-3">
   <div class="d-flex justify-content-center mt-3 mb-2">
-    <%= attachment_image_tag user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>   
+    <%= link_to user_path(user) do %>
+      <%= attachment_image_tag user, :profile_image, :fill, 150, 150, class: "pull-left profile-img", fallback: "no_image.png",size: "150x150" %>
+    <% end %>
   </div>
   <table class="table">
     <tbody>

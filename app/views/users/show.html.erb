@@ -14,16 +14,16 @@
         </li>
       </ul>
       <div id="myTabContent" class="tab-content mt-3">
-        <div id="study_log" class="tab-pane fade show" role="tabpanel" aria-labelledby="study_log-tab">
+        <div id="profile" class="tab-pane  show active fade" role="tabpanel" aria-labelledby="profile-tab">
+          <%= render 'users/profile',user: @user %>
+        </div>
+        <div id="study_log" class="tab-pane fade" role="tabpanel" aria-labelledby="study_log-tab">
           <div class="row">
             <%= render 'study_logs/study_log_list', study_logs: @study_logs,user: @user %>            
           </div>
         </div>
         <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
           <%= render 'notes/note_list', notes: @notes %>              
-        </div>
-        <div id="profile" class="tab-pane active fade" role="tabpanel" aria-labelledby="profile-tab">
-          <%= render 'users/profile',user: @user %>
         </div>
       </div>
     </div>    

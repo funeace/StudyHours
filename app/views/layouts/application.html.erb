@@ -18,7 +18,7 @@
           <% if user_signed_in? %>
             <li class="nav-item">
               <%= link_to timelines_path,class: "nav-link",data: {"turbolinks" => false}  do%>
-                <i class="fas fa-home"> マイページ</i>
+                <i class="fas fa-home"> タイムライン</i>
               <% end %>
             </li>
             <li class="nav-item notification-relative">
@@ -36,17 +36,17 @@
             </li>
             <li class="nav-item"> 
               <%= link_to new_study_log_path,class: "nav-link",data: {"turbolinks" => false} do %>
-                <i class="fas fa-sign-in-alt">学習記録を書く</i>     
+                <i class="fas fa-sign-in-alt">学習記録</i>     
               <% end %>           
             </li>
             <li class="nav-item">
               <%= link_to new_note_path,class: "nav-link",data: {"turbolinks" => false} do %>
-                <i class="fas fa-book"> ノートを書く</i>
+                <i class="fas fa-book"> ノート</i>
               <% end %>
             </li>
             <li class="nav-item">
               <%= link_to rooms_path ,class: "nav-link" do %>
-                <i class="fas fa-comment-dots"> チャットする</i>
+                <i class="fas fa-comment-dots"> チャット</i>
               <% end %>
             </li>
             <li class="nav-item">
