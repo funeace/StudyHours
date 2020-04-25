@@ -4,8 +4,8 @@ class SearchsController < ApplicationController
   def index
     @search_id = params[:search_id]
     @tag_name = params[:tag_name]
-    @study_logs_length = StudyLog.all.size
-    @note_length = StudyLog.all.size
+    @study_log_length = StudyLog.all.size
+    @note_length = Note.all.size
     @user_length = User.all.size
     case @search_id
     when nil
@@ -13,11 +13,11 @@ class SearchsController < ApplicationController
       @notes = Note.all.includes([:user,:note_comments,:note_favorites,:tags]).order(id: "DESC").limit(LIMIT)
       @study_logs = StudyLog.all.includes([:user,:study_log_favorites,:study_log_details,:tags]).order(id: "DESC").limit(LIMIT)
     when "1"
-      @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT)
-      @notes = Note.tagged_with(@tag_name).limit(LIMIT)
+      @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC")
+      @notes = Note.tagged_with(@tag_name)
       @study_logs = []
       StudyLogDetail.tagged_with(@tag_name).each do |detail|
-        @study_logs.push(detail.study_log).limit(LIMIT)
+        @study_logs.push(detail.study_log)
       end
     end
   end
@@ -48,7 +48,6 @@ class SearchsController < ApplicationController
       # ノート通常時
       when "note_default" then
         @notes = Note.all.includes([:user,:note_comments,:note_favorites,:tags]).order(id:"DESC").limit(LIMIT).offset(offset)
-
       # ノートお気に入り順
       when "note_favorite_sort" then
         @notes = Note.all.includes([:user,:note_comments,:tags]).left_joins(:note_favorites).group(:id).select('notes.*,COUNT("note_favorites"."id") AS note_count').order(note_count: "DESC").limit(LIMIT).offset(offset)
@@ -58,7 +57,6 @@ class SearchsController < ApplicationController
       # ユーザ通常時
       when "user_default" then
         @users =  User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT).offset(offset)
-
       # フォロワー数
       when "user_follower_sort" then
         @users = User.all.includes([:relationships]).left_joins(:reverse_of_relationships).group(:id).select('users.*,COUNT("relationships"."id") AS follower_count').order(follower_count: "DESC").limit(LIMIT).offset(offset)
@@ -68,24 +66,21 @@ class SearchsController < ApplicationController
       end
     else
       if genre == "name"
-        @users = User.where('name LIKE(?)',"%#{params[:keyword]}%")
-        @notes = Note.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
-        @study_logs = StudyLog.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
-        # binding.pry
+        @users = User.where('name LIKE(?)',"%#{params[:keyword]}%").limit(LIMIT).offset(offset)
+        @notes = Note.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%")).limit(LIMIT).offset(offset)
+        @study_logs = StudyLog.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%")).limit(LIMIT).offset(offset)
         # ノート検索
       elsif genre == "note"
-        @users = User.all.includes([:relationships,:reverse_of_relationships])
-        @study_logs = StudyLog.all.includes([:user,:study_log_favorites,:study_log_details,:tags])
-        @notes = Note.where('title LIKE(?)',"%#{params[:keyword]}%")
+        @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT).offset(offset)
+        @notes = Note.where('title LIKE(?)',"%#{params[:keyword]}%").limit(LIMIT).offset(offset)
       # タグ検索(名前は引かない)
       elsif genre =="tag"
-        @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT)
         @study_logs = []
         # binding.pry
         StudyLogDetail.tagged_with(params[:keyword]).each do |detail|
           @study_logs.push(detail.study_log)
         end
-        @notes = Note.tagged_with(params[:keyword])
+        @notes = Note.tagged_with(params[:keyword]).limit(LIMIT).offset(offset)
       end
     end
     respond_to do |format|
@@ -135,25 +130,38 @@ class SearchsController < ApplicationController
     # 名前検索
     @user = current_user
     if genre == "name"
-      @users = User.where('name LIKE(?)',"%#{params[:keyword]}%")
-      @notes = Note.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
-      @study_logs = StudyLog.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%"))
-    # binding.pry
+      # 検索結果から、lengthを取得
+      @user_length = User.where('name LIKE(?)',"%#{params[:keyword]}%").size
+      @note_length = Note.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%")).size
+      @study_log_length = StudyLog.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%")).size
+
+      @users = User.where('name LIKE(?)',"%#{params[:keyword]}%").limit(LIMIT)
+      @notes = Note.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%")).limit(LIMIT)
+      @study_logs = StudyLog.joins(:user).where(user_id: User.where('name LIKE(?)',"%#{params[:keyword]}%")).limit(LIMIT)
     # ノート検索
     elsif genre == "note"
-      @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT)
-      @study_logs = StudyLog.all.includes([:user,:study_log_favorites,:study_log_details,:tags]).order(id: "DESC")
-      @notes = Note.where('title LIKE(?)',"%#{params[:keyword]}%")
+      # 検索結果から、lengthを取得
+      @user_length = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").size
+      @study_log_length = StudyLog.all.includes([:user,:study_log_favorites,:study_log_details,:tags]).order(id: "DESC").size
+      @note_length = Note.where('title LIKE(?)',"%#{params[:keyword]}%").size
+
+      @user_length = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT)
+      @study_log_length = StudyLog.all.includes([:user,:study_log_favorites,:study_log_details,:tags]).order(id: "DESC").limit(LIMIT)
+      @note_length = Note.where('title LIKE(?)',"%#{params[:keyword]}%").limit(LIMIT)
 
     # タグ検索(名前は引かない)
     elsif genre =="tag"
-      @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC")
+      @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT)
       @study_logs = []
       # binding.pry
       StudyLogDetail.tagged_with(params[:keyword]).each do |detail|
         @study_logs.push(detail.study_log)
       end
-      @notes = Note.tagged_with(params[:keyword])
+      @notes = Note.tagged_with(params[:keyword]).limit(LIMIT)
+      # 検索結果から、lengthを取得
+      @user_log_length = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").size
+      @study_log_length = @study_logs.size
+      @note_length = Note.tagged_with(params[:keyword]).size
     end
     # タグ検索
     respond_to do |format|
