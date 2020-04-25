@@ -17,12 +17,12 @@
             </h6>
           </div>
           <div class="value">
-            <i class="far fa-heart mr-2"><%= note.note_favorites.count %></i>
-            <i class="far fa-comment"><%= note.note_comments.count %></i>        
+            <i class="far fa-thumbs-up"> <%= note.note_favorites.count %></i>
+            <i class="far fa-comment"> <%= note.note_comments.count %></i>        
           </div>
           <div class="badge-position">
             <% note.tag_list.each do |tag| %>
-              <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge-success p-1 badge-tag tag-list" %>
+              <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 2),class: "badge-success p-1 badge-tag tag-list" %>
             <% end %>
           </div>
         </div>

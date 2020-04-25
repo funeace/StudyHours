@@ -145,11 +145,11 @@ $(document).on('turbolinks:load', function () {
 });
 
 // search-------------------------------------
-// 検索方法によってタブを変更する処理
+// 検索方法がノートのタイトルだった場合にタブを自動的に変更する処理
 $(document).on('turbolinks:load', function () {
   $("#search_select").change(function(){
     search = $(this).val()
-    if(search !== "tag"){
+    if(search === "note"){
       // 表示用の設定を初期化
       $("#myTab .nav-item").find(".active").attr('aria-selected','false');
       $("#study_log-tab").removeClass("active");
@@ -158,24 +158,68 @@ $(document).on('turbolinks:load', function () {
       $("#study_log").removeClass("active show");
       $("#note").removeClass("active show");
       $("#user").removeClass("active show");
-
-      // 選択されたリストにアクティブをつける
-      if(search === "name"){
-        // tab要素
-        study_log_tab = $("#study_log-tab");
-        study_log_tab.addClass("active");
-        study_log_tab.attr("aria-selected","true");
-        // content
-        $("#study_log").addClass("active show");
-      }else if(search === "note"){
-        console.log("aaaaa");
-        // tab要素
-        note_tab = $("#note-tab");
-        note_tab.addClass("active");
-        note_tab.attr("aria-selected","true");
-        // content
-        $("#note").addClass("active show");
-      };
+      console.log("aaaaa");
+      // tab要素
+      note_tab = $("#note-tab");
+      note_tab.addClass("active");
+      note_tab.attr("aria-selected","true");
+      // content
+      $("#note").addClass("active show");
     };
   });
+});
+
+// //タグ検索時にノートだったらノートのタグを、学習記録だったら学習記録のタグを開く処理
+//   // 画面の読み込み後に発火
+$(window).on('turbolinks:load', function () {
+  if(document.URL.match("/searchs")) {
+    // location.searchで画面のsearch?以下を取得
+    var getLocation = location.search;
+    // 取得したパラメータを格納しておくobjectを定義
+    var getParams = new Object();
+    // searchが存在するときに発火
+    if(getLocation){
+      getLocation = getLocation.substring(1);
+      // 取得したパラメータを&で区切る
+      var parameters = getLocation.split('&');
+      // 取得したパラメータをeach文で１件ずつ確認
+      parameters.forEach(function(param){
+        var element = param.split('=');
+        var paramName = decodeURIComponent(element[0]);
+        var paramGenre = decodeURIComponent(element[1]);
+        getParams[paramName] = paramGenre;
+      });
+      // searchに画面から取得してきたgenre_idを格納
+      if( getParams["genre_id"].length){
+        genre = getParams["genre_id"];
+        $("#myTab .nav-item").find(".active").attr('aria-selected','false');
+        $("#study_log-tab").removeClass("active");
+        $("#note-tab").removeClass("active");
+        $("#user-tab").removeClass("active");
+        $("#study_log").removeClass("active show");
+        $("#note").removeClass("active show");
+        $("#user").removeClass("active show");
+
+        $("#search_select").val("tag");
+        $("#form").val(getParams["tag_name"]);
+        // study_logだったらsearch_id = 1
+        if( genre == 1 ){
+          // 以下クラスの処理
+          // tab
+          study_log_tab = $("#study_log-tab");
+          study_log_tab.addClass("active");
+          study_log_tab.attr("aria-selected","true");
+          // content
+          $("#study_log").addClass("active show");
+        }else if( genre == 2 ){
+          // tab
+          note_tab = $("#note-tab");
+          note_tab.addClass("active");
+          note_tab.attr("aria-selected","true");
+          // content          
+          $("#note").addClass("active show");
+        };
+      };
+    };
+  };
 });

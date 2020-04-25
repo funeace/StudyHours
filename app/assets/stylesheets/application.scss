@@ -30,6 +30,10 @@ $cNote-bg-color: #f0ffff;
 $cNote-border-color: #9be3de;
 $cUser-border-color: #9400d3;
 $cChat: #99dddd;
+$menu-trigger: #F0FFFF;
+$profile-img-border: #F0F8FF;
+$profile-img-background-color: white;
+$footer-bgcolor: #996633;
 
 * {
   margin: 0;
@@ -47,6 +51,26 @@ a {
   color: $a-color;
   :visited {
     color: $a-visited-color;
+  }
+}
+
+footer {
+  color: white;
+  display: block;
+  background-color: $footer-bgcolor;
+  margin-top: auto;
+}
+
+.navbar-symbol {
+  font-size: 2em;
+}
+
+// top画面の設定
+.top-bar {
+  height:8vh;
+  background-color:#3cb371;
+  & a{
+    color: #F0FFFF;
   }
 }
 
@@ -81,6 +105,8 @@ a {
 // profile画像の設定--------------------------------
 .profile-img {
   border-radius: 100%;
+  border: solid 2px $profile-img-border;
+  background-color: $profile-img-background-color;
 }
 
 // ハンバーガーアイコンの設定---------------------
@@ -109,7 +135,7 @@ a {
   left: 0;
   width: 100%;
   height: 4px;
-  background-color: #000;
+  background-color: $menu-trigger;
   border-radius: 4px;
 }
  
@@ -180,12 +206,16 @@ a {
 // top画面の設定--------------------
 .top-bg {
   background-color: $top-bg-color;
-  height: 200px;
+  height: 330px;
+}
+
+.top-bg-can {
+  background-color: $top-bg-color;
 }
 
 // 学習記録のカード設定-----------------------------------------
 .s-card {
-  $background: #fff0f5;
+  $background: #B2D235;
   $background-footer: #fffacd;
   @extend .card;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
@@ -218,6 +248,9 @@ a {
     background-color: $background-footer;
     &:last-child {
       border-radius: 0 0 1rem 1rem;
+    }
+    & .s-card-footer-margin{
+      margin-left: auto;
     }
   }
 }
@@ -345,6 +378,9 @@ a {
       top:3%;
       right:5%
     }
+  }
+  & .study-log-list-tag {
+    height:13vh;
   }
 }
 
@@ -526,6 +562,12 @@ a {
   #hm-icon {
     display: inherit
   }
+
+  .top-bg {
+    background-color: $top-bg-color;
+    height: 660px;
+  }
+
 
   .study-log-show {
     & .width {

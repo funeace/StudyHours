@@ -2,17 +2,18 @@
   <div class="row">
     <div class="col-12">
       <div id="#study_input" class="form-group mb-3">
-        <h6>
-          <div class="d-flex mb-3 mt-3">
-            <select id="search_select" name="search" class="form-control col-lg-2 col-3">
-              <option value="name">投稿者(ユーザ)</option>
-              <option value="note">ノートタイトル</option>
-              <option value="tag">タグ</option>
-            </select>
-            <input type="form" id="form" class="form-control" placeholder="を入力してください" style="width: 250px;" /></h6>
-          </div>
+        <div class="d-flex mb-3 mt-3">
+          <select id="search_select" name="search" class="form-control col-lg-2 col-6">
+            <option value="name">ユーザー名</option>
+            <option value="note">ノートのタイトル</option>
+            <option value="tag">タグ</option>
+          </select>
+          <div class="d-flex align-items-center">で検索</div>
+        </div>
+          <input type="form" id="form" class="d-flex mb-3 form-control" placeholder="キーワードを入力してください" style="width: 250px;" />
       </div>
     </div>
+  </div>
       <ul id="myTab" class="nav nav-tabs" role="tablist">
         <li class="nav-item">
           <a href="#study_log" id="study_log-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">積み上げ</a>
@@ -28,21 +29,19 @@
         <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
 
         <div class="btn-group mb-3 study_btn" id="study_sort" role="group">
-          <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいねランキング</button>
-          <button type="button" class="sort btn btn-secondary" id="study_created_sort">作成順</button>
+          <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいね順</button>
+          <button type="button" class="sort btn btn-secondary" id="study_created_sort">投稿順</button>
         </div>
-
         <div id="study-preview" class="row">
-          <%= render 'study_logs/study_log_list', study_logs: @study_logs %>          
+          <%= render 'study_logs/study_log_list', study_logs: @study_logs %>
         </div>
       </div>
 
       <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
         <div class="btn-group mb-3 study_btn" id="note_sort" role="group">
-          <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいねランキング</button>
-          <button type="button" class="sort btn btn-secondary" id="note_posted_sort">作成順</button>
+          <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいね順</button>
+          <button type="button" class="sort btn btn-secondary" id="note_posted_sort">投稿順</button>
         </div>
-
         <div id="note-preview">
           <%= render 'notes/note_list', notes: @notes %>
         </div>
@@ -51,10 +50,10 @@
       <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
         <div class="btn-group mb-3 study_btn" id="user_sort" role="group">
           <button type="button" class="sort btn btn-secondary" id="user_follower_sort">フォロワー数順</button>
-          <button type="button" class="sort btn btn-secondary" id="user_posted_sort">作成順</button>
+          <button type="button" class="sort btn btn-secondary" id="user_posted_sort">登録順</button>
         </div>
         <div id="user-preview">
-          <%= render 'users/user_list', users: @users %>          
+          <%= render 'users/user_list', users: @users %>      
         </div>
       </div>
     </div>
@@ -88,15 +87,13 @@
           if (study_log_favorite.user_id === study_log.current_user_id){
             study_log_own_favorite = true;
           }
-          // console.log(study_log_own_favorite + "study_own-------");
-
       });
         // いいねの処理(分岐)
         if(study_log_own_favorite == true){
-          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="delete" href="/study_logs/${study_log.id}/study_log_favorites"><i class="fas fa-heart">${study_log_favorites}</i></a>`
+          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="delete" href="/study_logs/${study_log.id}/study_log_favorites"><i class="fas fa-thumbs-up">${study_log_favorites}</i></a>`
         }else{
-          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="post" href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-heart">${study_log_favorites}</i></a>`
-
+          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="post" 
+          href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-thumbs-up">${study_log_favorites}</i></a>`
         };
 
         // 勉強詳細時間の処理
@@ -104,62 +101,59 @@
           let study_log_detail_tags = '';
           // タグのHTMLを形成
           study_log_detail.tags.forEach(function(tags,index_tag){
-            study_log_detail_tags += `<span class="badge badge-primary p-2">
-                                        ${study_log_detail.tags[index_tag].tag}
-                                      </span>`
+            study_log_detail_tags += `<a class="badge-success p-1 mr-1 badge-tag" href="/searchs?genre_id=1&amp;search_id=1&amp;tag_name=${study_log_detail.tags[index_tag].tag}">${study_log_detail.tags[index_tag].tag}</a>`
           });
+
           // 学習内容詳細のHTMLを形成
-            study_log_detail_html = `<li class="list-group-item">
-                                      <span class="col-3">学習内容</span>
-                                      <span class="col-9">${study_log_detail_tags}</span>
-                                    </li>
-                                    <li class="list-group-item">
-                                      <span class="col-3">学習時間</span>
-                                      <span class="col-9">${study_log_detail.hour}時間${study_log_detail.min}分</span> 
-                                    </li>`
-        });
+          study_log_detail_html = `<li class="list-group-item study-log-list-tag">
+                                    <div class="col-12">
+                                      <div>学習内容</div>
+                                    </div>
+                                    <div class="col-12">
+                                      ${study_log_detail_tags}
+                                    </div>
+                                   </li>
+                                  <li class="list-group-item">
+                                    <span class="col-3">学習時間</span>
+                                    <span class="col-9">${study_log_detail.hour}時間${study_log_detail.min}分</span> 
+                                  </li>`
+          });
+
         // プロフィール画像が設定されているか確認
         if(study_log.user.profile_image == null){
-         study_log_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style="width: 80px; height="80px;">`
+         study_log_image = `<a href="/users/${study_log.user.id}"><img class="attachment user profile_image pull-left profile-img" src="/assets/no_image.png" style="width: 80px; height="80px;"></a>`
         } else {
-          study_log_image =`<img class="attachment user profile_image pull-left profile-img" src="${study_log.user.profile_image}"style="width: 80px; height: 80px;">`
+          study_log_image =`<a href="/users/${study_log.user.id}"><img class="attachment user profile_image pull-left profile-img" src="${study_log.user.profile_image}"style="width: 80px; height: 80px;"></a>`
         }
 
         // htmlを生成
-          study_log_html += `<div class="col-4 mb-2">
-                              <div class="card h-100">
-                                <div class="card-header">
-                                  <div>
-                                    ${study_log.working_date}
-                                  </div>
-                                  <div>
-                                    ${study_log_image}
-                                    <span class="ml-1">
-                                      ${study_log.user.name}
-                                    </span>
+          study_log_html += `
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-2">
+                               <div class="s-card h-100 study-log-list">
+                                <div class="s-header d-flex">
+                                  ${study_log_image}
+                                  <div class="ml-3 d-flex flex-column justify-content-center">
+                                    <h6>${study_log.working_date}</h6>
+                                    <h6>${study_log.user.name}</h6>
                                   </div>
                                 </div>
                                 <ul class="list-group">
                                   ${study_log_detail_html}
-                                  <li class="list-group" style="height: 20vh;">
+                                  <li class="list-group-item s-card-memo">
                                     <div class="card-body pt-2">
-                                    <div class="memo">
-                                        <span class="col-3">メモ</span>
-                                    </div>
+                                    <span class="absolute">学習メモ</span>
                                     <div class="mt-2 col-12">
                                         ${study_log.memo}
                                     </div>
                                   </div>
                                 </li>
                               </ul>
-                              <div class="memo-detail-relative mt-3">
-                                <div class="card-footer">
-                                  <!-- いいね機能の処理 -->
-                                  <span id="study-log-favorite-${study_log.id}">
-                                    ${study_log_favorite_html}
-                                  </span>
-                                  <span class="ml-2 mr-2"><a href="/study_logs/${study_log.id}">詳細へ</a></span>
-                                </div>
+                              <div class="s-card-footer d-flex">
+                                <!-- いいね機能の処理 -->
+                                <span id="study-log-favorite-${study_log.id}">
+                                  ${study_log_favorite_html}
+                                </span>
+                                <span class="s-card-footer-margin"><a href="/study_logs/${study_log.id}">詳細へ</a></span>
                               </div>
                             </div>
                           </div>`
@@ -174,6 +168,7 @@
       var note_comments_count = 0;
       var note_favorites_count = 0;
       var note_img = '';
+      var note_tags = '';
 
       // １件ずつデータを受け取り、HTMLを形成
       note.forEach(function(note){
@@ -186,45 +181,46 @@
         note.note_comments.forEach(function(note_comment){
           note_comments_count += 1;
         });
-        note.tags.forEach(function(tag){
-          // 未実装　今後追加
+
+        note_tags = '';
+        note.tags.forEach(function(tags,index_tag){
+          note_tags += `<a class="badge-success p-1 mr-1 badge-tag" href="/searchs?genre_id=2&amp;search_id=1&amp;tag_name=${note.tags[index_tag].tag}">${note.tags[index_tag].tag}</a>`
         });
 
         // ユーザ画像が登録されているか確認
         if(note.user.profile_image == null){
-         note_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style="width: 100px; height: 100px;">`
+         note_image = `<a href="/users/${note.user.id}"><img class="attachment user profile_image pull-left list-img profile-img" src="/assets/no_image.png" style="width: 100px; height: 100px;"></a>`
         } else {
-          note_image =`<img class="attachment user profile_image pull-left profile-img" src="${note.user.profile_image}" style= "width: 100px; ,height: 100px;">`
+          note_image =`<a href="/users/${note.user.id}"><img class="attachment user profile_image pull-left list-img profile-img" src="${note.user.profile_image}" style= "width: 100px; height: 100px;"></a>`
         };
 
         // ノートのhtmlを作成
-        note_html +=  ` <div class="card mt-2">
-                          <div class="card-header d-flex justify-content-end">
-                            <div class="col-3 notes-disp-left">
-                              ${note.created_at}
-                            </div>
-                            <div class="col-2">
-                              ${note_favorites_count}いいね
-                            </div>
-                            <div class="col-2">
-                              ${note_comments_count}コメント
-                            </div>
-                          </div>
-                          <div class="card-body d-flex justify-content-start">
-                            <div class="col-2">
+        note_html +=  ` 
+                        <div class="note-card mt-2" >
+                          <div class="card-body">
+                            <div class="d-flex">
                               ${note_image}
-                            </div>
-                            <div class="col-10">
-                              <h4>${note.title}</h4>
-                              ${note.body}
-                              <div class="text-right">
-                                <a class="btn btn-primary" href="/notes/${note.id}">記事を見る</a>
+                            <div class="d-flex align-items-center">
+                              <div class="margin-left">
+                                <div class="link-position  mb-3 mt-2">
+                                  <a href="notes/${note.id}">
+                                   <div class="title">${note.title}</div>
+                                  </a>
+                                </div>
+                                <h6 class="text-muted">${note.created_at}<br>${note.user.name}</h6>
                               </div>
-                            <div class="text-right">
+                              <div class="value">
+                                <i class="far fa-thumbs-up"> ${note_favorites_count}</i>
+                                <i class="far fa-comment"> ${note_comments_count}</i>
+                              </div>
+                              <div class="badge-position">
+                                ${note_tags}
+                              </div>
                             </div>
                           </div>
                         </div>
-                        </div>  `
+                      </div>
+                    `
     });
     return note_html;
     }
@@ -234,34 +230,49 @@
       var html = '';
       var user_html = '';
       var user_image = '';
+      var follow_count = 0;
+      var follower_count = 0;
+        
       // １件ずつデータを受け取りHTMLを形成する
       user.forEach(function(user){
 
         // ユーザ画像が登録されているか確認
         if(user.profile_image == null){
-         user_image = `<img class="attachment user profile_image pull-left profile-img fallback" src="/assets/no_image.png" style= "width: 100px; ,height: 100px;">`
+         user_image = `<img class="attachment user profile_image pull-left profile-img" src="/assets/no_image.png" style= "width: 100px; height: 100px;">`
         } else {
-          user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; ,height: 100px; object-fit: cover;">`
+          user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; height: 100px; object-fit: cover;">`
         };
 
+        follow_count = 0;
+        follower_count = 0;
+
+        // フォローのカウント
+        user.relationships.forEach(function(relation){
+          follow_count += 1;
+        });
+        // フォロワーのカウント
+        user.reverse_of_relationships.forEach(function(relation){
+          follower_count += 1;
+        });
+
         // htmlを作成する処理
-        user_html +=`  <a href="/users/${user.id}"%>
-                        <div class="card mb-2">
-                          <div class="card-body d-flex justify-content-start" style="padding: 0.85rem;">
-                            <div class="col-2">
-                              ${user_image}
-                            </div>
-                            <div class="col-8">
-                              <div style="font-size: 1.5rem">
-                                ${user.name}              
-                              </div>
-                              <div>
-                                ${user.introduction}
-                              </div>
-                            </div>
+        user_html +=`
+                    <div class="user-card mt-2">
+                      <div class="follow">
+                        <i class="far fa-handshake"> <b>${follow_count}</b></i>/
+                        <i class="fas fa-handshake"> <b>${follower_count}</b></i>
+                      </div>
+                      <div class="card-body">
+                        <a class="d-flex align-items-center col-lg-6 col-12" href="/users/${user.id}">
+                          ${user_image}
+                          <div class="ml-1 col-lg-6">
+                            <h4 class="card-title">${user.name}</h4>
+                            <h6 class="card-subtitle text-muted">${user.introduction}</h6>
                           </div>
-                        </div>
-                      </a>  `
+                        </a>
+                      </div>
+                    </div>
+                    `
       });
     return user_html;
     }
@@ -289,13 +300,19 @@
       })
       // 成功した時の処理
       .done(function(data){
-        console.log(data + "---------");
         if (parent == "study_sort"){
+          console.log("true");
+
           var html = StudyLog_HTML(data.study_logs);
           $('#study-preview').html(html);
+          // 応急処置
+          $('#paginate_study_logs nav').hide();
         }else if(parent == "note_sort"){
           var html = Note_HTML(data.notes);
           $('#note-preview').html(html);
+
+          // 応急処置
+          $('#paginate_notes nav').hide();
         }else if(parent == "user_sort"){
           var html = UserHTML(data.users);
           $('#user-preview').html(html);

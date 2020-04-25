@@ -9,16 +9,17 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg justify-content-end p-3 sticky-top" style="height:8vh;background-color:#9be3de">
-      <div class="navbar-left">          
+  <body> 
+    <nav class="navbar navbar-expand-lg justify-content-end p-3 sticky-top top-bar">
+      <div class="navbar-symbol mr-auto"> 
+        <%= link_to "StudyHours",root_path %>         
       </div>
       <div class="navbar-right">
         <ul class="nav navbar-nav">
           <% if user_signed_in? %>
             <li class="nav-item">
               <%= link_to timelines_path,class: "nav-link",data: {"turbolinks" => false}  do%>
-                <i class="fas fa-home"> マイページ</i>
+                <i class="fas fa-home"> タイムライン</i>
               <% end %>
             </li>
             <li class="nav-item notification-relative">
@@ -36,17 +37,17 @@
             </li>
             <li class="nav-item"> 
               <%= link_to new_study_log_path,class: "nav-link",data: {"turbolinks" => false} do %>
-                <i class="fas fa-sign-in-alt">学習記録を書く</i>     
+                <i class="fas fa-sign-in-alt">学習記録</i>     
               <% end %>           
             </li>
             <li class="nav-item">
               <%= link_to new_note_path,class: "nav-link",data: {"turbolinks" => false} do %>
-                <i class="fas fa-book"> ノートを書く</i>
+                <i class="fas fa-book"> ノート</i>
               <% end %>
             </li>
             <li class="nav-item">
               <%= link_to rooms_path ,class: "nav-link" do %>
-                <i class="fas fa-comment-dots"> チャットする</i>
+                <i class="fas fa-comment-dots"> チャット</i>
               <% end %>
             </li>
             <li class="nav-item">
@@ -164,5 +165,6 @@
     <div class="mt-3">
       <%= yield %>
     </div>
+    <%= render 'layouts/footer' %>
   </body>
 </html>

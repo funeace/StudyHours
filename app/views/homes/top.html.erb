@@ -2,56 +2,64 @@
   <div class="row">
     <%= image_tag 'top_img.jpg',class:"d-block mx-auto w-75 h-75 top-image" %>
   </div>
-  <div class="row mt-5">
-    <div class="col-lg-5 col-11 offset-1">
-      <h3>このサイトは</h3>
+    <div class="row mt-5">
+      <div class="col-lg-11 col-11 offset-1">
+      <h3>About</h3>
+        <div class="row justify-content-center">
+          <div class="col-lg-9 col-11" style="font-size:1.5em;">
+            StudyHoursは、学習記録を投稿することに特化したSNSサイトです。<br>
+            学習記録や、学習のまとめノートを投稿することで日々の学習を振り返りましょう<br>
+            きっと、勉強することが楽しくなってくるはずです
+          </div>
+        </div>
+      </div>  
     </div>
-  </div>  
+
+  <div class="row mt-5 top-bg-can">
+    <div class="col-lg-5 col-11 offset-1">
+      <h3>Can</h3>
+    </div>
+  </div>
+  <!-- 上の段 -->
   <div class="row top-bg justify-content-center">
-    <div class="col-lg-4 col-12">
-      testtesttesttesttesttesttesttesttesttesttesttesttest
+    <div class="col-lg-4 col-12 pt-2 text-center">
+      <%= image_tag 'pencil.png',style:"height:130px;" %>
+      <h4 class="mt-2">学習記録の投稿</h4>
+      <p>日々の学習を記録してください！<br>
+      学習内容と時間を登録することができます<br>
+      毎日投稿することで学習の習慣を作りましょう</p>
+
     </div>
-    <div class="col-4 col-12">
-      testtesttesttesttesttesttesttesttesttesttesttesttest
-    </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col-lg-5 col-11 offset-1">
-      <h3>コンセプト</h3>
-    </div>  
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-lg-6 col-11 offset-1">
-      testtesttesttesttesttesttesttesttesttest
-      testtesttesttesttesttesttesttesttesttest
-      testtesttesttesttesttesttesttesttesttest
-      testtesttesttesttesttesttesttesttesttest
+    <div class="col-lg-4 col-12 pt-2 text-center">
+      <%= image_tag 'note.png',style:"height:130px;" %>
+      <h4 class="mt-2">ノートの投稿</h4>
+      <p>学習の中で、「ここ大事だな」と思ったことはありませんか？<br>
+        学習記録とは別に、ノートを投稿することができます。<br>
+        アウトプットを行うことで、理解を深めましょう</p>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-lg-5 col-11 offset-1">
-      <h3>自分の頑張りを可視化できる</h3>          
+
+  <!-- 下の段 -->
+  <div class="row top-bg justify-content-center">
+    <div class="col-lg-4 col-12 pt-2 text-center">
+      <%= image_tag 'donut.png',style:"height:130px;" %>
+      <h4 class="mt-2">学習記録の見える化</h4>
+      <p>週の学習時間の目標を立てることができます！<br>
+        投稿された学習記録から、これまでの学習内容と<br>
+      　目標達成までの道のりを見える化します！！
+      </p>
+    </div>
+    <div class="col-lg-4 col-12 pt-2 text-center">
+      <%= image_tag 'message.png',style:"height:130px;" %>
+      <h4 class="mt-2">チャット機能</h4>
+      <p>行き詰まったときなどコミュニケーションを取りたい時に<br>
+        チャットをすることで教えて貰ったり息抜きをしよう
+      </p>
     </div>
   </div>
-  <div class="row justify-content-center">
-    <div class="col-4">
-      testtesttesttesttesttesttesttesttesttesttest
-    </div>
-    <div class="col-4">
-      testtesttesttesttesttesttesttesttesttesttest
-    </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col-5 offset-1">
-      <h3>チャットで情報共有を図ろう</h3>        
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-6">
-      testtesttesttesttesttesttesttesttesttest
-      testtesttesttesttesttesttesttesttesttest
-      testtesttesttesttesttesttesttesttesttest
-      testtesttesttesttesttesttesttesttesttest
-    </div>            
-  </div>
+
+  <div class="d-flex justify-content-center mt-4 mb-3">
+    <%= link_to "会員登録はこちらから", new_user_registration_path ,class: "btn btn-info" %>      
+  </div>  
+
 </div>
