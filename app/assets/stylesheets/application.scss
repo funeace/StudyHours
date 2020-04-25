@@ -206,7 +206,11 @@ footer {
 // top画面の設定--------------------
 .top-bg {
   background-color: $top-bg-color;
-  height: 200px;
+  height: 330px;
+}
+
+.top-bg-can {
+  background-color: $top-bg-color;
 }
 
 // 学習記録のカード設定-----------------------------------------
@@ -558,6 +562,12 @@ footer {
   #hm-icon {
     display: inherit
   }
+
+  .top-bg {
+    background-color: $top-bg-color;
+    height: 660px;
+  }
+
 
   .study-log-show {
     & .width {
