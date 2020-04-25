@@ -33,6 +33,7 @@ $cChat: #99dddd;
 $menu-trigger: #F0FFFF;
 $profile-img-border: #F0F8FF;
 $profile-img-background-color: white;
+$footer-bgcolor: #996633;
 
 * {
   margin: 0;
@@ -51,6 +52,13 @@ a {
   :visited {
     color: $a-visited-color;
   }
+}
+
+footer {
+  color: white;
+  display: block;
+  background-color: $footer-bgcolor;
+  margin-top: auto;
 }
 
 .navbar-symbol {
@@ -203,7 +211,7 @@ a {
 
 // 学習記録のカード設定-----------------------------------------
 .s-card {
-  $background: #fff0f5;
+  $background: #B2D235;
   $background-footer: #fffacd;
   @extend .card;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
