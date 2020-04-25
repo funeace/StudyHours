@@ -305,7 +305,7 @@
           var html = StudyLog_HTML(data.study_logs);
           $('#study-preview').html(html);
           // ページング用にidを取得し、dataの値として更新
-          $("#more-study-logs").data('sort',$(this).attr('id'))
+          $("#more-study-logs").data('sort',val)
           // ボタンの状態を初期化し、disabledをfalseに戻す
           $("#more-study-logs").data('offset',"6");
           $("#more-study-logs").prop('disabled',false);
@@ -313,13 +313,18 @@
           var html = Note_HTML(data.notes);
           $('#note-preview').html(html);
           // ページング用にidを取得し、dataの値として更新
-          $("#more-notes").data('sort',$(this).attr('id'))
+          $("#more-notes").data('sort',val)
           // ボタンの状態を初期化し、disabledをfalseに戻す
           $("#more-notes").data('offset',"6");
           $("#more-notes").prop('disabled',false);
         }else if(parent == "user_sort"){
           var html = User_HTML(data.users);
           $('#user-preview').html(html);
+          // ページング用にidを取得し、dataの値として更新
+          $("#more-users").data('sort',val)
+          // ボタンの状態を初期化し、disabledをfalseに戻す
+          $("#more-users").data('offset',"6");
+          $("#more-users").prop('disabled',false);
         }
       });
     }); 
@@ -328,7 +333,6 @@
     $("#form").on('keyup',function(e){
       var keyword = $.trim($(this).val());
       var genre = $("#search_select").val();
-
       // ajaxでデータを送信
       $.ajax({
         // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
@@ -342,26 +346,25 @@
       })
       // 検索結果をコントローラから受け取った後の処理
       .done(function(data){
-          var study_log = StudyLog_HTML(data.study_logs);
-          var note = Note_HTML(data.notes);
-          var user = User_HTML(data.users);
-          console.log(genre);
-          // ユーザ検索
-          if(genre === "name"){
-            $('#study-preview').html(study_log);
-            $('#note-preview').html(note);
-            $('#user-preview').html(user);
-          // ノート検索
-          }else if(genre === "note"){
-            $('#note-preview').html(note);
-          // タグ検索
-          }else if(genre === "tag"){
-            $('#study-preview').html(study_log);
-            $('#note-preview').html(note);            
-          };
-       });
+        var study_log = StudyLog_HTML(data.study_logs);
+        var note = Note_HTML(data.notes);
+        var user = User_HTML(data.users);
+        console.log(genre);
+        // ユーザ検索
+        if(genre === "name"){
+          $('#study-preview').html(study_log);
+          $('#note-preview').html(note);
+          $('#user-preview').html(user);
+        // ノート検索
+        }else if(genre === "note"){
+          $('#note-preview').html(note);
+        // タグ検索
+        }else if(genre === "tag"){
+          $('#study-preview').html(study_log);
+          $('#note-preview').html(note);            
+        };
+      });
     });
-
 
     $(".more").on('click',function() {
       more_param = $(this).attr('id');
@@ -370,6 +373,8 @@
       var limit = $(this).data('limit');
       var length = $(this).data('length');
       var sort = $(this).data('sort');
+      var keyword = $.trim($('#form').val());
+      var genre = $("#search_select").val();
 
       console.log(offset,limit,length,sort);
 
@@ -382,7 +387,9 @@
         url: '/searchs/more',
         data: {
           offset: offset,
-          sort: sort
+          sort: sort,
+          keyword: keyword,
+          genre: genre
         },
         dataType: 'json'
       })
@@ -391,29 +398,29 @@
         // study_logのボタンを押した時
         if(more_param === "more-study-logs"){
           var study_log = StudyLog_HTML(data.study_logs);
-          // bindで書けそう
           $('#study-preview').append(study_log);
-          $("#more-study-logs").data('offset',offset + limit) //this
+          $("#more-study-logs").data('offset',offset + limit)
           // offsetの値がlengthよりも大きくなったらボタンを押せなくする
-          if($("#more-study-logs").data('offset') > length){ //this
-            $("#more-study-logs").prop("disabled",true); //this
+          if($("#more-study-logs").data('offset') > length){
+            $("#more-study-logs").prop("disabled",true);
           };
         // noteのボタンを押した時
         }else if(more_param === "more-notes"){
           var note = Note_HTML(data.notes);
           $('#note-preview').append(note);
-          $("#more-notes").data('offset',offset + limit)  //this
+          $("#more-notes").data('offset',offset + limit)
           // offsetの値がlengthよりも大きくなったらボタンを押せなくする
-          if($("#more-notes").data('offset') > length){  //this
-            $("#more-notes").prop("disabled",true);  //this
+          if($("#more-notes").data('offset') > length){ 
+            $("#more-notes").prop("disabled",true);
           };
+        // userのボタンを押した時
         }else if(more_param == "more-users"){
           var user = User_HTML(data.users);
           $('#user-preview').append(user);
-          $("#more-users").data('offset',offset + limit)  //this
+          $("#more-users").data('offset',offset + limit) 
           // offsetの値がlengthよりも大きくなったらボタンを押せなくする
-          if($("#more-users").data('offset') > length){  //this
-            $("#more-users").prop("disabled",true);  //this
+          if($("#more-users").data('offset') > length){ 
+            $("#more-users").prop("disabled",true);
           };
         };
       });

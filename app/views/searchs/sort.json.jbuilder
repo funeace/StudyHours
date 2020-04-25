@@ -42,6 +42,7 @@ json.notes @notes do |note|
   end
   # ユーザ情報
   json.user do
+    json.name note.user.name
     json.profile_image Refile.attachment_url(note.user, :profile_image)
   end
   # ノートのコメントID
