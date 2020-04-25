@@ -14,57 +14,59 @@
       </div>
     </div>
   </div>
-      <ul id="myTab" class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-          <a href="#study_log" id="study_log-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">積み上げ</a>
-        </li>
-        <li class="nav-item">
-          <a href="#note" id="note-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="note" aria-selected="false">ノート</a>
-        </li>
-        <li class="nav-item">
-          <a href="#user" id="user-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="user" aria-selected="false">ユーザ</a>
-        </li>
-      </ul>
-      <div id="myTabContent" class="tab-content mt-3">
-        <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
-
-        <div class="btn-group mb-3 study_btn" id="study_sort" role="group">
-          <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいね順</button>
-          <button type="button" class="sort btn btn-secondary" id="study_created_sort">投稿順</button>
-        </div>
-        <div id="study-preview" class="row">
-          <%= render 'study_logs/study_log_list', study_logs: @study_logs %>
-        </div>
+  <!-- タブメニューの処理 -->
+  <ul id="myTab" class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a href="#study_log" id="study_log-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">積み上げ</a>
+    </li>
+    <li class="nav-item">
+      <a href="#note" id="note-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="note" aria-selected="false">ノート</a>
+    </li>
+    <li class="nav-item">
+      <a href="#user" id="user-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="user" aria-selected="false">ユーザ</a>
+    </li>
+  </ul>
+  <div id="myTabContent" class="tab-content mt-3">
+    <!-- 学習記録の処理 -->
+    <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
+      <div class="btn-group mb-3 study_btn" id="study_sort" role="group">
+        <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいね順</button>
+        <button type="button" class="sort btn btn-secondary" id="study_created_sort">投稿順</button>
       </div>
-
-      <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
-        <div class="btn-group mb-3 study_btn" id="note_sort" role="group">
-          <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいね順</button>
-          <button type="button" class="sort btn btn-secondary" id="note_posted_sort">投稿順</button>
-        </div>
-        <div id="note-preview">
-          <%= render 'notes/note_list', notes: @notes %>
-        </div>
+      <div id="study-preview" class="row">
+        <%= render 'study_logs/study_log_list', study_logs: @study_logs %>
       </div>
-
-      <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
-        <div class="btn-group mb-3 study_btn" id="user_sort" role="group">
-          <button type="button" class="sort btn btn-secondary" id="user_follower_sort">フォロワー数順</button>
-          <button type="button" class="sort btn btn-secondary" id="user_posted_sort">登録順</button>
-        </div>
-        <div id="user-preview">
-          <%= render 'users/user_list', users: @users %>      
-        </div>
-      </div>
+      <button class="btn btn-info more mt-2" id="more-study-logs" data-length="<%=@study_logs_length%>" data-offset="6" data-limit="6" data-sort="study_log_default">もっとみる</button>
     </div>
-  </div>    
-</div>
+    <!-- ノート -->
+    <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
+      <div class="btn-group mb-3 study_btn" id="note_sort" role="group">
+        <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいね順</button>
+        <button type="button" class="sort btn btn-secondary" id="note_posted_sort">投稿順</button>
+      </div>
+      <div id="note-preview">
+        <%= render 'notes/note_list', notes: @notes %>
+      </div>
+      <button class="btn btn-info more mt-2" id="more-notes" data-length="<%=@notes.count%>" data-offset="6"  data-limit="6" data-sort="note_default">もっとみる</button>
+    </div>
+    <!-- ユーザ一覧 -->
+    <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
+      <div class="btn-group mb-3 study_btn" id="user_sort" role="group">
+        <button type="button" class="sort btn btn-secondary" id="user_follower_sort">フォロワー数順</button>
+        <button type="button" class="sort btn btn-secondary" id="user_posted_sort">登録順</button>
+      </div>
+      <div id="user-preview">
+        <%= render 'users/user_list', users: @users %>      
+      </div>
+      <button class="btn btn-info more mt-2" id="more-users" data-length="<%=@users.count%>" data-offset="6"  data-limit="6" data-sort="user_default">もっとみる</button>
+    </div>
+  </div>
 </div>
 <script>
   $(document).on('turbolinks:load', function () {
 // 各HTMLを作成する処理ここから---------------------------
     // StudyLogのHTMLを作成
-    function StudyLog_HTML(study_log) {
+    function StudyLog_HTML(study_logs) {
       var study_log_html = '';
       var study_log_detail_html = '';
       var study_log_detail_tags = '';
@@ -73,7 +75,7 @@
       var html = '';
 
       // １件ずつデータを受け取り、HTMLを形成
-      study_log.forEach(function(study_log){
+      study_logs.forEach(function(study_log){
         var study_log_favorites = 0;
         var study_log_own_favorite = false;
 
@@ -226,7 +228,7 @@
     }
 
     // UserのHTMLを作成
-    function UserHTML(user){
+    function User_HTML(user){
       var html = '';
       var user_html = '';
       var user_image = '';
@@ -282,11 +284,10 @@
 
     // sortクラスが付与されているボタンがクリックされたら処理を実行
     $('.sort').on('click',function () {
+
       // value値取得(id)
       var val = $(this).attr('id');
       var parent = $(this).parent().attr('id');
-      // console.log(val);
-      // console.log(parent);
     
       // ajaxでデータを送信
       $.ajax({
@@ -301,24 +302,27 @@
       // 成功した時の処理
       .done(function(data){
         if (parent == "study_sort"){
-          console.log("true");
-
           var html = StudyLog_HTML(data.study_logs);
           $('#study-preview').html(html);
-          // 応急処置
-          $('#paginate_study_logs nav').hide();
+          // ページング用にidを取得し、dataの値として更新
+          $("#more-study-logs").data('sort',$(this).attr('id'))
+          // ボタンの状態を初期化し、disabledをfalseに戻す
+          $("#more-study-logs").data('offset',"6");
+          $("#more-study-logs").prop('disabled',false);
         }else if(parent == "note_sort"){
           var html = Note_HTML(data.notes);
           $('#note-preview').html(html);
-
-          // 応急処置
-          $('#paginate_notes nav').hide();
+          // ページング用にidを取得し、dataの値として更新
+          $("#more-notes").data('sort',$(this).attr('id'))
+          // ボタンの状態を初期化し、disabledをfalseに戻す
+          $("#more-notes").data('offset',"6");
+          $("#more-notes").prop('disabled',false);
         }else if(parent == "user_sort"){
-          var html = UserHTML(data.users);
+          var html = User_HTML(data.users);
           $('#user-preview').html(html);
         }
       });
-    });    
+    }); 
 
     // テキストフォームにデータが入力されたら処理を実行
     $("#form").on('keyup',function(e){
@@ -340,7 +344,7 @@
       .done(function(data){
           var study_log = StudyLog_HTML(data.study_logs);
           var note = Note_HTML(data.notes);
-          var user = UserHTML(data.users);
+          var user = User_HTML(data.users);
           console.log(genre);
           // ユーザ検索
           if(genre === "name"){
@@ -356,6 +360,63 @@
             $('#note-preview').html(note);            
           };
        });
+    });
+
+
+    $(".more").on('click',function() {
+      more_param = $(this).attr('id');
+      console.log(more_param)
+      var offset = $(this).data('offset');
+      var limit = $(this).data('limit');
+      var length = $(this).data('length');
+      var sort = $(this).data('sort');
+
+      console.log(offset,limit,length,sort);
+
+      offset = Number(offset);
+      length = Number(length);
+      // ajaxでデータを送信
+      $.ajax({
+        // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
+        type: 'GET',
+        url: '/searchs/more',
+        data: {
+          offset: offset,
+          sort: sort
+        },
+        dataType: 'json'
+      })
+      // 検索結果をコントローラから受け取った後の処理
+      .done(function(data){
+        // study_logのボタンを押した時
+        if(more_param === "more-study-logs"){
+          var study_log = StudyLog_HTML(data.study_logs);
+          // bindで書けそう
+          $('#study-preview').append(study_log);
+          $("#more-study-logs").data('offset',offset + limit) //this
+          // offsetの値がlengthよりも大きくなったらボタンを押せなくする
+          if($("#more-study-logs").data('offset') > length){ //this
+            $("#more-study-logs").prop("disabled",true); //this
+          };
+        // noteのボタンを押した時
+        }else if(more_param === "more-notes"){
+          var note = Note_HTML(data.notes);
+          $('#note-preview').append(note);
+          $("#more-notes").data('offset',offset + limit)  //this
+          // offsetの値がlengthよりも大きくなったらボタンを押せなくする
+          if($("#more-notes").data('offset') > length){  //this
+            $("#more-notes").prop("disabled",true);  //this
+          };
+        }else if(more_param == "more-users"){
+          var user = User_HTML(data.users);
+          $('#user-preview').append(user);
+          $("#more-users").data('offset',offset + limit)  //this
+          // offsetの値がlengthよりも大きくなったらボタンを押せなくする
+          if($("#more-users").data('offset') > length){  //this
+            $("#more-users").prop("disabled",true);  //this
+          };
+        };
+      });
     });
   });
 </script>
