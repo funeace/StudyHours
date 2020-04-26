@@ -1,13 +1,6 @@
-json.length do
-  json.study_log_length @study_log_length
-  json.note_length @note_length
-  json.user_length @user_length
-end
-
 json.study_logs @study_logs do |study_log|
   # ログインユーザのIDを取得
   json.current_user_id @user.id
-  # 件数の取得
   # study_logの情報を取得
   json.id study_log.id
   json.working_date study_log.working_date.strftime("%Y年%m月%d日")

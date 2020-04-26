@@ -1,62 +1,60 @@
 <div class="container study-log-show ">
   <div class="margin-auto width">
-    <h3 class="mb-3">学習記録詳細</h3>    
-  <div class="s-card">
-    <div class="study-log-show-parent">
-      <div class="favorite-child">
-        <!-- いいねの処理 -->
-        <div id="study-log-favorite-<%= @study_log.id %>">
-          <%= render 'study_log_favorites/study_log_favorite',study_log: @study_log %>
-        </div>
-      </div>
-      <!-- 編集画面へのリンク -->
-      <% if user_signed_in? && current_user.id == @study_log.user.id %>
-        <span class="edit-link-child"><%= link_to "編集する",edit_study_log_path,data: {"turbolinks" => false} %></span>
-      <% end %>
-
-      <div class="s-header d-flex">
-        <%= attachment_image_tag @study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
-        <div class="ml-3 d-flex flex-column justify-content-center">
-          <h6><%= @study_log.working_date.strftime("%Y年%m月%d日")%></h6>
-          <h6><%= @study_log.user.name %></h6>
-        </div>
-      </div>
-      <ul class="list-group">
-       <!-- 登録された学習内容を表示 -->
-        <% @study_log.study_log_details.each do |study_log_detail| %>
-          <li class="list-group-item"style="height:13vh;" >
-            <div class="col-12">
-              <div>学習内容</div>
-            </div>
-            <div class="col-12" style="height:10vh;">
-              <% study_log_detail.tag_list.each do |tag| %>
-                <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 1),class: "badge-success p-1 badge-tag" %>
-              <% end %>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <span class="col-3">学習時間</span>
-            <span class="col-9"><%= study_log_detail.hour %>時間<%= study_log_detail.min %>分</span>
-          </li>
-        <% end %>
-        <li class="list-group-item s-card-memo">
-          <div class="card-body pt-2">
-              <span class="s-show-absolute">学習メモ</span>
-            <div class="mt-2 col-12">
-              <%= @study_log.memo %>
-            </div>
+    <h3 class="mb-3">学習記録詳細</h3>
+    <div class="s-card">
+      <div class="study-log-show-parent">
+        <div class="favorite-child">
+          <!-- いいねの処理 -->
+          <div id="study-log-favorite-<%= @study_log.id %>">
+            <%= render 'study_log_favorites/study_log_favorite',study_log: @study_log %>
           </div>
-        </li>
-      </ul>
-    </div></div>
+        </div>
+        <!-- 編集画面へのリンク -->
+        <% if user_signed_in? && current_user.id == @study_log.user.id %>
+          <span class="edit-link-child"><%= link_to "編集する",edit_study_log_path,data: {"turbolinks" => false} %></span>
+        <% end %>
+        <div class="s-header d-flex">
+          <%= attachment_image_tag @study_log.user, :profile_image, :fill, 80, 80,  class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>              
+          <div class="ml-3 d-flex flex-column justify-content-center">
+            <h6><%= @study_log.working_date.strftime("%Y年%m月%d日")%></h6>
+            <h6><%= @study_log.user.name %></h6>
+          </div>
+        </div>
+        <ul class="list-group">
+        <!-- 登録された学習内容を表示 -->
+          <% @study_log.study_log_details.each do |study_log_detail| %>
+            <li class="list-group-item"style="height:13vh;" >
+              <div class="col-12">
+                <div>学習内容</div>
+              </div>
+              <div class="col-12" style="height:10vh;">
+                <% study_log_detail.tag_list.each do |tag| %>
+                  <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 1),class: "badge-success p-1 badge-tag" %>
+                <% end %>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <span class="col-3">学習時間</span>
+              <span class="col-9"><%= study_log_detail.hour %>時間<%= study_log_detail.min %>分</span>
+            </li>
+          <% end %>
+          <li class="list-group-item s-card-memo">
+            <div class="card-body pt-2">
+              <span class="s-show-absolute">学習メモ</span>
+              <div class="mt-2 col-12">
+                <%= @study_log.memo %>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-
   <div class="width margin-auto">
     <h4 class="mt-4">コメント</h4>
     <div id="study-log-comments">
       <%= render 'study_log_comments/study_log_comments',study_log: @study_log, study_log_comments: @study_log_comments %>  
     </div>
-      <%= render 'study_logs/study_log_form',study_log: @study_log ,study_log_comment: @study_log_comment %>
-    </div>
+    <%= render 'study_logs/study_log_form',study_log: @study_log ,study_log_comment: @study_log_comment %>
   </div>
 </div>

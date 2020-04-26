@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     collection do
       get :sort
       get :search
+      get :more
     end
   end
 

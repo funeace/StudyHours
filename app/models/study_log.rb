@@ -10,6 +10,7 @@ class StudyLog < ApplicationRecord
 
   # 作業日が入力されている
   validates :working_date,presence: true
+  validate :valid_working_date
   # ユーザIDが存在していることを確認
   validates :user_id,presence: true
   # memoは50文字まで
@@ -37,6 +38,13 @@ class StudyLog < ApplicationRecord
   def valid_study_tag
     if @taglist_chk
       errors[:base] << "学習内容が入力されていません"
+    end
+  end
+
+private
+  def valid_working_date
+    if working_date > Date.today
+      errors[:base] << "未来日は入力できません"
     end
   end
 end
