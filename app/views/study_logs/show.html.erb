@@ -21,24 +21,28 @@
           </div>
         </div>
         <ul class="list-group">
-        <!-- 登録された学習内容を表示 -->
-            <li class="list-group-item"style="height:13vh;" >
-              <div class="col-12">
-                <div>学習内容</div>
+          <!-- 登録された学習内容を表示 -->
+          <li class="list-group-item study-log-show-study-tags" >
+            <div class="col-12">
+              <div>
+                学習内容
               </div>
-              <div class="col-12" style="height:10vh;">
-                <% @study_log.tag_list.each do |tag| %>
-                  <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 1),class: "badge-success p-1 badge-tag" %>
-                <% end %>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <span class="col-3">学習時間</span>
-              <span class="col-9"><%= @study_log.hour %>時間<%= @study_log.minute %>分</span>
-            </li>
+            </div>
+            <div class="col-12">
+              <% @study_log.tag_list.each do |tag| %>
+                <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 1),class: "badge-success p-1 badge-tag" %>
+              <% end %>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <span class="col-3">学習時間</span>
+            <span class="col-9"><%= @study_log.hour %>時間<%= @study_log.minute %>分</span>
+          </li>
           <li class="list-group-item s-card-memo">
             <div class="card-body pt-2">
-              <span class="s-show-absolute">学習メモ</span>
+              <span class="s-show-absolute">
+                学習メモ
+              </span>
               <div class="mt-2 col-12">
                 <%= @study_log.memo %>
               </div>
