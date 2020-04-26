@@ -31,7 +31,6 @@ describe StudyLogsController, type: :request do
       get study_log_path(study_log)
       expect(response.body).to include "てすてすてす"
     end
-
   end
 
   describe "GET #new" do
@@ -62,22 +61,20 @@ describe StudyLogsController, type: :request do
     context "パラメータが正しい場合" do
 
       it "リクエストが成功するか" do
-        param = {children_attributes: [FactoryBot.attributes_for(:study_log_detail)]}
-
-        post study_logs_path params: {study_log: FactoryBot.attributes_for(:study_log).merge(param)}
-        binding.pry
+        post study_logs_path params: {study_log: FactoryBot.attributes_for(:study_log,user_id: user.id)}
+        # binding.pry
         expect(response).to have_http_status(302)
       end
 
       it "投稿できるか" do
         expect do
-          post study_logs_path params: { user_id: user.id,study_log: FactoryBot.attributes_for(:study_log) }
+          post study_logs_path params: {study_log: FactoryBot.attributes_for(:study_log,user_id: user.id) }
         end.to change(StudyLog, :count).by(1)
       end
 
       it "リダイレクト先は正しいか" do
-        post study_logs_path params: { user_id: user.id,study_log: FactoryBot.attributes_for(:study_log) }
-        expect(response).to redirect_to timelines_path
+        post study_logs_path params: { study_log: FactoryBot.attributes_for(:study_log,user_id: user.id) }
+        expect(response).to redirect_to study_log_path(StudyLog.last)
       end
     end
 

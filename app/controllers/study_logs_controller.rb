@@ -13,8 +13,8 @@ class StudyLogsController < ApplicationController
 
   def create
     @study_log = current_user.study_logs.new(study_log_params)
-    # study_logに紐づけているtagをモデル内のset_taglist_existに送る()
-    # @study_log.set_taglist_exist(study_log_params[:study_log_details_attributes]["0"][:tag_list])
+    # study_logに紐づけているtagをモデル内のset_taglist_existに送る
+    @study_log.set_taglist_exist(params[:study_log][:tag_list])
     if @study_log.save
       # tagのカラーコードがnilのものにカラーコードを付与
       create_tag_color

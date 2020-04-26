@@ -11,30 +11,28 @@
       </thead>
       <tbody>
         <% @study_logs.all.each do |study_log| %>
-          <% study_log.study_log_details.each do |study_log_detail|%>
-            <tr>
-              <td style="width:200px;">
-                <%= study_log.working_date.strftime("%Y年%m月%d日") %>
-              </td>
-              <td>
-                <% study_log_detail.tag_list.each do |tag| %> 
-                  <span class="badge-primary p-1 badge-tag"><%= tag %></span>
-                <% end %>
-              </td>
-              <td>
-                <%= study_log_detail.hour %>時間<%=study_log_detail.min%>分
-              </td>
-              <td>
-                <%= study_log.memo %>
-              </td>
-              <td>
-                <%= study_log.user.name %>
-              </td>
-              <td>
-                <%= link_to "詳細",admins_study_log_path(study_log),class: "btn btn-primary" %>
-              </td>
-            </tr>
-          <% end %>
+          <tr>
+            <td style="width:200px;">
+              <%= study_log.working_date.strftime("%Y年%m月%d日") %>
+            </td>
+            <td>
+              <% study_log.tag_list.each do |tag| %> 
+                <span class="badge-primary p-1 badge-tag"><%= tag %></span>
+              <% end %>
+            </td>
+            <td>
+              <%= study_log.hour %>時間<%=study_log.minute%>分
+            </td>
+            <td>
+              <%= study_log.memo %>
+            </td>
+            <td>
+              <%= study_log.user.name %>
+            </td>
+            <td>
+              <%= link_to "詳細",admins_study_log_path(study_log),class: "btn btn-primary" %>
+            </td>
+          </tr>
         <% end %>
       </tbody>
     </table>
