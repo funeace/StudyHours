@@ -65,6 +65,23 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+   # メールアドレスとパスワードを環境変数から呼び出す
+  password = ENV['MAIL_PASSWORD']
+
+  # Don't care if the mailer can't send.
+  config.action_mailer.default_url_options = { host: "studyhours.work" }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+   port: 587,
+   address: 'smtp.gmail.com',
+   domain: 'gmail.com',
+   user_name: 'mailsample567@gmail.com',
+   password: password,
+   authentication: 'plain',
+   enable_starttls_auto: true
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
