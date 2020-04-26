@@ -145,9 +145,9 @@ class SearchsController < ApplicationController
       @study_log_length = StudyLog.all.includes([:user,:study_log_favorites,:study_log_details,:tags]).order(id: "DESC").size
       @note_length = Note.where('title LIKE(?)',"%#{params[:keyword]}%").size
 
-      @user_length = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT)
-      @study_log_length = StudyLog.all.includes([:user,:study_log_favorites,:study_log_details,:tags]).order(id: "DESC").limit(LIMIT)
-      @note_length = Note.where('title LIKE(?)',"%#{params[:keyword]}%").limit(LIMIT)
+      @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT)
+      @study_logs = StudyLog.all.includes([:user,:study_log_favorites,:study_log_details,:tags]).order(id: "DESC").limit(LIMIT)
+      @notes = Note.where('title LIKE(?)',"%#{params[:keyword]}%").limit(LIMIT)
 
     # タグ検索(名前は引かない)
     elsif genre =="tag"

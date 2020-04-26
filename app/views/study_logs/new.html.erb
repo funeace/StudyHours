@@ -11,19 +11,18 @@
         <div class="d-flex card-body">
           <div class="content">
             <!-- 子要素と親要素を同時に更新するための処理,今後非同期で列の追加等を行う予定であるため、パーシャル化 -->
-              <%= f.fields_for :study_log_details do |detail| %> 
-                <%= render 'study_log_detail_new',study_log: @study_log,detail: detail %>
-              <% end %>
+            <%= f.fields_for :study_log_details do |detail| %> 
+              <%= render 'study_log_detail_new',study_log: @study_log,detail: detail %>
+            <% end %>
           </div>
         </div>
         <div class="card-body pt-0">
           <%= f.label :memo,"メモ" %>
           <%= f.text_area :memo ,class: "form-control" %>
         </div>
-      </div>
-      <div class="mt-2 d-flex justify-content-end">
-        <%= f.submit "登録する",class: "btn btn-primary"%>
-      </div>
+        <div class="mt-2 d-flex justify-content-end">
+          <%= f.submit "登録する",class: "btn btn-primary mr-3 mb-3"%>
+        </div>
       <% end %>
     </div>
   </div>

@@ -7,18 +7,18 @@
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-field row mt-2">
           <div class="col-4">
-            <%= f.label :email,"メールアドレス",class: "devise-session-font" %><br />            
+            <%= f.label :email,class: "devise-session-font" %><br />            
           </div>
           <div class="col-8">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>            
+            <%= f.email_field :email, autofocus: true,placeholder: "sample@gmail.com", autocomplete: "email",class:"form-control" %>            
           </div>
         </div>
         <div class="form-field row mt-2">
           <div class="col-4">
-            <%= f.label :password,"パスワード" %><br />
+            <%= f.label :password %><br />
           </div>
           <div class="col-8">
-            <%= f.password_field :password, autocomplete: "current-password",class:"form-control" %>          
+            <%= f.password_field :password,placeholder: "password",autocomplete: "current-password",class:"form-control" %>
           </div>
         </div>
 

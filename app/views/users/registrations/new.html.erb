@@ -13,7 +13,7 @@
               <%= f.label :name,"ユーザーネーム",class: "devise-regist-font" %>
             </div>
             <div class="col-7">
-              <%= f.text_field :name, autofocus: true, autocomplete: "nickname",class:"form-control" %>
+              <%= f.text_field :name, autofocus: true, autocomplete: "name",placeholder: "登録 太郎",class:"form-control" %>
             </div>
           </div>
 
@@ -22,7 +22,7 @@
               <%= f.label :email,"メールアドレス",class: "devise-regist-font" %>
             </div>
             <div class="col-7">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder: "sample@gmail.com",class:"form-control" %>
             </div>
           </div>
 
@@ -31,7 +31,7 @@
               <%= f.label :password,"パスワード",class: "devise-regist-font" %>
             </div>
             <div class="col-7">
-              <%= f.password_field :password, autocomplete: "new-password",class:"form-control" %>        
+              <%= f.password_field :password, autocomplete: "new-password",placeholder: "password",class:"form-control" %>        
             </div>
           </div>
 
@@ -40,7 +40,7 @@
               <%= f.label :password_confirmation,"パスワード(確認用)",class: "devise-regist-font" %>      
             </div>
             <div class="col-7">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control" %>      
+              <%= f.password_field :password_confirmation, autocomplete: "new-password",placeholder: "password",class:"form-control" %>
             </div>
           </div>
 

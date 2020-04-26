@@ -4,37 +4,37 @@
   </div>
     <% if @notifications.exists? %>
       <% @notifications.each do |notification| %>
-      <div class="row">
-        <div class="col-12">
-          <div>            
-          <%= link_to user_path(notification.user) do%>
-            <%= attachment_image_tag notification.user, :profile_image, :fill, 50, 50,  class: "pull-left profile-img", fallback: "no_image.png",size: "50x50" %>
-              <%= notification.user.name %>
-          <% end %>さんが
-          <% case notification.action %>
-            <% when 'follow'%>
-              あなたをフォローしました
-              <hr>
-            <% when 'study_log_favorite' %>
-              <b><%= link_to '積み上げ', study_log_path(notification.study_log_id) %></b>にいいねしました。
-              <hr>            
-            <% when 'note_favorite' %>
-              <b><%= link_to 'ノート', note_path(notification.note_id) %></b>にいいねしました。
-              <hr>      
-            <% when 'study_log_comment' %>
-              <b><%= link_to '積み上げ', study_log_path(notification.study_log_id) %></b>にコメントしました。<br>
-              <span class="ml-5 text-muted"><%= StudyLogComment.find_by(id: notification.study_log_comment_id).comment %> </span>
-              <hr>
-            <% when 'note_comment' %>
-              <b><%= link_to 'ノート', note_path(notification.note_id) %></b>にコメントしました。<br>
-              <span class="ml-5 text-muted"><%= NoteComment.find_by(id: notification.note_comment_id).comment %></span>
-              <hr>
-          <% end %>
+        <div class="row">
+          <div class="col-12">
+            <div>            
+              <%= link_to user_path(notification.user) do%>
+                <%= attachment_image_tag notification.user, :profile_image, :fill, 50, 50,  class: "pull-left profile-img", fallback: "no_image.png",size: "50x50" %>
+                <%= notification.user.name %>
+              <% end %>さんが
+              <% case notification.action %>
+              <% when 'follow'%>
+                あなたをフォローしました
+                <hr>
+              <% when 'study_log_favorite' %>
+                <b><%= link_to '積み上げ', study_log_path(notification.study_log_id) %></b>にいいねしました。
+                <hr>            
+              <% when 'note_favorite' %>
+                <b><%= link_to 'ノート', note_path(notification.note_id) %></b>にいいねしました。
+                <hr>      
+              <% when 'study_log_comment' %>
+                <b><%= link_to '積み上げ', study_log_path(notification.study_log_id) %></b>にコメントしました。<br>
+                <span class="ml-5 text-muted"><%= StudyLogComment.find_by(id: notification.study_log_comment_id).comment %> </span>
+                <hr>
+              <% when 'note_comment' %>
+                <b><%= link_to 'ノート', note_path(notification.note_id) %></b>にコメントしました。<br>
+                <span class="ml-5 text-muted"><%= NoteComment.find_by(id: notification.note_comment_id).comment %></span>
+                <hr>
+              <% end %>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  <% end %>
-  <% else %>
+      <% end %>
+    <% else %>
     通知はありません
   <% end %>
 </div>
