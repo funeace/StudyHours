@@ -64,12 +64,11 @@
 </div>
 <script>
   $(document).on('turbolinks:load', function () {
-// 各HTMLを作成する処理ここから---------------------------
+  // 各HTMLを作成する処理ここから---------------------------
     // StudyLogのHTMLを作成
     function StudyLog_HTML(study_logs) {
       var study_log_html = '';
-      var study_log_detail_html = '';
-      var study_log_detail_tags = '';
+      var study_log_tags = '';
       var study_log_favorite_html = '';
       var study_log_image = '';
       var html = '';
@@ -99,26 +98,10 @@
         };
 
         // 勉強詳細時間の処理
-        study_log.study_log_details.forEach(function(study_log_detail){
-          let study_log_detail_tags = '';
+          let study_log_tags = '';
           // タグのHTMLを形成
-          study_log_detail.tags.forEach(function(tags,index_tag){
-            study_log_detail_tags += `<a class="badge-success p-1 mr-1 badge-tag" href="/searchs?genre_id=1&amp;search_id=1&amp;tag_name=${study_log_detail.tags[index_tag].tag}">${study_log_detail.tags[index_tag].tag}</a>`
-          });
-
-          // 学習内容詳細のHTMLを形成
-          study_log_detail_html = `<li class="list-group-item study-log-list-tag">
-                                    <div class="col-12">
-                                      <div>学習内容</div>
-                                    </div>
-                                    <div class="col-12">
-                                      ${study_log_detail_tags}
-                                    </div>
-                                   </li>
-                                  <li class="list-group-item">
-                                    <span class="col-3">学習時間</span>
-                                    <span class="col-9">${study_log_detail.hour}時間${study_log_detail.min}分</span> 
-                                  </li>`
+          study_log.tags.forEach(function(tags,index_tag){
+            study_log_tags += `<a class="badge-success p-1 mr-1 badge-tag" href="/searchs?genre_id=1&amp;search_id=1&amp;tag_name=${study_log.tags[index_tag].tag}">${study_log.tags[index_tag].tag}</a>`
           });
 
         // プロフィール画像が設定されているか確認
@@ -130,22 +113,33 @@
 
         // htmlを生成
           study_log_html += `
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-2">
-                               <div class="s-card h-100 study-log-list">
-                                <div class="s-header d-flex">
-                                  ${study_log_image}
-                                  <div class="ml-3 d-flex flex-column justify-content-center">
-                                    <h6>${study_log.working_date}</h6>
-                                    <h6>${study_log.user.name}</h6>
-                                  </div>
+                          <div class="col-xl-4 col-lg-6 col-md-12 mb-2">
+                            <div class="s-card h-100 study-log-list">
+                              <div class="s-header d-flex">
+                                ${study_log_image}
+                                <div class="ml-3 d-flex flex-column justify-content-center">
+                                  <h6>${study_log.working_date}</h6>
+                                  <h6>${study_log.user.name}</h6>
                                 </div>
-                                <ul class="list-group">
-                                  ${study_log_detail_html}
-                                  <li class="list-group-item s-card-memo">
-                                    <div class="card-body pt-2">
+                              </div>
+                              <ul class="list-group">
+                                <li class="list-group-item study-log-list-tag">
+                                  <div class="col-12">
+                                    <div>学習内容</div>
+                                  </div>
+                                  <div class="col-12">
+                                    ${study_log_tags}
+                                  </div>
+                                </li>
+                                <li class="list-group-item">
+                                  <span class="col-3">学習時間</span>
+                                  <span class="col-9">${study_log.hour}時間${study_log.minute}分</span> 
+                                </li>
+                                <li class="list-group-item s-card-memo">
+                                  <div class="card-body pt-2">
                                     <span class="absolute">学習メモ</span>
                                     <div class="mt-2 col-12">
-                                        ${study_log.memo}
+                                      ${study_log.memo}
                                     </div>
                                   </div>
                                 </li>
@@ -153,12 +147,13 @@
                               <div class="s-card-footer d-flex">
                                 <!-- いいね機能の処理 -->
                                 <span id="study-log-favorite-${study_log.id}">
-                                  ${study_log_favorite_html}
+                                ${study_log_favorite_html}
                                 </span>
                                 <span class="s-card-footer-margin"><a href="/study_logs/${study_log.id}">詳細へ</a></span>
+                                </div>
                               </div>
                             </div>
-                          </div>`
+                            `
          });
     return study_log_html;
     };

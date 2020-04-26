@@ -14,24 +14,31 @@
     </div>
     <!-- カードの処理 -->
     <ul class="list-group">
-      <% @study_log.study_log_details.each do |detail| %>
-        <li class="list-group-item">
-          <span class="col-3">学習内容</span>
-            <span class="col-6">
-              <% detail.tag_list.each do |tag| %> 
-                <span clas= "badge-success p-1 badge-tag"><%= tag %></span>
-              <% end %>
+      <li class="list-group-item">
+        <span class="col-3">
+          学習内容
+        </span>
+        <span class="col-6">
+          <% @study_log.tag_list.each do |tag| %> 
+            <span class= "badge-success p-1 badge-tag">
+              <%= tag %>
             </span>
-          <hr>
-          <span class="col-3">学習時間</span><span class="col-6"><%= detail.hour%>時間<%= detail.min %>分</span>
-        </li>
-      <% end %>
-      <li class="list-group-item" style="position: relative;">
+          <% end %>
+        </span>
+        <hr>
+        <span class="col-3">
+          学習時間
+        </span>
+        <span class="col-6">
+          <%= @study_log.hour%>時間<%= @study_log.minute %>分
+        </span>
+      </li>
+      <li class="list-group-item s-card-memo">
         <div class="card-body pt-2">
-          <div class="col-3" style="position: absolute;left:5%;top:2%;">
-            メモ
-          </div>
-          <div class="offset-2 ">
+          <span class="s-show-absolute">
+            学習メモ
+          </span>
+          <div class="mt-2 col-12">
             <%= @study_log.memo %>            
           </div>
         </div>

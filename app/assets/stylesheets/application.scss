@@ -258,6 +258,9 @@ footer {
       left: 6.5%;
     }
   }
+  & .study-log-show-tags {
+    height:13vh;
+  }
   & .s-card-footer {
     @extend .card-footer;
     background-color: $background-footer;

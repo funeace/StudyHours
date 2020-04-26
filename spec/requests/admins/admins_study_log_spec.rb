@@ -12,7 +12,6 @@ RSpec.describe Admins::StudyLogsController, type: :request do
   describe "get #index" do
     let!(:admin){ create(:admin) }
     let!(:study_log){ create(:study_log) }
-    let!(:study_log_detail){ create(:study_log_detail,study_log_id: study_log.id) }
     context "ログインしているとき" do
       before do
         sign_in admin
@@ -39,7 +38,6 @@ RSpec.describe Admins::StudyLogsController, type: :request do
   describe "get #show" do
     let!(:admin){ create(:admin) }
     let!(:study_log){ create(:study_log) }
-    let!(:study_log_detail){ create(:study_log_detail,study_log_id: study_log.id)}
     context "ログインしているとき" do
       before do
         sign_in admin
@@ -64,7 +62,6 @@ RSpec.describe Admins::StudyLogsController, type: :request do
   describe "delete #destroy" do
     let!(:admin){ create(:admin) }
     let!(:study_log){ create(:study_log) }
-    let!(:study_log_detail){ create(:study_log_detail,study_log_id: study_log.id)}
     before do
       sign_in admin
     end

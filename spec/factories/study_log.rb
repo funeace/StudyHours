@@ -11,5 +11,7 @@ FactoryBot.define do
     association :user
     working_date {Date.today}
     memo {"studyテスト"}
+    hour { 3 }
+    minute { 30 }
   end
 end

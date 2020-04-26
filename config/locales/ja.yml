@@ -4,7 +4,6 @@ ja:
       admin: "管理者"
       user: "ユーザー"
       study_log: "学習記録"
-      study_log_detail: "学習記録詳細"
       study_log_comment: "コメント（学習記録）"
       study_log_favorite: "お気に入り（学習記録）"
       note: "ノート"
@@ -28,10 +27,9 @@ ja:
         user_id: "ユーザーID"
         memo: "メモ"
         working_date: "学習日"
-      study_log_detail:
-        study_log_id: "学習記録ID"
         hour: "時間"
-        min: "分"
+        minute: "分"
+        tag_list: "学習内容"
       study_log_comment:
         study_log_id: "学習記録ID"
         user_id: "ユーザーID"

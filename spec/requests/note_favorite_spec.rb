@@ -14,7 +14,6 @@ describe NoteFavoritesController, type: :request do
   before do
     sign_in user
   end
-
   describe "POST #create" do
     context "パラメータが正しい場合" do
       it "リクエストは正しいか" do

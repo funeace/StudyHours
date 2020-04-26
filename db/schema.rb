@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_150509) do
+ActiveRecord::Schema.define(version: 2020_04_26_104039) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -102,15 +102,6 @@ ActiveRecord::Schema.define(version: 2020_04_21_150509) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "study_log_details", force: :cascade do |t|
-    t.integer "study_log_id", null: false
-    t.integer "hour", default: 0, null: false
-    t.integer "min", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["study_log_id"], name: "index_study_log_details_on_study_log_id"
-  end
-
   create_table "study_log_favorites", force: :cascade do |t|
     t.integer "study_log_id", null: false
     t.integer "user_id", null: false
@@ -124,6 +115,8 @@ ActiveRecord::Schema.define(version: 2020_04_21_150509) do
     t.date "working_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "hour", default: 0, null: false
+    t.integer "minute", default: 0, null: false
     t.index ["user_id"], name: "index_study_logs_on_user_id"
   end
 

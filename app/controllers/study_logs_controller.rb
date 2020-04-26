@@ -9,13 +9,12 @@ class StudyLogsController < ApplicationController
 
   def new
     @study_log = current_user.study_logs.new
-    @study_log.study_log_details.build
   end
 
   def create
     @study_log = current_user.study_logs.new(study_log_params)
     # study_logに紐づけているtagをモデル内のset_taglist_existに送る
-    @study_log.set_taglist_exist(study_log_params[:study_log_details_attributes]["0"][:tag_list])
+    @study_log.set_taglist_exist(params[:study_log][:tag_list])
     if @study_log.save
       # tagのカラーコードがnilのものにカラーコードを付与
       create_tag_color
@@ -32,8 +31,8 @@ class StudyLogsController < ApplicationController
 
   def update
     @study_log = StudyLog.find(params[:id])
-    if @study_log.update(study_log_update_params)
-      flash[:notice] = "更新が完了しました。"
+    if @study_log.update(study_log_params)
+      flash[:success] = "更新が完了しました。"
       redirect_to study_log_path(@study_log)
       # tagのカラーコードがnilのものにカラーコードを付与
       create_tag_color
@@ -51,11 +50,6 @@ class StudyLogsController < ApplicationController
 
 private
   def study_log_params
-    params.require(:study_log).permit(:working_date,:memo,study_log_details_attributes:[:tag_list,:hour,:min])
-  end
-
-  # update内で自分のレコードを判定させるためにidを持たせる
-  def study_log_update_params
-    params.require(:study_log).permit(:working_date,:memo,study_log_details_attributes:[:tag_list,:hour,:min,:id,:_destroy])
+    params.require(:study_log).permit(:working_date,:memo,:hour,:minute,:tag_list)
   end
 end

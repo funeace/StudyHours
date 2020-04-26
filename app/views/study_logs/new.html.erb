@@ -6,18 +6,38 @@
         <%= render 'layouts/error_messages', model: @study_log %>
         <div class="s-header">
           <h5>学習日</h5>
-          <span><%= f.date_field :working_date, value: Date.today, class: "form-control" %></span>
+          <span>
+            <%= f.date_field :working_date, value: Date.today, class: "form-control" %>
+          </span>
         </div>
         <div class="d-flex card-body">
           <div class="content">
-            <!-- 子要素と親要素を同時に更新するための処理,今後非同期で列の追加等を行う予定であるため、パーシャル化 -->
-            <%= f.fields_for :study_log_details do |detail| %> 
-              <%= render 'study_log_detail_new',study_log: @study_log,detail: detail %>
-            <% end %>
+            <div class="row">
+              <span class="mt-2">
+                <%= f.label :tag_list,"学習記録" %>
+              </span>
+              <span class="col-8">
+                <%= f.text_field :tag_list,value: @study_log.tag_list.join(','),"data-role" => "tagsinput", placeholder: "「,」区切りで追加してください",class:"form-control"%>
+              </span>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="w-100  d-flex align-items-center ">
+                <h6 class="mt-2">勉強時間</h6>
+                <div class="width ml-3 mr-1">
+                  <%= f.select :hour, Array.new(24){|index| index },{},class: "form-control" %>
+                </div>
+                <h6 class="margin-right ml-1 mt-2">時間</h6>
+                <div class="width">
+                  <%= f.select :minute,Array.new(60){|index| index},{},class: "form-control" %>
+                </div>
+                <h6 class="ml-2 mt-2">分</h6>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-body pt-0">
-          <%= f.label :memo,"メモ" %>
+          <%= f.label :memo %>
           <%= f.text_area :memo ,class: "form-control" %>
         </div>
         <div class="mt-2 d-flex justify-content-end">
