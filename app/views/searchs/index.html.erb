@@ -42,7 +42,7 @@
     <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
       <div class="btn-group mb-3 study_btn" id="note_sort" role="group">
         <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいね順</button>
-        <button type="button" class="sort btn btn-secondary" id="note_posted_sort">投稿順</button>
+        <button type="button" class="sort btn btn-secondary" id="note_created_sort">投稿順</button>
       </div>
       <div id="note-preview">
         <%= render 'notes/note_list', notes: @notes %>
@@ -53,7 +53,7 @@
     <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
       <div class="btn-group mb-3 study_btn" id="user_sort" role="group">
         <button type="button" class="sort btn btn-secondary" id="user_follower_sort">フォロワー数順</button>
-        <button type="button" class="sort btn btn-secondary" id="user_posted_sort">登録順</button>
+        <button type="button" class="sort btn btn-secondary" id="user_created_sort">登録順</button>
       </div>
       <div id="user-preview">
         <%= render 'users/user_list', users: @users %>      
@@ -287,9 +287,6 @@
       // value値取得(id)
       var val = $(this).attr('id');
       var parent = $(this).parent().attr('id');
-      $("#more-study-logs").prop('disabled',false);
-      $("#more-notes").prop('disabled',false);
-      $("#more-users").prop('disabled',false);
       $('#form').val('');
       // ajaxでデータを送信
       $.ajax({
@@ -327,6 +324,7 @@
           };
           // offsetを初期化
           $('#more-study-logs').data('offset',"6");
+          $("#more-study-logs").prop('disabled',false);
 
         }else if(parent == "note_sort"){
           var html = Note_HTML(data.notes);
@@ -344,13 +342,15 @@
           $('#more-notes').data('length',note_length);
           // offsetを初期化
           $('#more-notes').data('offset',"6");
+          $("#more-notes").prop('disabled',false);
+
         }else if(parent == "user_sort"){
           var html = User_HTML(data.users);
           $('#user-preview').html(html);
           // ページング用にidを取得し、dataの値として更新
           $("#more-users").data('sort',val)
           // 取得してきたデータの総数
-          $('#more-users').data('length',user_offset);
+          $('#more-users').data('length',user_length);
           // 抽出した値が6以下の場合はボタン押せない(1ページの表示量)
           if(user_length <= 6){
             $("#more-users").prop("disabled",true);
@@ -359,6 +359,7 @@
           };
           // offsetを初期化
           $('#more-users').data('offset',"6");
+          $("#more-users").prop('disabled',false);
         };
       });
     }); 
