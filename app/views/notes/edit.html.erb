@@ -14,21 +14,19 @@
           <div class="note-area">
             <h6>本文</h6>
             <!-- プレビュー用のタグ -->
-            <div id="preview-area">
-            </div>
+            <div id="preview-area"></div>
             <div class="input-field">
               <%= f.text_area :body, class: "form-control",style: "height: 60vh;" ,id: "md-textarea"%>     
             </div>
           </div>
         </div>
-
-        <div id="markdown" class="btn btn-info disabled ">
+        <button type="button" id="markdown" class="btn btn-info" disabled>
           記述する
-        </div>
-        <div id="preview" class="btn btn-info mr-5">
+        </button>
+        <button type="button" id="preview" class="btn btn-info mr-5">
           プレビューする      
-        </div>
-          <%= f.submit "投稿する",class: "btn btn-success" %>
+        </button>
+        <%= f.submit "投稿する",class: "btn btn-success" %>
           <div class="row col-12 mt-3">
             <%= link_to "ノートを削除する",note_path(@note),method: :delete,class: "btn btn-danger"%>
           </div>
