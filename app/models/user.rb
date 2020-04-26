@@ -63,34 +63,30 @@ class User < ApplicationRecord
   # 通算の学習時間を表示するメソッド
   def total_study_logs
     hour = 0
-    min = 0
+    minute = 0
     self.study_logs.each do |total_study_log|
-      total_study_log.study_log_details.each do |detail|
-        hour += detail.hour
-        min += detail.min
-      end
+        hour += total_study_log.hour
+        minute += total_study_log.minute
     end
-    calchour = min / 60
+    calchour = minute / 60
     hour += calchour
-    min = min % 60
-    return [hour,min]
+    minute = minute % 60
+    return [hour,minute]
   end
 
   # １週間の学習時間を表示するメソッド
   def weekly_study_logs
     hour = 0
-    min = 0
+    minute = 0
     # 月曜日~日曜日で集計を行う(rubyの標準)
     self.study_logs.where(working_date: (Date.today.beginning_of_week)..(Date.today.end_of_week)).each do |weekly_study_log|
-      weekly_study_log.study_log_details.each do |detail|
-        hour += detail.hour
-        min += detail.min
-      end
+        hour += weekly_study_log.hour
+        minute += weekly_study_log.minute
     end
-    calchour = min / 60
+    calchour = minute / 60
     hour += calchour
-    min = min % 60
-    return [hour,min]
+    minute = minute % 60
+    return [hour,minute]
   end
 
   # 今週の目標に対する進捗率を表示するメソッド(分単位で計算・return値は%現在何%か)
@@ -109,9 +105,8 @@ class User < ApplicationRecord
     # ユーザの投稿内容に紐づいたtagを取得する処理
     study_data =[]
     chart_data = []
-
     self.study_logs.each do |study_log|
-      study_data.push(study_log.study_log_details.tags_on(:tags))
+      study_data.push(study_log.tags_on(:tags))
     end
     # ユーザが投稿したタグの情報を全て取得
     study_data.each do |sdata|

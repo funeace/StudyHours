@@ -62,7 +62,10 @@ describe StudyLogsController, type: :request do
     context "パラメータが正しい場合" do
 
       it "リクエストが成功するか" do
-        post study_logs_path params: { user_id: user.id,study_log: FactoryBot.attributes_for(:study_log) }
+        param = {children_attributes: [FactoryBot.attributes_for(:study_log_detail)]}
+
+        post study_logs_path params: {study_log: FactoryBot.attributes_for(:study_log).merge(param)}
+        binding.pry
         expect(response).to have_http_status(302)
       end
 

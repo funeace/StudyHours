@@ -11,5 +11,9 @@ FactoryBot.define do
     association :user
     working_date {Date.today}
     memo {"studyテスト"}
+
+    after(:create) do |study_log|
+      create :study_log_detail, study_log_id: study_log.id
+    end
   end
 end

@@ -89,7 +89,7 @@ describe UsersController, type: :request do
 
       it "リダイレクトされるか" do
         patch user_path(user), params:{id:user.id,user: FactoryBot.attributes_for(:other_user) }
-        expect(response).to redirect_to detail_user_path(user.id)
+        expect(response).to redirect_to timelines_path
       end
     end
 
@@ -106,19 +106,6 @@ describe UsersController, type: :request do
           patch user_path(user), params:{id:user.id,user: FactoryBot.attributes_for(:other_user,:invalid) }
         end.not_to change {User.find(user.id).name}
       end
-    end
-  end
-
-  describe "GET #detail" do
-    let!(:user) { create(:user) }
-    it "リクエストが成功するか" do
-      get detail_user_path(user)
-      expect(response).to have_http_status(200)
-    end
-
-    it "ユーザ名が表示されているか" do
-      get detail_user_path(user)
-      expect(response.body).to include "テスト太郎"
     end
   end
 

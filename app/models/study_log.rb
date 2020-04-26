@@ -1,7 +1,5 @@
 class StudyLog < ApplicationRecord
   belongs_to :user
-  has_many :study_log_details, dependent: :destroy
-  accepts_nested_attributes_for :study_log_details
   has_many :study_log_favorites ,dependent: :destroy
   has_many :study_log_comments ,dependent: :destroy
   has_many :notifications, dependent: :destroy
@@ -43,7 +41,7 @@ class StudyLog < ApplicationRecord
 
 private
   def valid_working_date
-    if working_date > Date.today
+    if working_date.present? && working_date > Date.today
       errors[:base] << "未来日は入力できません"
     end
   end

@@ -3,6 +3,8 @@ json.study_logs @study_logs do |study_log|
   json.current_user_id @user.id
   # study_logの情報を取得
   json.id study_log.id
+  json.hour study_log.hour
+  json.hour study_log.minute
   json.working_date study_log.working_date.strftime("%Y年%m月%d日")
   json.memo study_log.memo
   # ユーザ情報の取得
@@ -18,16 +20,9 @@ json.study_logs @study_logs do |study_log|
     json.user_id study_log_favorite.user_id
   end
 
-  # ノート詳細情報の取得
-  json.study_log_details study_log.study_log_details do |study_log_detail|
-    json.id study_log_detail.id
-    json.hour study_log_detail.hour
-    json.min study_log_detail.min
-    # ノート詳細情報のタグの取得
-    json.tags study_log_detail.tag_list do |tag_list|
-      json.tag tag_list
-    end                                                                                                                     
-  end
+  json.tags study_log.tag_list do |tag_list|
+    json.tag tag_list
+  end                                                                                                                     
 end
 
 # ノートの取得

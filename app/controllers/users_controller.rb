@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # binding.pry
     if @user.update(user_params)
-      flash[:info] = "更新しました"
+      flash[:success] = "更新しました"
       redirect_to timelines_path
     else
       render 'edit'
