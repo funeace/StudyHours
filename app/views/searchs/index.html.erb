@@ -64,6 +64,24 @@
 </div>
 <script>
   $(document).on('turbolinks:load', function () {
+    // もっと見るボタンのlengthが6以下の場合は、もっと見るボタンを押せないようにする
+    console.log($("#more-study-logs").data('length'));
+    console.log($("#more-notes").data('length'));
+    console.log($("#more-users").data('length'));
+
+    if($("#more-study-logs").data('length') <= 6){
+      $("#more-study-logs").prop('disabled',true);
+    }
+
+    if($("#more-notes").data('length') <= 6){
+      $("#more-notes").prop('disabled',true);
+    }
+
+    if($("#more-users").data('length') <= 6){
+      $("#more-users").prop('disabled',true);
+    }
+
+
   // 各HTMLを作成する処理ここから---------------------------
     // StudyLogのHTMLを作成
     function StudyLog_HTML(study_logs) {
@@ -431,6 +449,7 @@
       });
     });
 
+    // もっと見るを押した時の処理
     $(".more").on('click',function() {
       more_param = $(this).attr('id');
       // console.log(more_param)
@@ -461,7 +480,7 @@
         if(more_param === "more-study-logs"){
           var study_log = StudyLog_HTML(data.study_logs);
           $('#study-preview').append(study_log);
-          $("#more-study-logs").data('offset',offset + limit)
+          $("#more-study-logs").data('offset',offset + limit);
           // offsetの値がlengthと同じまたは大きくなったらボタンを押せなくする
           if($("#more-study-logs").data('offset') >= length){
             $("#more-study-logs").prop("disabled",true);
@@ -470,7 +489,7 @@
         }else if(more_param === "more-notes"){
           var note = Note_HTML(data.notes);
           $('#note-preview').append(note);
-          $("#more-notes").data('offset',offset + limit)
+          $("#more-notes").data('offset',offset + limit);
           // offsetの値がlengthよりも同じまたは大きくなったらボタンを押せなくする
           if($("#more-notes").data('offset') >= length){ 
             $("#more-notes").prop("disabled",true);
@@ -479,7 +498,7 @@
         }else if(more_param == "more-users"){
           var user = User_HTML(data.users);
           $('#user-preview').append(user);
-          $("#more-users").data('offset',offset + limit) 
+          $("#more-users").data('offset',offset + limit);            
           // offsetの値がlengthよりも同じまたは大きくなったらボタンを押せなくする
           if($("#more-users").data('offset') >= length){ 
             $("#more-users").prop("disabled",true);

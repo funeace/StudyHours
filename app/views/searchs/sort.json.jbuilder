@@ -6,7 +6,7 @@ json.study_logs @study_logs do |study_log|
   json.working_date study_log.working_date.strftime("%Y年%m月%d日")
   json.memo study_log.memo
   json.hour study_log.hour
-  json.hour study_log.minute
+  json.minute study_log.minute
   # ユーザ情報の取得
   json.user do
     json.id study_log.user.id
