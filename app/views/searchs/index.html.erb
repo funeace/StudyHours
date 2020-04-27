@@ -133,7 +133,7 @@
 
         // プロフィール画像が設定されているか確認
         if(study_log.user.profile_image == null){
-         study_log_image = `<a href="/users/${study_log.user.id}"><img class="attachment user profile_image pull-left profile-img user-list-img" src="/assets/no_image.png" style="width: 80px; height="80px;"></a>`
+         study_log_image = `<a href="/users/${study_log.user.id}"><img class="attachment user profile_image pull-left profile-img user-list-img" src="no_image.png" style="width: 80px; height="80px;"></a>`
         } else {
           study_log_image =`<a href="/users/${study_log.user.id}"><img class="attachment user profile_image pull-left profile-img user-list-img" src="${study_log.user.profile_image}"style="width: 80px; height: 80px;"></a>`
         }
@@ -213,7 +213,7 @@
 
         // ユーザ画像が登録されているか確認
         if(note.user.profile_image == null){
-         note_image = `<a href="/users/${note.user.id}"><img class="attachment user profile_image pull-left list-img profile-img" src="/assets/no_image.png" style="width: 100px; height: 100px;"></a>`
+         note_image = `<a href="/users/${note.user.id}"><img class="attachment user profile_image pull-left list-img profile-img" src="no_image.png" style="width: 100px; height: 100px;"></a>`
         } else {
           note_image =`<a href="/users/${note.user.id}"><img class="attachment user profile_image pull-left list-img profile-img" src="${note.user.profile_image}" style= "width: 100px; height: 100px;"></a>`
         };
@@ -263,7 +263,7 @@
 
         // ユーザ画像が登録されているか確認
         if(user.profile_image == null){
-         user_image = `<img class="attachment user profile_image pull-left profile-img" src="/assets/no_image.png" style= "width: 100px; height: 100px;">`
+         user_image = `<img class="attachment user profile_image pull-left profile-img" src="no_image.png" style= "width: 100px; height: 100px;">`
         } else {
           user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; height: 100px; object-fit: cover;">`
         };
