@@ -5,55 +5,61 @@
       <div class="row header">
         <h4>新規登録</h4>  
       </div>
-      <div class="row">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
-          <div class="form-group row mt-2">
-            <div class="col-5">
-              <%= f.label :name,"ユーザーネーム",class: "devise-regist-font" %>
-            </div>
-            <div class="col-7">
-              <%= f.text_field :name, autofocus: true, autocomplete: "name",placeholder: "登録 太郎",class:"form-control" %>
-            </div>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="form-group row mt-2">
+          <div class="col-5">
+            <%= f.label :name,"ユーザーネーム",class: "devise-regist-font" %>
           </div>
-
-          <div class="form-group row mt-2">
-            <div class="col-5">
-              <%= f.label :email,"メールアドレス",class: "devise-regist-font" %>
-            </div>
-            <div class="col-7">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder: "sample@gmail.com",class:"form-control" %>
-            </div>
+          <div class="col-7">
+            <%= f.text_field :name, autofocus: true, autocomplete: "name",placeholder: "登録 太郎",class:"form-control" %>
           </div>
-
-          <div class="form-group row mt-2">
-            <div class="col-5">
-              <%= f.label :password,"パスワード",class: "devise-regist-font" %>
-            </div>
-            <div class="col-7">
-              <%= f.password_field :password, autocomplete: "new-password",placeholder: "password",class:"form-control" %>        
-            </div>
+        </div>
+        <div class="form-group row mt-2">
+          <div class="col-5">
+            <%= f.label :email,"メールアドレス",class: "devise-regist-font" %>
           </div>
-
-          <div class="form-group row mt-2">
-            <div class="col-5">
-              <%= f.label :password_confirmation,"パスワード(確認用)",class: "devise-regist-font" %>      
-            </div>
-            <div class="col-7">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password",placeholder: "password",class:"form-control" %>
-            </div>
+          <div class="col-7">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder: "sample@gmail.com",class:"form-control" %>
           </div>
-
-          <div class="row justify-content-center">
-            <div class="col-11">
-              <%= f.submit "登録する",class:"btn btn-primary btn-block" %>        
-            </div>
+        </div>
+        <div class="form-group row mt-2">
+          <div class="col-5">
+            <%= f.label :password,"パスワード",class: "devise-regist-font" %>
           </div>
-          <div class="row justify-content-end mt-3 devise-relative">
-            <%= link_to "ログインする", new_session_path(resource_name),class: "devise-absolute" %><br />
+          <div class="col-7">
+            <%= f.password_field :password, autocomplete: "new-password",placeholder: "password",class:"form-control" %>        
           </div>
-        <% end %>
-      </div>
+        </div>
+        <div class="form-group row mt-2">
+          <div class="col-5">
+            <%= f.label :password_confirmation,"パスワード(確認用)",class: "devise-regist-font" %>      
+          </div>
+          <div class="col-7">
+            <%= f.password_field :password_confirmation, autocomplete: "new-password",placeholder: "password",class:"form-control" %>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <%= f.submit "登録する",class:"btn btn-primary btn-block" %>        
+          </div>
+        </div>
+        <div class="row mt-2 justify-content-start">
+          <div class="col-lg-6 devise-omni-icon mr-1">
+            <%= link_to user_twitter_omniauth_authorize_path do %>
+              <%= image_tag "Twitter_Logo_Blue.png",size: "46x46",id:"image" %>Twitterでログイン
+            <% end %>
+          </div>
+          <div class="col-lg-5 devise-omni-icon">
+            <%= link_to user_google_omniauth_authorize_path do%>
+              <%= image_tag "google_icon.png" %>              
+            <% end %>
+          </div>
+        </div>
+        <div class="row justify-content-end mt-3 devise-relative">
+          <%= link_to "ログインする", new_session_path(resource_name),class: "devise-absolute" %><br />
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

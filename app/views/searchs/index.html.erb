@@ -133,9 +133,9 @@
 
         // プロフィール画像が設定されているか確認
         if(study_log.user.profile_image == null){
-         study_log_image = `<a href="/users/${study_log.user.id}"><img class="attachment user profile_image pull-left profile-img" src="/assets/no_image.png" style="width: 80px; height="80px;"></a>`
+         study_log_image = `<a href="/users/${study_log.user.id}"><img class="attachment user profile_image pull-left profile-img user-list-img" src="/assets/no_image.png" style="width: 80px; height="80px;"></a>`
         } else {
-          study_log_image =`<a href="/users/${study_log.user.id}"><img class="attachment user profile_image pull-left profile-img" src="${study_log.user.profile_image}"style="width: 80px; height: 80px;"></a>`
+          study_log_image =`<a href="/users/${study_log.user.id}"><img class="attachment user profile_image pull-left profile-img user-list-img" src="${study_log.user.profile_image}"style="width: 80px; height: 80px;"></a>`
         }
 
         // htmlを生成

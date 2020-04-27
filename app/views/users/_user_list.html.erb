@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
       <%= link_to user_path(user),class: "d-flex align-items-center col-lg-6 col-12" do %>
-        <%= attachment_image_tag user, :profile_image, :fill, 100, 100, class: "pull-left profile-img", fallback: "no_image.png",size: "100x100" %>
+        <%= attachment_image_tag user, :profile_image, :fill, 100, 100, class: "pull-left profile-img user-list-img", fallback: "no_image.png",size: "100x100" %>
         <div class="ml-1 col-lg-6">
           <h4 class="card-title"><%= user.name %></h4>
           <h6 class="card-subtitle text-muted"><%= user.introduction %></h6>
