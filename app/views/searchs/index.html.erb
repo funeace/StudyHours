@@ -17,7 +17,7 @@
   <!-- タブメニューの処理 -->
   <ul id="myTab" class="nav nav-tabs" role="tablist">
     <li class="nav-item">
-      <a href="#study_log" id="study_log-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">積み上げ</a>
+      <a href="#study_log" id="study_log-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">学習記録</a>
     </li>
     <li class="nav-item">
       <a href="#note" id="note-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="note" aria-selected="false">ノート</a>
@@ -137,7 +137,7 @@
                                 ${study_log_image}
                                 <div class="ml-3 d-flex flex-column justify-content-center">
                                   <h6>${study_log.working_date}</h6>
-                                  <h6>${study_log.user.name}</h6>
+                                  <h5>${study_log.user.name}</h6>
                                 </div>
                               </div>
                               <ul class="list-group">
