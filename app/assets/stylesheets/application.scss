@@ -111,6 +111,11 @@ footer {
 }
 
 
+.top-tabs {
+  font-size: 0.9em;
+}
+
+
 // Deviseの設定---------------------
 .devise-password-form {
   width:300px;
@@ -576,8 +581,6 @@ footer {
 }
 
 
-
-
 @media screen and (max-width: 768px){
    #md-textarea {
     height: 40vh;
@@ -637,6 +640,10 @@ footer {
       top: 35%;
     }
   }
+}
+
+.user-list-img{
+  display: none;
 }
 
 
