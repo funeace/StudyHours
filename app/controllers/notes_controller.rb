@@ -1,5 +1,6 @@
 class NotesController < ApplicationController
   before_action :authenticate_user!,except: [:show]
+  before_action :correct_user,only:[:edit]
   
   def new
     @note = current_user.notes.new
@@ -60,5 +61,12 @@ class NotesController < ApplicationController
 private
   def note_params
     params.require(:note).permit(:user_id,:title,:body,:tag_list)
+  end
+
+  def correct_user
+    @note = Note.find(params[:id])
+    unless current_user.id == @note.user_id
+      redirect_to root_path
+    end
   end
 end

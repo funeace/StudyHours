@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!,except: [:detail,:show,:following,:followers,:favorites]
+  before_action :correct_user,only: [:edit]
   def show
     @user = User.find(params[:id])
     @notes = @user.notes
@@ -65,6 +66,12 @@ class UsersController < ApplicationController
 
 private
   def user_params
-  params.require(:user).permit(:name,:email,:goal_hour,:goal_minute,:introduction,:profile_image)
+    params.require(:user).permit(:name,:email,:goal_hour,:goal_minute,:introduction,:profile_image)
+  end
+
+  def correct_user
+    unless current_user.id == @user.id
+      redirect_to root_path
+    end
   end
 end
