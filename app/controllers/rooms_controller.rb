@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
+  before_action :correct_user,only: [:show]
 
   # チャットするユーザ一覧
   def index
@@ -51,7 +52,13 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.json
     end
-
   end
 
+  def correct_user
+    @entry = Entry.find(params[:id])
+    # binding.pry
+    unless current_user.id == @entry.user_id
+      redirect_to root_path
+    end
+  end
 end
