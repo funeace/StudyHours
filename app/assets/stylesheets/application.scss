@@ -21,6 +21,9 @@
 
 $bg-color: #fffdf9;
 $top-bg-color: #f0f8ff;
+$topbar-background-color: #3cb371;
+$topbar-color: #F0FFFF;
+
 $a-color: #000;
 $a-visited-color: #808080;
 $s-card-background: #cafddc;
@@ -36,6 +39,7 @@ $menu-trigger: #F0FFFF;
 $profile-img-border: #F0F8FF;
 $profile-img-background-color: white;
 $footer-bgcolor: #996633;
+
 
 
 
@@ -81,9 +85,12 @@ footer {
 // top画面の設定
 .top-bar {
   height:8vh;
-  background-color:#3cb371;
+  background-color: $topbar-background-color;
   & a{
-    color: #F0FFFF;
+    color: $topbar-color;
+    &:hover{
+      text-decoration: none;
+    }
   }
 }
 

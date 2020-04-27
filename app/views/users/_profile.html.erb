@@ -1,22 +1,22 @@
 <div class="col-9">
-  <% if user_signed_in? && user.goal_hour == 0 && user.goal_minute == 0%>
+  <% if user_signed_in? && current_user.id == user.id && user.goal_hour == 0 && user.goal_minute == 0%>
     <h6>まだ週の目標が登録されていません。
       <%= link_to "登録はこちら",edit_user_path(user) %>
     </h6>
-  <% elsif current_user.id != @user.id && user.goal_hour == 0 && user.goal_minute == 0 %>
-    <h6><%= user.name %>さんはまだ週の目標を登録していません。</h6>
+  <% elsif user.goal_hour == 0 && user.goal_minute == 0  %>
+    <h6><%= user.name %>さんはまだ週の目標を登録していません。</h6>  
   <% else %>
     <div class="row">
       <span class="col-lg-4 profile-font-size">１週間の目標</span>
-      <span class="col-lg-7 profile-font-size"><%= @user.goal_hour%>時間<%= @user.goal_minute %>分</span>              
+      <span class="col-lg-7 profile-font-size"><%= user.goal_hour%>時間<%= user.goal_minute %>分</span>              
     </div>
     <div class="row">
       <span class="col-lg-4 profile-font-size">今週の学習時間</span>
-      <span class="col-lg-7 profile-font-size"><%= @user.weekly_study_logs[0] %>時間<%= @user.weekly_study_logs[1]%>分</span>
+      <span class="col-lg-7 profile-font-size"><%= user.weekly_study_logs[0] %>時間<%= user.weekly_study_logs[1]%>分</span>
     </div>
     <div class="row">
       <span class="col-lg-4 profile-font-size">これまでの学習時間</span>
-      <span class="col-lg-7 profile-font-size"><%= @user.total_study_logs[0] %>時間<%= @user.total_study_logs[1]%>分</span>
+      <span class="col-lg-7 profile-font-size"><%= user.total_study_logs[0] %>時間<%= user.total_study_logs[1]%>分</span>
     </div>
     <div class="pie_chart">
       <canvas id="pie" width="200" height="200"></canvas>

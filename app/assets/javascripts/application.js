@@ -183,10 +183,6 @@ $(document).on('turbolinks:load', function () {
 });
 
 
-
-
-
-
 // Note/new・edit -------------------------------------------
 // ノートのプレビューボタンを押した時にプレビューが表示される処理
 $(document).on('turbolinks:load', function () {

@@ -44,6 +44,7 @@
       </div>
       <div class="mt-2 d-flex justify-content-end">
         <%= f.submit "登録する",class: "btn btn-primary"%>
+        <%= link_to "削除する", study_log_path(@study_log),method: :delete,class: "ml-3 btn btn-danger"%>
       </div>
     <% end %>
   </div>

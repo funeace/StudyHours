@@ -20,9 +20,8 @@ class StudyLog < ApplicationRecord
   validate :invalid_working_date
   # tagが入力されている
   validate :invalid_study_tag
-  # 学習時間の合計が0じゃない
+  # 学習時間の合計が0じゃない  validate :invalid_study_hours
   validate :invalid_study_hours
-
 
   # 既にいいね ボタンを押しているか確認
   def favorited_by?(user)
@@ -40,7 +39,10 @@ class StudyLog < ApplicationRecord
       @taglist_chk = false
     end
   end
+
+
   # 実際のバリデーションを行うメソッド
+  # 学習内容のタグがnullだったらエラー
   def invalid_study_tag
     if @taglist_chk
       errors[:base] << "学習内容が入力されていません"

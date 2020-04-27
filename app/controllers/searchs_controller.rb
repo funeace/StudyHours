@@ -29,7 +29,7 @@ class SearchsController < ApplicationController
     end
   end
 
-  # ユーザの並び替えが押された時に実行する処理
+  # ユーザの並び替えが押された時に実行する処理(ajax)
   def sort
     # binding.pry
     @user = current_user
@@ -64,7 +64,7 @@ class SearchsController < ApplicationController
     end
   end
 
-  # ユーザ検索
+  # ユーザ検索(ajax)
   def search
     genre = params[:genre]
     # binding.pry
@@ -119,7 +119,7 @@ class SearchsController < ApplicationController
     end
   end
 
-    # もっと見るを押した時の処理
+    # もっと見るを押した時の処理(ajax)
   def more
     # 各々のデータ
     @user = current_user
