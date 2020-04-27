@@ -397,6 +397,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chart-js-rails
   chromedriver-helper
+  coderay
   coffee-rails (~> 4.2)
   database_cleaner
   devise

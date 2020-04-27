@@ -21,8 +21,13 @@
 
 $bg-color: #fffdf9;
 $top-bg-color: #f0f8ff;
+$topbar-background-color: #3cb371;
+$topbar-color: #F0FFFF;
+
 $a-color: #000;
 $a-visited-color: #808080;
+$s-card-background: #cafddc;
+$s-card-background-footer: #fffacd;
 $s-card-radius: 1em;
 $n-card-radius: 0.75em;
 $u-card-radius: 0.75em;
@@ -34,6 +39,9 @@ $menu-trigger: #F0FFFF;
 $profile-img-border: #F0F8FF;
 $profile-img-background-color: white;
 $footer-bgcolor: #996633;
+
+
+
 
 * {
   margin: 0;
@@ -77,9 +85,12 @@ footer {
 // top画面の設定
 .top-bar {
   height:8vh;
-  background-color:#3cb371;
+  background-color: $topbar-background-color;
   & a{
-    color: #F0FFFF;
+    color: $topbar-color;
+    &:hover{
+      text-decoration: none;
+    }
   }
 }
 
@@ -230,14 +241,12 @@ footer {
 
 // 学習記録のカード設定-----------------------------------------
 .s-card {
-  $background: #B2D235;
-  $background-footer: #fffacd;
   @extend .card;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,0.2);
   border-radius: $s-card-radius;
   & .s-header{
       @extend .card-header;
-      background-color: $background;
+      background-color: $s-card-background;
       border-radius: calc(#{$s-card-radius} - 1px) calc(#{$s-card-radius} - 1px) 0 0;
     // 丸まらないところがあったため追記
     &:first-child {
@@ -259,11 +268,11 @@ footer {
     }
   }
   & .study-log-show-tags {
-    height:13vh;
+    height:15vh;
   }
   & .s-card-footer {
     @extend .card-footer;
-    background-color: $background-footer;
+    background-color: $s-card-background-footer;
     &:last-child {
       border-radius: 0 0 1rem 1rem;
     }
@@ -398,7 +407,7 @@ footer {
     }
   }
   & .study-log-list-tag {
-    height:13vh;
+    height:15vh;
   }
 }
 
@@ -654,8 +663,8 @@ footer {
     & .title {
       width: 250px;
     }
-    & .badge-position{
-      & .tag-list{
+    & .badge-position {
+      & .tag_list{
         display: none;
       }
     }

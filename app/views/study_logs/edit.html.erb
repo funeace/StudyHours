@@ -6,7 +6,9 @@
         <%= render 'layouts/error_messages', model: @study_log %>
         <div class="s-header">
           <h5>学習日</h5>
-          <span><%= f.date_field :working_date, value: Date.today, class: "form-control" %></span>
+          <span>
+            <%= f.date_field :working_date, value: Date.today, class: "form-control" %>
+          </span>
         </div>
         <div class="d-flex card-body">
           <div class="content">
@@ -42,6 +44,7 @@
       </div>
       <div class="mt-2 d-flex justify-content-end">
         <%= f.submit "登録する",class: "btn btn-primary"%>
+        <%= link_to "削除する", study_log_path(@study_log),method: :delete,class: "ml-3 btn btn-danger"%>
       </div>
     <% end %>
   </div>

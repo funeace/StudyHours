@@ -88,6 +88,9 @@ gem 'chart-js-rails'
 gem 'spectrum-rails'
 gem "paranoia", "~> 2.2"
 gem 'rails-i18n', '~> 5.1'
+gem 'coderay'
+
+
 group :production do
   gem 'mysql2'
 end

@@ -10,14 +10,14 @@
           </select>
           <div class="d-flex align-items-center">で検索</div>
         </div>
-          <input type="form" id="form" class="d-flex mb-3 form-control" placeholder="キーワードを入力してください" style="width: 250px;" />
+          <input type="form" id="form" class="d-flex mb-3 form-control" placeholder="入力後エンターを押してください" style="width: 300px;" />
       </div>
     </div>
   </div>
   <!-- タブメニューの処理 -->
   <ul id="myTab" class="nav nav-tabs" role="tablist">
     <li class="nav-item">
-      <a href="#study_log" id="study_log-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">積み上げ</a>
+      <a href="#study_log" id="study_log-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">学習記録</a>
     </li>
     <li class="nav-item">
       <a href="#note" id="note-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="note" aria-selected="false">ノート</a>
@@ -31,7 +31,7 @@
     <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
       <div class="btn-group mb-3 study_btn" id="study_sort" role="group">
         <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいね順</button>
-        <button type="button" class="sort btn btn-secondary" id="study_created_sort">投稿順</button>
+        <button type="button" class="sort btn btn-secondary" id="study_created_sort">絞り込みを解除</button>
       </div>
       <div id="study-preview" class="row">
         <%= render 'study_logs/study_log_list', study_logs: @study_logs %>
@@ -42,7 +42,7 @@
     <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
       <div class="btn-group mb-3 study_btn" id="note_sort" role="group">
         <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいね順</button>
-        <button type="button" class="sort btn btn-secondary" id="note_created_sort">投稿順</button>
+        <button type="button" class="sort btn btn-secondary" id="note_created_sort">絞り込みを解除</button>
       </div>
       <div id="note-preview">
         <%= render 'notes/note_list', notes: @notes %>
@@ -53,7 +53,7 @@
     <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
       <div class="btn-group mb-3 study_btn" id="user_sort" role="group">
         <button type="button" class="sort btn btn-secondary" id="user_follower_sort">フォロワー数順</button>
-        <button type="button" class="sort btn btn-secondary" id="user_created_sort">登録順</button>
+        <button type="button" class="sort btn btn-secondary" id="user_created_sort">絞り込みを解除</button>
       </div>
       <div id="user-preview">
         <%= render 'users/user_list', users: @users %>      
@@ -64,6 +64,24 @@
 </div>
 <script>
   $(document).on('turbolinks:load', function () {
+    // もっと見るボタンのlengthが6以下の場合は、もっと見るボタンを押せないようにする
+    console.log($("#more-study-logs").data('length'));
+    console.log($("#more-notes").data('length'));
+    console.log($("#more-users").data('length'));
+
+    if($("#more-study-logs").data('length') <= 6){
+      $("#more-study-logs").prop('disabled',true);
+    }
+
+    if($("#more-notes").data('length') <= 6){
+      $("#more-notes").prop('disabled',true);
+    }
+
+    if($("#more-users").data('length') <= 6){
+      $("#more-users").prop('disabled',true);
+    }
+
+
   // 各HTMLを作成する処理ここから---------------------------
     // StudyLogのHTMLを作成
     function StudyLog_HTML(study_logs) {
@@ -76,23 +94,32 @@
       // １件ずつデータを受け取り、HTMLを形成
       study_logs.forEach(function(study_log){
         var study_log_favorites = 0;
-        var study_log_own_favorite = false;
+        var study_log_own_favorite = 3;
 
         // お気に入りのカウント・自分のIDが存在しているかの確認
         study_log.study_log_favorites.forEach(function(study_log_favorite){
           study_log_favorite_html = '';
           study_log_favorites += 1;
           // console.log(study_log_favorite.user_id);
-          // console.log(study_log.current_user_id);
-          // お気に入りをしたユーザと、ログインしているユーザが一致しているか判定する
-          if (study_log_favorite.user_id === study_log.current_user_id){
-            study_log_own_favorite = true;
-          }
+          console.log(study_log.current_user);
+          // お気に入りをしたユーザと、ログインしているユーザが一致しているか判定する。一致していたら1。一致していなかったら0。guestだったら2
+          if (study_log_favorite.user_id === study_log.current_user){
+            study_log_own_favorite = 1;
+          } else if(study_log.current_user == "Guest"){
+            study_log_own_favorite = 2;
+          } else if(study_log_favorite.user_id !== study_log.current_user){
+            study_log_own_favorite = 0;
+          };
       });
+
+        console.log()
         // いいねの処理(分岐)
-        if(study_log_own_favorite == true){
+        // お気に入りをしたユーザとログインしているユーザが一致していた場合
+        if(study_log_own_favorite === 1){
           study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="delete" href="/study_logs/${study_log.id}/study_log_favorites"><i class="fas fa-thumbs-up">${study_log_favorites}</i></a>`
-        }else{
+        }else　if(study_log_own_favorite === 2){
+          study_log_favorite_html = `<i class="far fa-thumbs-up">${study_log_favorites}</i>`
+        }else if(study_log_own_favorite === 0){
           study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="post" 
           href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-thumbs-up">${study_log_favorites}</i></a>`
         };
@@ -119,7 +146,7 @@
                                 ${study_log_image}
                                 <div class="ml-3 d-flex flex-column justify-content-center">
                                   <h6>${study_log.working_date}</h6>
-                                  <h6>${study_log.user.name}</h6>
+                                  <h5>${study_log.user.name}</h6>
                                 </div>
                               </div>
                               <ul class="list-group">
@@ -181,7 +208,7 @@
 
         note_tags = '';
         note.tags.forEach(function(tags,index_tag){
-          note_tags += `<a class="badge-success p-1 mr-1 badge-tag" href="/searchs?genre_id=2&amp;search_id=1&amp;tag_name=${note.tags[index_tag].tag}">${note.tags[index_tag].tag}</a>`
+          note_tags += `<a class="badge-success p-1 mr-1 badge-tag tag_list" href="/searchs?genre_id=2&amp;search_id=1&amp;tag_name=${note.tags[index_tag].tag}">${note.tags[index_tag].tag}</a>`
         });
 
         // ユーザ画像が登録されているか確認
@@ -227,6 +254,7 @@
       var html = '';
       var user_html = '';
       var user_image = '';
+      var user_introduction = '';
       var follow_count = 0;
       var follower_count = 0;
         
@@ -239,6 +267,12 @@
         } else {
           user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; height: 100px; object-fit: cover;">`
         };
+
+        if(user.introduction == null){
+          user_introduction = ''
+        } else {
+          user_introduction = user.introduction
+        }
 
         follow_count = 0;
         follower_count = 0;
@@ -264,7 +298,7 @@
                           ${user_image}
                           <div class="ml-1 col-lg-6">
                             <h4 class="card-title">${user.name}</h4>
-                            <h6 class="card-subtitle text-muted">${user.introduction}</h6>
+                            <h6 class="card-subtitle text-muted">${user_introduction}</h6>
                           </div>
                         </a>
                       </div>
@@ -361,8 +395,10 @@
 
     // テキストフォームにデータが入力されたら処理を実行
     $("#form").on('keyup',function(e){
+      if(e.keyCode != 13) return;
       var keyword = $.trim($(this).val());
       var genre = $("#search_select").val();
+
       // ajaxでデータを送信
       $.ajax({
         // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
@@ -381,17 +417,10 @@
         var user = User_HTML(data.users);
 
         // １ページに表示する件数
-        var length = 6
-        // 取得データ
-        var study_log_offset = data.length.study_log_length;
-        var note_offset = data.length.note_length;
-        var user_offset = data.length.user_length;
-
-        console.log(study_log_offset,note_offset,user_offset)
-        // lengthを更新する処理
-        $('#more-study-logs').data('length',study_log_offset);
-        $('#more-users').data('length',user_offset);
-        $('#more-notes').data('length',note_offset);
+        // 取得データ(length)
+        var study_log_length = data.length.study_log_length;
+        var note_length = data.length.note_length;
+        var user_length = data.length.user_length;
 
         // ユーザ検索
         if(genre === "name"){
@@ -399,38 +428,74 @@
           $('#note-preview').html(note);
           $('#user-preview').html(user);
 
+          // ソートメニュー初期化の処理
+          // lengthの初期値をセットする処理
+          $('#more-study-logs').data('length',study_log_length);
+          $('#more-users').data('length',user_length);
+          $('#more-notes').data('length',note_length);
+          // offsetを初期値に戻す処理
+          $('#more-study-logs').data('offset',6);
+          $('#more-users').data('offset',6);
+          $('#more-notes').data('offset',6);
           // 抽出した値が6以下の場合はボタン押せない(1ページの表示量)
-          if(study_log_offset <= 6){
+          if(study_log_length <= 6){
             $("#more-study-logs").prop("disabled",true);
+          } else {
+            $("#more-study-logs").prop("disabled",false);
           };
-          if(note_offset <= 6){
+          if(note_length <= 6){
             $("#more-notes").prop("disabled",true);
+          } else {
+            $("#more-notes").prop("disabled",false);
           };
-          if(user_offset <= 6){
+          if(user_length <= 6){
             $("#more-users").prop("disabled",true);
+          } else {
+            $("#more-users").prop("disabled",false);
           };
+
         }else if(genre === "note"){
           $('#note-preview').html(note);
+          // ソートメニュー初期化の処理
+          // lengthをセット
+          $('#more-notes').data('length',note_length);
+          // offsetを初期化
+          $('#more-notes').data('offset',6);
           // 抽出した値が6未満の場合はボタン押せない
-          if(note_offset <= 6){
+          if(note_length <= 6){
             $("#more-notes").prop("disabled",true);
+          } else {
+            $("#more-notes").prop("disabled",false);
           };
+
         // タグ検索
         }else if(genre === "tag"){
           $('#study-preview').html(study_log);
           $('#note-preview').html(note);
 
+          // ソートメニュー初期化の処理
+          // lengthを更新する処理
+          $('#more-study-logs').data('length',study_log_length);
+          $('#more-notes').data('length',note_length);
+          // offsetを初期値に戻す処理
+          $('#more-study-logs').data('offset',6);
+          $('#more-users').data('offset',6);
           // 抽出した値が6未満の場合はボタン押せない(1ページの表示量)
-          if(study_log_offset <= 6){
+          if(study_log_length <= 6){
             $("#more-study-logs").prop("disabled",true);
-          };
-          if(note_offset <= 6){
+          } else {
+            $("#more-study-logs").prop("disabled",false);
+          }
+          if(note_length <= 6){
             $("#more-notes").prop("disabled",true);
-          };
+          } else {
+            $("#more-notes").prop("disabled",false);
+          }
         };
       });
     });
 
+    // もっと見るを押した時の処理
     $(".more").on('click',function() {
       more_param = $(this).attr('id');
       // console.log(more_param)
@@ -461,7 +526,7 @@
         if(more_param === "more-study-logs"){
           var study_log = StudyLog_HTML(data.study_logs);
           $('#study-preview').append(study_log);
-          $("#more-study-logs").data('offset',offset + limit)
+          $("#more-study-logs").data('offset',offset + limit);
           // offsetの値がlengthと同じまたは大きくなったらボタンを押せなくする
           if($("#more-study-logs").data('offset') >= length){
             $("#more-study-logs").prop("disabled",true);
@@ -470,7 +535,7 @@
         }else if(more_param === "more-notes"){
           var note = Note_HTML(data.notes);
           $('#note-preview').append(note);
-          $("#more-notes").data('offset',offset + limit)
+          $("#more-notes").data('offset',offset + limit);
           // offsetの値がlengthよりも同じまたは大きくなったらボタンを押せなくする
           if($("#more-notes").data('offset') >= length){ 
             $("#more-notes").prop("disabled",true);
@@ -479,7 +544,7 @@
         }else if(more_param == "more-users"){
           var user = User_HTML(data.users);
           $('#user-preview').append(user);
-          $("#more-users").data('offset',offset + limit) 
+          $("#more-users").data('offset',offset + limit);            
           // offsetの値がlengthよりも同じまたは大きくなったらボタンを押せなくする
           if($("#more-users").data('offset') >= length){ 
             $("#more-users").prop("disabled",true);

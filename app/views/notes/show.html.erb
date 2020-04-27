@@ -6,7 +6,7 @@
     <div class="note-card col-12">
       <div class="link">
         <% if user_signed_in? && current_user.id == @note.user.id %>
-          <%= link_to "編集する",edit_note_path(@note)%>
+          <%= link_to "編集する",edit_note_path(@note),data: {"turbolinks" => false} %>
         <% end %>
         <div class="d-flex justify-content-end" id="note-favorite-<%= @note.id %>" >
           <%= render 'note_favorites/note_favorite', note: @note%>

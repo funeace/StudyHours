@@ -9,7 +9,7 @@
         <h6>タイトル</h6>
         <%= f.text_field :title, class: "form-control mb-2", placeholder: "タイトルを入力してください" %>
         <h6>タグ</h6>
-        <%= f.text_field :tag_list,value: @note.tag_list.join(','),"data-role" => "tagsinput",class: "form-control mb-2 w-100", placeholder: "「,」区切りで追加してください"%>
+        <%= f.text_field :tag_list,value: @note.tag_list.join(','),"data-role" => "tagsinput", id: "add_note_tags", class: "form-control mb-2 w-100", placeholder: "「,」区切りで追加してください"%>
         <div class="d-flex mb-3">
           <div class="w-100">
             <h6>本文</h6>
@@ -21,12 +21,12 @@
             </div>
           </div>
         </div>
-        <div id="markdown" class="btn btn-info disabled ">
+        <button id="markdown" type="button" class="btn btn-info" disabled>
           記述する
-        </div>
-        <div id="preview" class="btn btn-info mr-5">
+        </button>
+        <button type="button" id="preview" class="btn btn-info mr-5">
           プレビューする
-        </div>
+        </button>
           <%= f.submit "投稿する",class: "btn btn-success mt-2" %>
       <% end %>   
     </div>

@@ -7,15 +7,36 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Admin.create(email: "admin@admin.com",password: "password")
 
-15.times.each do |i|
+30.times.each do |i|
   User.create!(email: "user#{i+1}@user.com",password:"password",
-    name:"田中 太郎#{i+1}", goal_hour: 20*i, goal_minute: 0,introduction:"hogehogehogehoge")
+    name:"田中 太郎#{i+1}", goal_hour: rand(1..99), goal_minute: rand(1..59),introduction:"hogehogehogehoge")
 end
 
-5.times.each do |i|
-  StudyLog.create!(user_id: i+1,memo:"hogehogehogehoge",working_date: Date.today + i)
+
+  # create_table "notes", force: :cascade do |t|
+  #   t.integer "user_id", null: false
+  #   t.string "title", null: false
+  #   t.text "body", null: false
+  #   t.datetime "created_at", null: false
+  #   t.datetime "updated_at", null: false
+  #   t.index ["title"], name: "index_notes_on_title"
+  #   t.index ["user_id"], name: "index_notes_on_user_id"
+  # end
+30.times.each do |i|
+  Note.create!(user_id: rand(1..30),title: "ポートフォリオ制作について#{i}",body:"seedファイルで作られたbodyです！",tag_list: ["ポートフォリオ","Ruby_on_rails"])
 end
 
-5.times.each do |i|
-  StudyLogDetail.create!(study_log_id:i+1,hour: i+1,min:0,tag_list:["Ruby","RubyOnRails","jQuery"])
+  # create_table "study_logs", force: :cascade do |t|
+  #   t.integer "user_id", null: false
+  #   t.string "memo"
+  #   t.date "working_date", null: false
+  #   t.datetime "created_at", null: false
+  #   t.datetime "updated_at", null: false
+  #   t.integer "hour", default: 0, null: false
+  #   t.integer "minute", default: 0, null: false
+  #   t.index ["user_id"], name: "index_study_logs_on_user_id"
+  # end
+
+30.times.each do |i|
+  StudyLog.create!(user_id: rand(1..30),memo:"ポートフォリオ",hour: rand(1..23),minute: rand(1..59),working_date: Date.today,tag_list: ["Ruby_on_rails"])
 end

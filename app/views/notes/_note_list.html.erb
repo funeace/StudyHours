@@ -1,32 +1,36 @@
-<% notes.each do |note| %>
-  <div class="note-card mt-2">
-    <div class="card-body">
-      <div class="d-flex">
-        <%= link_to user_path(note.user) do %>
-          <%= attachment_image_tag note.user, :profile_image, :fill, 100, 100, class: "pull-left list-img profile-img", fallback: "no_image.png",size: "100x100" %>
-        <% end %>
-        <div class="d-flex align-items-center">
-          <div class="margin-left">
-            <div class="link-position  mb-3 mt-2">
-              <%= link_to note_path(note) do %>
-                <div class="title"><%= note.title %></div>
+<% if notes.empty? %>
+  <h6 class="ml-3">ノートが投稿されていません。</h6>  
+<% else %>
+  <% notes.each do |note| %>
+    <div class="note-card mt-2">
+      <div class="card-body">
+        <div class="d-flex">
+          <%= link_to user_path(note.user) do %>
+            <%= attachment_image_tag note.user, :profile_image, :fill, 100, 100, class: "pull-left list-img profile-img", fallback: "no_image.png",size: "100x100" %>
+          <% end %>
+          <div class="d-flex align-items-center">
+            <div class="margin-left">
+              <div class="link-position  mb-3 mt-2">
+                <%= link_to note_path(note) do %>
+                  <div class="title"><%= note.title %></div>
+                <% end %>
+              </div>
+              <h6 class="text-muted"><%= note.created_at.strftime("%Y年%m月%d日") %><br>
+                <%= note.user.name %>
+              </h6>
+            </div>
+            <div class="value">
+              <i class="far fa-thumbs-up"> <%= note.note_favorites.count %></i>
+              <i class="far fa-comment"> <%= note.note_comments.count %></i>        
+            </div>
+            <div class="badge-position">
+              <% note.tags.pluck(:name).each do |tag| %>
+                <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 2),class: "badge-success p-1 badge-tag tag_list" %>
               <% end %>
             </div>
-            <h6 class="text-muted"><%= note.created_at.strftime("%Y年%m月%d日") %><br>
-              <%= note.user.name %>
-            </h6>
-          </div>
-          <div class="value">
-            <i class="far fa-thumbs-up"> <%= note.note_favorites.count %></i>
-            <i class="far fa-comment"> <%= note.note_comments.count %></i>        
-          </div>
-          <div class="badge-position">
-            <% note.tag_list.each do |tag| %>
-              <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 2),class: "badge-success p-1 badge-tag tag-list" %>
-            <% end %>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>

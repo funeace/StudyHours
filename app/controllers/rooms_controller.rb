@@ -1,9 +1,12 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
+  LIMIT = 6    
 
   # チャットするユーザ一覧
   def index
-    @users = User.all.where.not(id: current_user.id)
+    users_base = User.all.where.not(id: current_user.id)
+    @users = users_base.limit(LIMIT)
+    @users_length = users_base.size
   end
 
   # チャットルーム
@@ -44,14 +47,33 @@ class RoomsController < ApplicationController
     end
   end
 
+
+# APIの処理
   # インクリメンタルサーチ
   def search
     # binding.pry
-    @users = User.where('name LIKE(?)',"%#{params[:keyword]}%").where.not(id: current_user.id)
+    users_base = User.where('name LIKE(?)',"%#{params[:keyword]}%").where.not(id: current_user.id)
+    @users_length = users_base.size
+    @users = users_base.limit(LIMIT)
     respond_to do |format|
       format.json
     end
-
+  end
+  
+  # インクリメンタルサーチを解除する処理
+  def return
+    @users = User.all.where.not(id: current_user.id).limit(LIMIT)
+    respond_to do |format|
+      format.json
+    end
   end
 
+  def more
+    offset = params[:offset]
+    # binding.pry
+    @users = User.all.where.not(id: current_user.id).limit(LIMIT).offset(offset)
+    respond_to do |format|
+      format.json
+    end
+  end
 end
