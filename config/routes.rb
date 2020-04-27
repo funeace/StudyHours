@@ -49,6 +49,8 @@ Rails.application.routes.draw do
   resources :rooms,only:[:index,:show,:create] do
     collection do
       get :search
+      get :return
+      get :more
     end
   end
 
