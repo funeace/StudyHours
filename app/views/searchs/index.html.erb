@@ -10,7 +10,7 @@
           </select>
           <div class="d-flex align-items-center">で検索</div>
         </div>
-          <input type="form" id="form" class="d-flex mb-3 form-control" placeholder="キーワードを入力してください" style="width: 250px;" />
+          <input type="form" id="form" class="d-flex mb-3 form-control" placeholder="入力後エンターを押してください" style="width: 300px;" />
       </div>
     </div>
   </div>
@@ -94,23 +94,30 @@
       // １件ずつデータを受け取り、HTMLを形成
       study_logs.forEach(function(study_log){
         var study_log_favorites = 0;
-        var study_log_own_favorite = false;
+        var study_log_own_favorite = 3;
 
         // お気に入りのカウント・自分のIDが存在しているかの確認
         study_log.study_log_favorites.forEach(function(study_log_favorite){
           study_log_favorite_html = '';
           study_log_favorites += 1;
           // console.log(study_log_favorite.user_id);
-          // console.log(study_log.current_user_id);
-          // お気に入りをしたユーザと、ログインしているユーザが一致しているか判定する
-          if (study_log_favorite.user_id === study_log.current_user_id){
-            study_log_own_favorite = true;
-          }
+          console.log(study_log.current_user);
+          // お気に入りをしたユーザと、ログインしているユーザが一致しているか判定する。一致していたら1。一致していなかったら0。guestだったら2
+          if (study_log_favorite.user_id === study_log.current_user){
+            study_log_own_favorite = 1;
+          } else if(study_log.current_user === "Guest"){
+            study_log_own_favorite = 2;
+          } else if(study_log_favorite.user_id !== study_log.current_user){
+            study_log_own_favorite = 0;
+          };
       });
         // いいねの処理(分岐)
-        if(study_log_own_favorite == true){
+        // お気に入りをしたユーザとログインしているユーザが一致していた場合
+        if(study_log_own_favorite === 1){
           study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="delete" href="/study_logs/${study_log.id}/study_log_favorites"><i class="fas fa-thumbs-up">${study_log_favorites}</i></a>`
-        }else{
+        }else　if(study_log_own_favorite === 2){
+          study_log_favorite_html = `<i class="fas fa-thumbs-up">${study_log_favorites}</i>`
+        }else if(study_log_own_favorite === 0){
           study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="post" 
           href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-thumbs-up">${study_log_favorites}</i></a>`
         };
@@ -199,7 +206,7 @@
 
         note_tags = '';
         note.tags.forEach(function(tags,index_tag){
-          note_tags += `<a class="badge-success p-1 mr-1 badge-tag" href="/searchs?genre_id=2&amp;search_id=1&amp;tag_name=${note.tags[index_tag].tag}">${note.tags[index_tag].tag}</a>`
+          note_tags += `<a class="badge-success p-1 mr-1 badge-tag tag_list" href="/searchs?genre_id=2&amp;search_id=1&amp;tag_name=${note.tags[index_tag].tag}">${note.tags[index_tag].tag}</a>`
         });
 
         // ユーザ画像が登録されているか確認
@@ -379,8 +386,10 @@
 
     // テキストフォームにデータが入力されたら処理を実行
     $("#form").on('keyup',function(e){
+      if(e.keyCode != 13) return;
       var keyword = $.trim($(this).val());
       var genre = $("#search_select").val();
+
       // ajaxでデータを送信
       $.ajax({
         // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る

@@ -268,7 +268,7 @@ footer {
     }
   }
   & .study-log-show-tags {
-    height:13vh;
+    height:15vh;
   }
   & .s-card-footer {
     @extend .card-footer;
@@ -407,7 +407,7 @@ footer {
     }
   }
   & .study-log-list-tag {
-    height:13vh;
+    height:15vh;
   }
 }
 
@@ -663,8 +663,8 @@ footer {
     & .title {
       width: 250px;
     }
-    & .badge-position{
-      & .tag-list{
+    & .badge-position {
+      & .tag_list{
         display: none;
       }
     }

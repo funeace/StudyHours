@@ -32,7 +32,11 @@ class SearchsController < ApplicationController
   # ユーザの並び替えが押された時に実行する処理(ajax)
   def sort
     # binding.pry
-    @user = current_user
+    if user_signed_in?
+      @user = current_user.id
+    else
+      @user = "Guest"
+    end
     @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT)
     @notes = Note.all.includes([:user,:note_comments,:note_favorites,:tags]).order(id: "DESC").limit(LIMIT)
     @study_logs = StudyLog.all.includes([:user,:study_log_favorites,:tags]).order(id: "DESC").limit(LIMIT)
@@ -68,7 +72,11 @@ class SearchsController < ApplicationController
   def search
     genre = params[:genre]
     # binding.pry
-    @user = current_user
+    if user_signed_in?
+      @user = current_user.id
+    else
+      @user = "Guest"
+    end
     # 名前検索が行われた場合
     if genre == "name"
       # 共通して検索する項目をベースとして定義
@@ -122,7 +130,11 @@ class SearchsController < ApplicationController
     # もっと見るを押した時の処理(ajax)
   def more
     # 各々のデータ
-    @user = current_user
+    if user_signed_in?
+      @user = current_user.id
+    else
+      @user = "Guest"
+    end
     @users = User.all.includes([:relationships,:reverse_of_relationships]).order(id: "DESC").limit(LIMIT)
     @notes = Note.all.includes([:user,:note_comments,:note_favorites,:tags]).order(id:"DESC").limit(LIMIT)
     @study_logs = StudyLog.all.includes([:user,:study_log_favorites,:tags]).order(id: "DESC").limit(LIMIT)

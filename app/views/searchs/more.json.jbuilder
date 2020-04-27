@@ -1,6 +1,6 @@
 json.study_logs @study_logs do |study_log|
   # ログインユーザのIDを取得
-  json.current_user_id @user.id
+  json.current_user @user
   # study_logの情報を取得
   json.id study_log.id
   json.hour study_log.hour
