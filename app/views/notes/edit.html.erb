@@ -9,7 +9,7 @@
         <h6>タイトル</h6>
         <%= f.text_field :title, class: "form-control mb-2" %>
         <h6>タグ</h6>
-        <%= f.text_field :tag_list,value: @note.tag_list.join(','), class: "form-control mb-2" %>
+        <%= f.text_field :tag_list,value: @note.tag_list.join(','),"data-role" => "tagsinput", class: "form-control mb-2" %>
         <div class="d-flex mb-3">
           <div class="note-area">
             <h6>本文</h6>

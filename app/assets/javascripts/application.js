@@ -164,6 +164,29 @@ $(document).on('turbolinks:load', function () {
 });
 
 
+// study_log/new-------------------------------------
+// bootstrap-tagsinputのplaceholderが消えない不具合に対する処理
+$(document).on('turbolinks:load', function () {
+  $('#add_study_log_tags').on('change',function(){
+  // 現在のデータの総数を取得
+  var length = $(this).tagsinput('items').length;
+  // tags-placeholderの１つ手前に作成されるinput要素を取得
+  var input = $('.tags-placeholder');
+  console.log(length);
+    if(length > 0){
+      console.log(input)
+      input.attr('placeholder', '');
+    } else{
+      input.attr('placeholder', $(this).attr('placeholder'));
+    };
+  });
+});
+
+
+
+
+
+
 // Note/new・edit -------------------------------------------
 // ノートのプレビューボタンを押した時にプレビューが表示される処理
 $(document).on('turbolinks:load', function () {
@@ -202,6 +225,26 @@ $(document).on('turbolinks:load', function () {
     $('#preview-area').empty();
     $('#preview').prop('disabled',false);
     $('#markdown').prop('disabled',true);
+  });
+});
+
+
+
+// note/new-------------------------------------
+// bootstrap-tagsinputのplaceholderが消えない不具合に対する処理
+$(document).on('turbolinks:load', function () {
+  $('#add_note_tags').on('change',function(){
+  // 現在のデータの総数を取得
+  var length = $(this).tagsinput('items').length;
+  // tags-placeholderの１つ手前に作成されるinput要素を取得
+  var input = $('.tags-placeholder');
+  console.log(length);
+    if(length > 0){
+      console.log(input)
+      input.attr('placeholder', '');
+    } else{
+      input.attr('placeholder', $(this).attr('placeholder'));
+    };
   });
 });
 

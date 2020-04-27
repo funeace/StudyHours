@@ -17,7 +17,7 @@
                 <%= f.label :tag_list,"学習記録" %>
               </span>
               <span class="col-8">
-                <%= f.text_field :tag_list,value: @study_log.tag_list.join(','),"data-role" => "tagsinput", placeholder: "「,」区切りで追加してください",class:"form-control"%>
+                <%= f.text_field :tag_list,value: @study_log.tag_list.join(','),"data-role" => "tagsinput",id: "add_study_log_tags", placeholder: "「,」区切りで追加してください",class:"form-control"%>
               </span>
             </div>
             <hr>
