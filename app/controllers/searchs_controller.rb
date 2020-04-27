@@ -101,11 +101,11 @@ class SearchsController < ApplicationController
       # ページネーションのボタンをdisabledにするため、取得した要素の件数を取得
       @user_length = users_base.size
       @study_log_length = study_logs_base.size
-      @note_length = note_base.size
+      @note_length = notes_base.size
       # 検索する処理
       @users = users_base.limit(LIMIT)
       @study_logs = study_logs_base.limit(LIMIT)
-      @notes = notee_base.limit(LIMIT)
+      @notes = notes_base.limit(LIMIT)
     # タグ検索(名前は引かない)
     elsif genre =="tag"
       # 共通して検索する項目をベースとして定義

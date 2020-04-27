@@ -31,7 +31,7 @@
     <div id="study_log" class="tab-pane active fade show" role="tabpanel" aria-labelledby="study_log-tab">
       <div class="btn-group mb-3 study_btn" id="study_sort" role="group">
         <button type="button" class="sort btn btn-secondary" id="study_favorite_sort">いいね順</button>
-        <button type="button" class="sort btn btn-secondary" id="study_created_sort">投稿順</button>
+        <button type="button" class="sort btn btn-secondary" id="study_created_sort">絞り込みを解除</button>
       </div>
       <div id="study-preview" class="row">
         <%= render 'study_logs/study_log_list', study_logs: @study_logs %>
@@ -42,7 +42,7 @@
     <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
       <div class="btn-group mb-3 study_btn" id="note_sort" role="group">
         <button type="button" class="sort btn btn-secondary" id="note_favorite_sort">いいね順</button>
-        <button type="button" class="sort btn btn-secondary" id="note_created_sort">投稿順</button>
+        <button type="button" class="sort btn btn-secondary" id="note_created_sort">絞り込みを解除</button>
       </div>
       <div id="note-preview">
         <%= render 'notes/note_list', notes: @notes %>
@@ -53,7 +53,7 @@
     <div id="user" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
       <div class="btn-group mb-3 study_btn" id="user_sort" role="group">
         <button type="button" class="sort btn btn-secondary" id="user_follower_sort">フォロワー数順</button>
-        <button type="button" class="sort btn btn-secondary" id="user_created_sort">登録順</button>
+        <button type="button" class="sort btn btn-secondary" id="user_created_sort">絞り込みを解除</button>
       </div>
       <div id="user-preview">
         <%= render 'users/user_list', users: @users %>      
@@ -105,18 +105,20 @@
           // お気に入りをしたユーザと、ログインしているユーザが一致しているか判定する。一致していたら1。一致していなかったら0。guestだったら2
           if (study_log_favorite.user_id === study_log.current_user){
             study_log_own_favorite = 1;
-          } else if(study_log.current_user === "Guest"){
+          } else if(study_log.current_user == "Guest"){
             study_log_own_favorite = 2;
           } else if(study_log_favorite.user_id !== study_log.current_user){
             study_log_own_favorite = 0;
           };
       });
+
+        console.log()
         // いいねの処理(分岐)
         // お気に入りをしたユーザとログインしているユーザが一致していた場合
         if(study_log_own_favorite === 1){
           study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="delete" href="/study_logs/${study_log.id}/study_log_favorites"><i class="fas fa-thumbs-up">${study_log_favorites}</i></a>`
         }else　if(study_log_own_favorite === 2){
-          study_log_favorite_html = `<i class="fas fa-thumbs-up">${study_log_favorites}</i>`
+          study_log_favorite_html = `<i class="far fa-thumbs-up">${study_log_favorites}</i>`
         }else if(study_log_own_favorite === 0){
           study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="post" 
           href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-thumbs-up">${study_log_favorites}</i></a>`
@@ -252,6 +254,7 @@
       var html = '';
       var user_html = '';
       var user_image = '';
+      var user_introduction = '';
       var follow_count = 0;
       var follower_count = 0;
         
@@ -264,6 +267,12 @@
         } else {
           user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; height: 100px; object-fit: cover;">`
         };
+
+        if(user.introduction == null){
+          user_introduction = ''
+        } else {
+          user_introduction = user.introduction
+        }
 
         follow_count = 0;
         follower_count = 0;
@@ -289,7 +298,7 @@
                           ${user_image}
                           <div class="ml-1 col-lg-6">
                             <h4 class="card-title">${user.name}</h4>
-                            <h6 class="card-subtitle text-muted">${user.introduction}</h6>
+                            <h6 class="card-subtitle text-muted">${user_introduction}</h6>
                           </div>
                         </a>
                       </div>
@@ -408,17 +417,10 @@
         var user = User_HTML(data.users);
 
         // １ページに表示する件数
-        var length = 6
-        // 取得データ
-        var study_log_offset = data.length.study_log_length;
-        var note_offset = data.length.note_length;
-        var user_offset = data.length.user_length;
-
-        console.log(study_log_offset,note_offset,user_offset)
-        // lengthを更新する処理
-        $('#more-study-logs').data('length',study_log_offset);
-        $('#more-users').data('length',user_offset);
-        $('#more-notes').data('length',note_offset);
+        // 取得データ(length)
+        var study_log_length = data.length.study_log_length;
+        var note_length = data.length.note_length;
+        var user_length = data.length.user_length;
 
         // ユーザ検索
         if(genre === "name"){
@@ -426,34 +428,69 @@
           $('#note-preview').html(note);
           $('#user-preview').html(user);
 
+          // ソートメニュー初期化の処理
+          // lengthの初期値をセットする処理
+          $('#more-study-logs').data('length',study_log_length);
+          $('#more-users').data('length',user_length);
+          $('#more-notes').data('length',note_length);
+          // offsetを初期値に戻す処理
+          $('#more-study-logs').data('offset',6);
+          $('#more-users').data('offset',6);
+          $('#more-notes').data('offset',6);
           // 抽出した値が6以下の場合はボタン押せない(1ページの表示量)
-          if(study_log_offset <= 6){
+          if(study_log_length <= 6){
             $("#more-study-logs").prop("disabled",true);
+          } else {
+            $("#more-study-logs").prop("disabled",false);
           };
-          if(note_offset <= 6){
+          if(note_length <= 6){
             $("#more-notes").prop("disabled",true);
+          } else {
+            $("#more-notes").prop("disabled",false);
           };
-          if(user_offset <= 6){
+          if(user_length <= 6){
             $("#more-users").prop("disabled",true);
+          } else {
+            $("#more-users").prop("disabled",false);
           };
+
         }else if(genre === "note"){
           $('#note-preview').html(note);
+          // ソートメニュー初期化の処理
+          // lengthをセット
+          $('#more-notes').data('length',note_length);
+          // offsetを初期化
+          $('#more-notes').data('offset',6);
           // 抽出した値が6未満の場合はボタン押せない
-          if(note_offset <= 6){
+          if(note_length <= 6){
             $("#more-notes").prop("disabled",true);
+          } else {
+            $("#more-notes").prop("disabled",false);
           };
+
         // タグ検索
         }else if(genre === "tag"){
           $('#study-preview').html(study_log);
           $('#note-preview').html(note);
 
+          // ソートメニュー初期化の処理
+          // lengthを更新する処理
+          $('#more-study-logs').data('length',study_log_length);
+          $('#more-notes').data('length',note_length);
+          // offsetを初期値に戻す処理
+          $('#more-study-logs').data('offset',6);
+          $('#more-users').data('offset',6);
           // 抽出した値が6未満の場合はボタン押せない(1ページの表示量)
-          if(study_log_offset <= 6){
+          if(study_log_length <= 6){
             $("#more-study-logs").prop("disabled",true);
-          };
-          if(note_offset <= 6){
+          } else {
+            $("#more-study-logs").prop("disabled",false);
+          }
+          if(note_length <= 6){
             $("#more-notes").prop("disabled",true);
-          };
+          } else {
+            $("#more-notes").prop("disabled",false);
+          }
         };
       });
     });
