@@ -47,3 +47,11 @@
     </div>
   </div>
 </div>
+<!-- エラーが存在していたら同じ場所にリダイレクトさせる処理 -->
+<% if @study_log.errors.present? %>
+<script type="text/javascript">
+  $(document).ready(function() {
+  history.pushState('', '', location.href + '/new')
+  });
+</script>
+<% end %>

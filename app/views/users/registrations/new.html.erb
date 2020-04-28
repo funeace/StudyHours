@@ -63,3 +63,12 @@
     </div>
   </div>
 </div>
+
+<!-- エラーが存在していたら同じ場所にリダイレクトさせる処理 -->
+<% if devise_error_messages.present? %>
+<script type="text/javascript">
+  $(document).ready(function() {
+  history.pushState('', '', location.href + '/sign_up')
+  });
+</script>
+<% end %>

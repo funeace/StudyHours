@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!,except: [:detail,:show,:following,:followers,:favorites]
   before_action :correct_user,only: [:edit]
+
   def show
     @user = User.find(params[:id])
     @notes = @user.notes
