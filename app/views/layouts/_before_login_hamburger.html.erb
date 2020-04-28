@@ -1,0 +1,15 @@
+<li>
+  <%= link_to searchs_path ,class: "nav-link",data: {"turbolinks" => false}  do %>
+    <i class="fas fa-search"> 探す</i>
+  <% end %>
+</li>
+<li>
+  <%= link_to new_user_registration_path,class: "nav-link" do %>
+    <i class="fas fa-edit"> 会員登録</i>
+  <% end %>
+</li>
+<li>
+  <%= link_to new_user_session_path,class: "nav-link"  do %>
+    <i class="fas fa-sign-in-alt"> ログイン</i>
+  <% end %>
+</li>

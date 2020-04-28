@@ -4,7 +4,7 @@ class TimelinesController < ApplicationController
   def index
     @user = current_user
     # 自身のユーザまたは、自身がフォローしているユーザ情報の投稿一覧を表示
-    @notes = Note.includes([:user,:note_comments,:note_favorites,:tags]).where("user_id = ? OR user_id IN (?)",@user.id, @user.followings.ids).order(id: "DESC").page(params[:note_page]).per(5)
+    @notes = Note.includes([:user,:note_comments,:note_favorites,:tags]).where("user_id = ? OR user_id IN (?)",@user.id, @user.followings.ids).order(id: "DESC").page(params[:note_page]).per(6)
     @study_logs = StudyLog.includes([:user,:study_log_favorites,:tags]).where("user_id = ? OR user_id IN (?)",@user.id,@user.followings.ids).order(id: "DESC").page(params[:study_log_page]).per(6)
     # ユーザがログインしている場合、DM機能でroomを作成するため判定を行う
     # gonにデータを渡す処理

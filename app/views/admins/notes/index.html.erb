@@ -10,12 +10,12 @@
       <tbody>
         <% @notes.each do |note| %>
           <tr>
-            <td style="width:200px;">
+            <td class="admin-note-title">
               <%= note.title %>
             </td>
             <td>
-              <% note.tag_list.each do |tag| %> 
-                <span class="badge-primary p-1 badge-tag"><%= tag %></span>
+              <% note.tags.pluck(:name).each do |tag| %>
+                <span class="badge-success p-1 badge-tag"><%= tag %></span>
               <% end %>
             </td>
             <td>
@@ -26,5 +26,6 @@
         <% end %>
       </tbody>
     </table>
+    <%= paginate @notes %>
   </div>
 </div>
