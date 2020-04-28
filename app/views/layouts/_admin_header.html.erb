@@ -1,0 +1,25 @@
+<li class="nav-item">
+  <%= link_to admins_users_path,class: "nav-link" do%>
+    <i class="fas fa-users"> ユーザー管理</i>
+  <% end %>
+</li>
+<li class="nav-item">
+  <%= link_to admins_study_logs_path,class: "nav-link" do%>
+    <i class="fas fa-clipboard-list"> 学習記録管理</i>
+  <% end %>
+</li>
+<li class="nav-item">
+  <%= link_to admins_notes_path,class: "nav-link" do %>
+    <i class="fas fa-book-reader"> ノート管理</i>
+  <% end %>
+</li>
+<li class="nav-item">
+  <%= link_to admins_tags_path, class:"nav-link" do %>
+    <i class="fas fa-tags"> タグ管理</i>
+  <% end %>
+</li>
+<li class="nav-item">
+  <%= link_to destroy_admin_session_path,method: :delete,class: "nav-link" do %>
+    <i class="fas fa-sign-out-alt"> ログアウト</i>
+  <% end %>
+</li>

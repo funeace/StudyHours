@@ -19,86 +19,11 @@
         <div class="navbar-right">
           <ul class="nav navbar-nav">
             <% if user_signed_in? %>
-              <li class="nav-item">
-                <%= link_to timelines_path,class: "nav-link",data: {"turbolinks" => false}  do%>
-                  <i class="fas fa-home"> タイムライン</i>
-                <% end %>
-              </li>
-              <li class="nav-item notification-relative">
-                <% if unchecked_notifications.any? %>
-                  <i class="fa fa-circle notification-absolute"></i>
-                <% end %>
-                <%= link_to notifications_path, class: "nav-link",data: {"turbolinks" => false} do %>
-                  <i class="fas fa-bell"> 通知</i>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to searchs_path ,class: "nav-link" ,data: {"turbolinks" => false} do %>
-                  <i class="fas fa-search"> 探す</i>
-                <% end %>
-              </li>
-              <li class="nav-item"> 
-                <%= link_to new_study_log_path,class: "nav-link",data: {"turbolinks" => false} do %>
-                  <i class="fas fa-sign-in-alt">学習記録</i>     
-                <% end %>           
-              </li>
-              <li class="nav-item">
-                <%= link_to new_note_path,class: "nav-link",data: {"turbolinks" => false} do %>
-                  <i class="fas fa-book"> ノート</i>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to rooms_path ,class: "nav-link" do %>
-                  <i class="fas fa-comment-dots"> チャット</i>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to destroy_user_session_path,method: :delete,class: "nav-link" do %>
-                  <i class="fas fa-sign-out-alt"> ログアウト</i>
-                <% end %>
-              </li>
+              <%= render 'layouts/user_header' %>
             <% elsif admin_signed_in? %>
-              <li class="nav-item">
-                <%= link_to admins_users_path,class: "nav-link" do%>
-                  <i class="fas fa-users"> ユーザー管理</i>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to admins_study_logs_path,class: "nav-link" do%>
-                  <i class="fas fa-clipboard-list"> 学習記録管理</i>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to admins_notes_path,class: "nav-link" do %>
-                  <i class="fas fa-book-reader"> ノート管理</i>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to admins_tags_path, class:"nav-link" do %>
-                  <i class="fas fa-tags"> タグ管理</i>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to destroy_admin_session_path,method: :delete,class: "nav-link" do %>
-                  <i class="fas fa-sign-out-alt"> ログアウト</i>
-                <% end %>
-              </li>
+              <%= render 'layouts/admin_header' %>
             <% else %>
-              <li class="nav-item">
-                <%= link_to searchs_path ,class: "nav-link" ,data: {"turbolinks" => false} do %>
-                  <i class="fas fa-search"> 探す</i>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to new_user_registration_path,class: "nav-link" do %>
-                  <i class="fas fa-edit"> 会員登録</i>
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to new_user_session_path,class: "nav-link"  do %>
-                  <i class="fas fa-sign-in-alt"> ログイン</i>
-                <% end %>
-              </li>
+              <%= render 'layouts/before_login_header' %>
             <% end %>
           </ul>
         </div>
@@ -106,61 +31,10 @@
         <div id="sp-menu">
           <h2>StudyHours</h2>
           <ul>
-            <% if user_signed_in? %>        
-              <li>
-                <%= link_to timelines_path,class: "nav-link",data: {"turbolinks" => false}  do%>
-                  <i class="fas fa-home"> マイページ</i>
-                <% end %>
-              </li>
-              <li class="notification-relative">
-                <% if unchecked_notifications.any? %>
-                  <i class="fa fa-circle notification-absolute"></i>
-                <% end %>
-                  <%= link_to notifications_path, class: "nav-link",data: {"turbolinks" => false}  do %>
-                    <i class="fas fa-bell"> 通知</i>
-                  <% end %>
-              </li>
-              <li>
-                <%= link_to searchs_path ,class: "nav-link",data: {"turbolinks" => false}  do %>
-                  <i class="fas fa-search"> 探す</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to new_study_log_path,class: "nav-link",data: {"turbolinks" => false}  do %>
-                  <i class="fas fa-sign-in-alt">学習記録を書く</i>     
-                <% end %>           
-              </li>
-              <li>
-                <%= link_to new_note_path,class: "nav-link",data: {"turbolinks" => false}  do %>
-                  <i class="fas fa-book"> ノートを書く</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to rooms_path ,class: "nav-link",data: {"turbolinks" => false}  do %>
-                  <i class="fas fa-comment-dots"> チャットする</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to destroy_user_session_path,method: :delete,class: "nav-link" do %>
-                  <i class="fas fa-sign-out-alt"> ログアウト</i>
-                <% end %>
-              </li>
+            <% if user_signed_in? %>   
+              <%= render 'layouts/user_header_hamburger' %>     
             <% else %>
-              <li>
-                <%= link_to searchs_path ,class: "nav-link",data: {"turbolinks" => false}  do %>
-                  <i class="fas fa-search"> 探す</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to new_user_registration_path,class: "nav-link" do %>
-                  <i class="fas fa-edit"> 会員登録</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to new_user_session_path,class: "nav-link"  do %>
-                  <i class="fas fa-sign-in-alt"> ログイン</i>
-                <% end %>
-              </li>
+              <%= render 'layouts/before_login_hamburger' %>
             <% end %>
           </ul>
         </div>
