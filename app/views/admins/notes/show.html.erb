@@ -19,8 +19,8 @@
           タグ
         </div>
         <div class="col-12">
-          <% @note.tag_list.each do |tag| %> 
-            <%= link_to tag,searchs_path(tag_name:tag,search_id:1),class: "badge badge-success p-1 badge-tag" %>
+          <% @note.tags.pluck(:name).each do |tag| %>
+            <span class="badge badge-success p-1 badge-tag"><%= tag %></span>
           <% end %>                    
         </div>
       </div>
@@ -34,8 +34,10 @@
       </div>
     </div>
   </div>
-  <div class="row" id="note-comments">   
-    <h4 class="mt-4">コメント</h4>
-    <%= render 'note_comments/note_comments',note: @note,note_comments: @note_comments %>
-  </div>
+  <% unless @note_comments.empty? %>
+    <div class="row" id="note-comments">   
+      <h4 class="mt-4">コメント</h4>
+      <%= render 'note_comments/note_comments',note: @note,note_comments: @note_comments %>
+    </div>
+  <% end %>
 </div>

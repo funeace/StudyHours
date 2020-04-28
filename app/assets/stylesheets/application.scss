@@ -105,16 +105,29 @@ footer {
   text-overflow:ellipsis;
 }
 
-
 .bootstrap-tagsinput input{
   width:100%;
 }
-
 
 .top-tabs {
   font-size: 0.9em;
 }
 
+.admin-study-log-td{
+  width: 200px;
+}
+
+.admin-user-name{
+  width: 200px;
+}
+
+.admin-user-email{
+  width: 400px;  
+}
+
+.admin-note-title{
+  width: 200px;
+}
 
 // Deviseの設定---------------------
 .devise-password-form {

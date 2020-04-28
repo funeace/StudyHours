@@ -1,7 +1,7 @@
 class Admins::NotesController < ApplicationController
   before_action :authenticate_admin!
   def index
-    @notes = Note.all
+    @notes = Note.includes([:user,:tags]).page(params[:page]).per(6)
   end
 
   def show

@@ -12,12 +12,12 @@
       <tbody>
         <% @study_logs.all.each do |study_log| %>
           <tr>
-            <td style="width:200px;">
+            <td class="admin-study-log-td">
               <%= study_log.working_date.strftime("%Y年%m月%d日") %>
             </td>
             <td>
-              <% study_log.tag_list.each do |tag| %> 
-                <span class="badge-primary p-1 badge-tag"><%= tag %></span>
+              <% study_log.tags.pluck(:name).each do |tag| %>
+                <span class="badge-success p-1 badge-tag"><%= tag %></span>
               <% end %>
             </td>
             <td>
@@ -36,5 +36,6 @@
         <% end %>
       </tbody>
     </table>
+  <%= paginate @study_logs %>
   </div>
 </div>

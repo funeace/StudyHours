@@ -2,7 +2,7 @@ class Admins::StudyLogsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @study_logs = StudyLog.all
+    @study_logs =  StudyLog.includes([:user,:tags]).page(params[:page]).per(6)
   end
 
   def show
