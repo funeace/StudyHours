@@ -6,7 +6,7 @@
         <h4>新規登録</h4>  
       </div>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= devise_error_messages %>
         <div class="form-group row mt-2">
           <div class="col-5">
             <%= f.label :name,"ユーザーネーム",class: "devise-regist-font" %>
@@ -63,3 +63,12 @@
     </div>
   </div>
 </div>
+
+<!-- エラーが存在していたら同じ場所にリダイレクトさせる処理 -->
+<% if devise_error_messages.present? %>
+<script type="text/javascript">
+  $(document).ready(function() {
+  history.pushState('', '', location.href + '/sign_up')
+  });
+</script>
+<% end %>
