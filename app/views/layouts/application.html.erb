@@ -18,10 +18,10 @@
         </div>
         <div class="navbar-right">
           <ul class="nav navbar-nav">
-            <% if user_signed_in? %>
-              <%= render 'layouts/user_header' %>
-            <% elsif admin_signed_in? %>
+            <% if admin_signed_in? %>
               <%= render 'layouts/admin_header' %>
+            <% elsif user_signed_in? %>            
+              <%= render 'layouts/user_header' %>
             <% else %>
               <%= render 'layouts/before_login_header' %>
             <% end %>
@@ -31,7 +31,9 @@
         <div id="sp-menu">
           <h2>StudyHours</h2>
           <ul>
-            <% if user_signed_in? %>   
+            <% if admin_signed_in? %>
+              <%= render 'layouts/admin_header_hamburger' %>     
+            <% elsif user_signed_in? %>
               <%= render 'layouts/user_header_hamburger' %>     
             <% else %>
               <%= render 'layouts/before_login_hamburger' %>
