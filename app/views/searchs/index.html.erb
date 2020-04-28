@@ -94,23 +94,26 @@
       // １件ずつデータを受け取り、HTMLを形成
       study_logs.forEach(function(study_log){
         var study_log_favorites = 0;
-        var study_log_own_favorite = 3;
+
+        if (study_log.current_user == "Guest"){
+          var study_log_own_favorite = 2;
+        }else {
+          var study_log_own_favorite = 0;            
+        }
 
         // お気に入りのカウント・自分のIDが存在しているかの確認
         study_log.study_log_favorites.forEach(function(study_log_favorite){
+          console.log("ここまではきた");
           study_log_favorite_html = '';
           study_log_favorites += 1;
           // console.log(study_log_favorite.user_id);
-          console.log(study_log.current_user);
           // お気に入りをしたユーザと、ログインしているユーザが一致しているか判定する。一致していたら1。一致していなかったら0。guestだったら2
           if (study_log_favorite.user_id === study_log.current_user){
             study_log_own_favorite = 1;
-          } else if(study_log.current_user == "Guest"){
-            study_log_own_favorite = 2;
           } else if(study_log_favorite.user_id !== study_log.current_user){
             study_log_own_favorite = 0;
           };
-      });
+        });
 
         console.log()
         // いいねの処理(分岐)
@@ -120,7 +123,7 @@
         }else　if(study_log_own_favorite === 2){
           study_log_favorite_html = `<i class="far fa-thumbs-up">${study_log_favorites}</i>`
         }else if(study_log_own_favorite === 0){
-          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="post" 
+          study_log_favorite_html = `<a data-remote="true" rel="nofollow" data-method="post"
           href="/study_logs/${study_log.id}/study_log_favorites"><i class="far fa-thumbs-up">${study_log_favorites}</i></a>`
         };
 

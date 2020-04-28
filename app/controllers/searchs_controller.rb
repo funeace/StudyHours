@@ -46,19 +46,19 @@ class SearchsController < ApplicationController
     case sort
     # お気に入り順に並び替える
     when "study_favorite_sort" then
-      @study_logs = StudyLog.all.left_joins(:study_log_favorites).group(:id).select('study_logs.*,COUNT("study_log_favorites"."id") AS favorites_count').order(favorites_count: "DESC").limit(LIMIT)
+      @study_logs = StudyLog.includes([:user,:tags]).left_joins(:study_log_favorites).group(:id).select('study_logs.*,coalesce(count(study_log_favorites.id),0) as favorite_count').order(favorite_count: "DESC").limit(LIMIT)
     # 作成日順
     when "study_created_sort" then
       @study_logs
     # ノートお気に入り順
     when "note_favorite_sort" then
-      @notes = Note.all.left_joins(:note_favorites).group(:id).select('notes.*,COUNT("note_favorites"."id") AS note_count').order(note_count: "DESC").limit(LIMIT)
+      @notes = Note.left_joins(:note_favorites).group(:id).select('notes.*,coalesce(count(note_favorites.id),0) as note_count').order(note_count: "DESC" ).limit(LIMIT)
     # ノート作成日順
     when "note_created_sort" then
       @notes
     # フォロワー数
     when "user_follower_sort" then
-      @users = User.all.left_joins(:reverse_of_relationships).group(:id).select('users.*,COUNT("relationships"."id") AS follower_count').order(follower_count: "DESC").limit(LIMIT)
+      @users = User.left_joins(:reverse_of_relationships).group(:id).select('users.*,coalesce(count(relationships.id),0) as follower_count').order(follower_count: "DESC").limit(LIMIT)
       # ユーザ作成日順
     when "user_created_sort" then
       @users
@@ -152,7 +152,7 @@ class SearchsController < ApplicationController
         @study_logs = @study_logs.offset(offset)
       # お気に入り順に並び替える
       when "study_favorite_sort" then
-        @study_logs = StudyLog.all.includes([:user,:tags]).left_joins(:study_log_favorites).group(:id).select('study_logs.*,COUNT("study_log_favorites"."id") AS favorites_count').order(favorites_count: "DESC").limit(LIMIT).offset(offset)
+        @study_logs = StudyLog.includes([:user,:tags]).left_joins(:study_log_favorites).group(:id).select('study_logs.*,coalesce(count(study_log_favorites.id),0) as favorite_count').order(favorite_count: "DESC").limit(LIMIT).offset(offset)
       # 作成日順
       when "study_created_sort" then
         @study_logs = @study_logs.offset(offset)
@@ -161,7 +161,7 @@ class SearchsController < ApplicationController
         @notes = @notes.offset(offset)
       # ノートお気に入り順
       when "note_favorite_sort" then
-        @notes = Note.all.includes([:user,:note_comments,:tags]).left_joins(:note_favorites).group(:id).select('notes.*,COUNT("note_favorites"."id") AS note_count').order(note_count: "DESC").limit(LIMIT).offset(offset)
+        @notes = Note.includes([:user,:note_comments,:tags]).left_joins(:note_favorites).group(:id).select('notes.*,coalesce(count(note_favorites.id),0) as note_count').order(note_count: "DESC" ).limit(LIMIT).offset(offset)
       # ノート作成日順
       when "note_created_sort" then
         @notes = @notes.offset(offset)
@@ -170,7 +170,7 @@ class SearchsController < ApplicationController
         @users =  @users.offset(offset)
       # フォロワー数
       when "user_follower_sort" then
-        @users = User.all.includes([:relationships]).left_joins(:reverse_of_relationships).group(:id).select('users.*,COUNT("relationships"."id") AS follower_count').order(follower_count: "DESC").limit(LIMIT).offset(offset)
+        @users = User.includes([:relationships]).left_joins(:reverse_of_relationships).group(:id).select('users.*,coalesce(count(relationships.id),0) as follower_count').order(follower_count: "DESC").limit(LIMIT).offset(offset)
         # ユーザ作成日順
       when "user_created_sort" then
         @users = @users.offset(offset)
