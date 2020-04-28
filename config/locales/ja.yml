@@ -19,6 +19,7 @@ ja:
         email: "メールアドレス"
         password: "パスワード"
       user:
+        name: "ユーザー名"
         email: "メールアドレス"
         password: "パスワード"
         profile_image_id: "プロフィール画像"
