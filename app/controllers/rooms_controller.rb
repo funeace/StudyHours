@@ -71,7 +71,7 @@ class RoomsController < ApplicationController
   def more
     offset = params[:offset]
     # binding.pry
-    @users = User.all.where.not(id: current_user.id).limit(LIMIT).offset(offset)
+    @users = User.where('name LIKE(?)',"%#{params[:keyword]}%").where.not(id: current_user.id).limit(LIMIT).offset(offset)
     respond_to do |format|
       format.json
     end
