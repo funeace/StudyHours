@@ -28,7 +28,7 @@
         </button>
         <%= f.submit "投稿する",class: "btn btn-success" %>
           <div class="row col-12 mt-3">
-            <%= link_to "ノートを削除する",note_path(@note),method: :delete,class: "btn btn-danger"%>
+            <%= link_to "ノートを削除する",note_path(@note),method: :delete, data: { confirm: "本当に削除しますか？",cancel: "やめる", commit: "削除する"},title: '投稿の削除',class: "btn btn-danger"%>
           </div>
       <% end %>   
     </div>

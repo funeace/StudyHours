@@ -2,7 +2,7 @@
   <div class="s-card width margin-auto">
     <div class="study-log-show-parent">
       <div class="favorite-child">
-        <span><%= link_to "削除する",admins_study_log_path(@study_log),method: :delete %></span>
+        <span><%= link_to "削除する",admins_study_log_path(@study_log), data: { confirm: "本当に削除しますか？",cancel: "やめる", commit: "削除する"},title: '投稿の削除',method: :delete %></span>
       </div>
     </div>
     <div class="s-header d-flex">

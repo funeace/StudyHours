@@ -5,7 +5,7 @@
   <div class="row">    
     <div class="note-card w-100">
       <div class="link">
-        <%= link_to "ノートを削除する",admins_note_path(@note),method: :delete%>
+        <%= link_to "ノートを削除する",admins_note_path(@note), data: { confirm: "本当に削除しますか？",cancel: "やめる", commit: "削除する"},title: '投稿の削除',method: :delete%>
       </div>
       <div class="row card-body">
       <div class="col-6 mb-2 font-size">タイトル</div>
