@@ -4,5 +4,4 @@ class NoteFavorite < ApplicationRecord
 
   # ノートidとuser_idが一意であることを確認
   validates :note_id, uniqueness: { scope: :user_id }
-
 end

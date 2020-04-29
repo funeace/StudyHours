@@ -53,6 +53,9 @@ Metrics/LineLength:
 Rails/Date:
   Enabled: false
 
+Metrics/CyclomaticComplexity:
+  Max: 30
+
 # メソッドの頭にgetとかsetとかを禁止する。今回は付与してしまったのでパス
 Naming/AccessorMethodName:
   Enabled: false
