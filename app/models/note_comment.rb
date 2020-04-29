@@ -7,5 +7,4 @@ class NoteComment < ApplicationRecord
   validates :user_id, presence: true
   # コメントが入っていることを確認
   validates :comment, presence: true
-
 end
