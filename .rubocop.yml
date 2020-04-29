@@ -33,3 +33,22 @@ Style/ClassAndModuleChildren:
 # 文字リテラルのイミュータブル宣言を無視（freezeになるのはRuby3以降）
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+# 最後のReturnのチェックを無視
+Style/RedundantReturn:
+  Enabled: false
+
+# メソッド名を30文字まで
+Metrics/MethodLength:
+  Max: 30
+
+# メソッド名を30文字まで
+Metrics/AbcSize:
+  Max: 30
+
+# 1行の長さを変換
+Metrics/LineLength:
+  Max: 150
+
+Rails/Date:
+  Enabled: false
