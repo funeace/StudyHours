@@ -194,7 +194,9 @@ $(document).on('turbolinks:load', function () {
     if (text ==""){
       return ;
     }
-
+    // 押したタイミングでボタンを押せなくする
+    $('#preview').prop('disabled',true);
+    $('#markdown').prop('disabled',false);
     // データをコントローラに受け渡す処理
     $.ajax({
       url: '/notes/preview',
@@ -207,9 +209,6 @@ $(document).on('turbolinks:load', function () {
       $('#md-textarea').parent().css('display','none');
       console.log(data);
       $('#preview-area').append(data.body);
-      $('#preview').prop('disabled',true);
-      $('#markdown').prop('disabled',false);
-
     });
   });
 });
