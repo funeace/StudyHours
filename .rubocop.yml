@@ -59,3 +59,6 @@ Metrics/CyclomaticComplexity:
 # メソッドの頭にgetとかsetとかを禁止する。今回は付与してしまったのでパス
 Naming/AccessorMethodName:
   Enabled: false
+
+Style/GuardClause:
+  Enabled: false
