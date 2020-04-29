@@ -10,7 +10,7 @@ json.study_logs @study_logs do |study_log|
   # 件数の取得
   # study_logの情報を取得
   json.id study_log.id
-  json.working_date study_log.working_date.strftime("%Y年%m月%d日")
+  json.working_date study_log.working_date.strftime('%Y年%m月%d日')
   json.memo study_log.memo
   json.hour study_log.hour
   json.minute study_log.minute
@@ -18,7 +18,7 @@ json.study_logs @study_logs do |study_log|
   json.user do
     json.id study_log.user.id
     json.name study_log.user.name
-    json.profile_image Refile.attachment_url(study_log.user,:profile_image)
+    json.profile_image Refile.attachment_url(study_log.user, :profile_image)
   end
 
   # 学習記録のお気に入り情報取得
@@ -30,13 +30,13 @@ json.study_logs @study_logs do |study_log|
   # 学習記録のタグ取得
   json.tags study_log.tag_list do |tag_list|
     json.tag tag_list
-  end                                                                                                                     
+  end
 end
 
 # ノートの取得
 json.notes @notes do |note|
   json.id note.id
-  json.created_at note.created_at.strftime("%Y年%m月%d日")
+  json.created_at note.created_at.strftime('%Y年%m月%d日')
   json.title note.title
   json.body note.body
   # タグ情報
