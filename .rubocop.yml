@@ -1,0 +1,35 @@
+# 将来的には対応する規約の読込
+inherit_from: .rubocop_todo.yml
+
+# 追加した規約ファイル読込
+require:
+  - rubocop-rails
+
+AllCops:
+  # 除外
+  Exclude:
+    - 'config.ru'
+    - 'bin/**'
+    - 'lib/**'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'spec/**/*'
+    - 'test/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+
+# 日本語のコメントを許可する
+Style/AsciiComments:
+  Enabled: false
+
+# クラスのコメント必須を無視
+Style/Documentation:
+  Enabled: false
+
+# モジュール名::クラス名の定義を許可
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# 文字リテラルのイミュータブル宣言を無視（freezeになるのはRuby3以降）
+Style/FrozenStringLiteralComment:
+  Enabled: false

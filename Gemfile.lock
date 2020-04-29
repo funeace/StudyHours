@@ -423,7 +423,9 @@ DEPENDENCIES
   refile!
   refile-mini_magick
   rspec-rails
+  rubocop
   rubocop-airbnb
+  rubocop-rails
   sass-rails (~> 5.0)
   selenium-webdriver
   spectrum-rails
