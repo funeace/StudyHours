@@ -25,7 +25,7 @@
             </div>
             <div class="badge-position">
               <% note.tags.pluck(:name).each do |tag| %>
-                <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 2),class: "badge-success p-1 badge-tag tag_list" %>
+                <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 2),class: "badge-success p-1 badge-tag tag_list" ,data: {"turbolinks" => false} %>
               <% end %>
             </div>
           </div>

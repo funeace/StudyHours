@@ -22,7 +22,7 @@
             </div>
             <div class="col-12">
               <% study_log.tags.pluck(:name).each do |tag| %>
-                <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 1),class: "badge-success p-1 badge-tag" %>
+                <%= link_to tag,searchs_path(tag_name:tag,search_id:1,genre_id: 1),class: "badge-success p-1 badge-tag",data: {"turbolinks" => false} %>
               <% end %>
             </div>
           </li>

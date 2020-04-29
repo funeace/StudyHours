@@ -643,6 +643,9 @@ footer {
 .pie_chart {
   & .study-log-inner {
     top: 40%;
+    &.study-log-inner-position {
+      top: 20%;
+    }
   }
 }
 

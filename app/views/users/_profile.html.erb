@@ -20,7 +20,7 @@
     </div>
     <div class="pie_chart">
       <canvas id="pie" width="200" height="200"></canvas>
-      <div class="study-log-inner">
+      <div class="study-log-inner inner-position">
       </div>
     </div>
     <div class="doughnut-chart"">
@@ -95,6 +95,7 @@ $(document).on('turbolinks:load', function () {
     console.log(gon.labels.length);
     if(gon.labels.length === 0){
       $('.study-log-inner').text("学習記録はまだ投稿されていません");//進捗率を表示
+      $('.study-log-inner').addClass("study-log-inner-position");//メッセージの表示位置を調整
     }else{
       $('.study-log-inner').text("学習内容");//進捗率を表示
     };
