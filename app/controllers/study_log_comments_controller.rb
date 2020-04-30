@@ -7,7 +7,7 @@ class StudyLogCommentsController < ApplicationController
     @study_log_comment.save
 
     @study_log_comments = @study_log.study_log_comments.all
-    @study_log.create_notification_comment!(current_user,@study_log_comment.id,"study_log_comment")
+    @study_log.create_notification_comment!(current_user, @study_log_comment.id, 'study_log_comment')
     #   redirect_to study_log_path(@study_log)
     # else
     #   render 'show'
@@ -21,8 +21,9 @@ class StudyLogCommentsController < ApplicationController
     # binding.pry
   end
 
- private
+  private
+
   def study_log_comment_params
-    params.require(:study_log_comment).permit(:study_log_id ,:comment)
+    params.require(:study_log_comment).permit(:study_log_id, :comment)
   end
 end

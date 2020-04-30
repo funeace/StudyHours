@@ -1,6 +1,6 @@
 class StudyLogsController < ApplicationController
-  before_action :authenticate_user!,except: [:show]
-  before_action :correct_user,only: [:edit]
+  before_action :authenticate_user!, except: %i[show]
+  before_action :correct_user, only: %i[edit]
 
   def show
     @study_log = StudyLog.find(params[:id])
@@ -19,7 +19,7 @@ class StudyLogsController < ApplicationController
     if @study_log.save
       # tagのカラーコードがnilのものにカラーコードを付与
       create_tag_color
-      flash[:success] = "登録が完了しました。この調子で頑張りましょう"
+      flash[:success] = '登録が完了しました。この調子で頑張りましょう'
       redirect_to study_log_path(@study_log)
     else
       render 'new'
@@ -34,7 +34,7 @@ class StudyLogsController < ApplicationController
     @study_log = StudyLog.find(params[:id])
     @study_log.set_taglist_exist(params[:study_log][:tag_list])
     if @study_log.update(study_log_params)
-      flash[:success] = "更新が完了しました。"
+      flash[:success] = '更新が完了しました。'
       redirect_to study_log_path(@study_log)
       # tagのカラーコードがnilのものにカラーコードを付与
       create_tag_color
@@ -46,20 +46,18 @@ class StudyLogsController < ApplicationController
   def destroy
     study_log = StudyLog.find(params[:id])
     study_log.destroy
-    flash[:notice] = "投稿を削除しました。"
+    flash[:notice] = '投稿を削除しました。'
     redirect_to timelines_path
   end
 
-private
+  private
+
   def study_log_params
-    params.require(:study_log).permit(:working_date,:memo,:hour,:minute,:tag_list)
+    params.require(:study_log).permit(:working_date, :memo, :hour, :minute, :tag_list)
   end
 
   def correct_user
     @study_log = StudyLog.find(params[:id])
-    unless current_user.id == @study_log.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user.id == @study_log.user_id
   end
-
 end
