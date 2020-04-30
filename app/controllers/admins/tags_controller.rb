@@ -15,12 +15,14 @@ class Admins::TagsController < ApplicationController
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
     if @tag.update(tag_params)
       redirect_to admins_tags_path
-      flash[:info] = "カラーコードの更新が完了しました"
+      flash[:info] = 'カラーコードの更新が完了しました'
     else
       render 'edit'
     end
   end
-private
+
+  private
+
   def tag_params
     params.require(:acts_as_taggable_on_tag).permit(:color_code)
   end

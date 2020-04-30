@@ -1,19 +1,19 @@
 class NotesController < ApplicationController
-  before_action :authenticate_user!,except: [:show]
-  before_action :correct_user,only:[:edit]
-  
+  before_action :authenticate_user!, except: %i[show]
+  before_action :correct_user, only: %i[edit]
+
   def new
     @note = current_user.notes.new
   end
 
   def create
-    @note = current_user.notes.new(note_params)    
+    @note = current_user.notes.new(note_params)
     # noteに紐づけているtagをモデル内のset_taglist_existに送る
     @note.set_taglist_exist(params[:note][:tag_list])
     if @note.save
       # tagのカラーコードがnilのものにカラーコードを付与するメソッド
       create_tag_color
-      flash[:success] = "ノートを投稿しました。"
+      flash[:success] = 'ノートを投稿しました。'
       redirect_to note_path(@note)
     else
       render 'new'
@@ -33,7 +33,7 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id])
     if @note.update(note_params)
-      flash[:success] = "ノートを更新しました"
+      flash[:success] = 'ノートを更新しました'
       redirect_to note_path(@note)
       # tagのカラーコードがnilのものにカラーコードを付与
       create_tag_color
@@ -45,11 +45,11 @@ class NotesController < ApplicationController
   def destroy
     note = Note.find(params[:id])
     note.destroy
-    flash[:warning] = "投稿を削除しました。"
+    flash[:warning] = '投稿を削除しました。'
     redirect_to timelines_path
   end
 
-# プレビューをクリックしたときにmarkdown形式でビューが表示される
+  # プレビューをクリックしたときにmarkdown形式でビューが表示される
   def preview
     @body = view_context.markdown(params[:body])
     respond_to do |format|
@@ -57,16 +57,14 @@ class NotesController < ApplicationController
     end
   end
 
+  private
 
-private
   def note_params
-    params.require(:note).permit(:user_id,:title,:body,:tag_list)
+    params.require(:note).permit(:user_id, :title, :body, :tag_list)
   end
 
   def correct_user
     @note = Note.find(params[:id])
-    unless current_user.id == @note.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user.id == @note.user_id
   end
 end

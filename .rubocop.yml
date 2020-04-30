@@ -65,3 +65,10 @@ Style/GuardClause:
 
 Metrics/ClassLength:
   Enabled: false
+
+# メソッドの命名規則。今回はパス
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Style/IfInsideElse:
+  Enabled: false

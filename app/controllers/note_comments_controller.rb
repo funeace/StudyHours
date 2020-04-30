@@ -11,7 +11,7 @@ class NoteCommentsController < ApplicationController
     #   render 'show'
     # end
     @note_comments = @note.note_comments.all
-    @note.create_notification_comment!(current_user,@note_comment.id,"note_comment")
+    @note.create_notification_comment!(current_user, @note_comment.id, 'note_comment')
   end
 
   def destroy
@@ -20,8 +20,9 @@ class NoteCommentsController < ApplicationController
     @note_comments = @note.note_comments.all
   end
 
-private
+  private
+
   def note_comment_params
-    params.require(:note_comment).permit(:note_id ,:comment)
+    params.require(:note_comment).permit(:note_id, :comment)
   end
 end
