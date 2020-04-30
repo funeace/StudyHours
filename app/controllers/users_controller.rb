@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!,except: [:detail,:show,:following,:followers,:favorites]
-  before_action :correct_user,only: [:edit]
+  before_action :authenticate_user!, except: %i[detail show following followers favorites]
+  before_action :correct_user, only: %i[edit]
 
   def show
     @user = User.find(params[:id])
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     # ユーザがログインしている場合、DM機能でroomを作成するため判定を行う
     # gonにデータを渡す処理
     # 進捗率を表示(目標がない場合はとりあえず0)
-    gon.labels =[]
+    gon.labels = []
     gon.data = []
     gon.background = []
     gon.progress = @user.weekly_progress
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # binding.pry
     if @user.update(user_params)
-      flash[:success] = "更新しました"
+      flash[:success] = '更新しました'
       redirect_to timelines_path
     else
       render 'edit'
@@ -65,15 +65,14 @@ class UsersController < ApplicationController
     end
   end
 
-private
+  private
+
   def user_params
-    params.require(:user).permit(:name,:email,:goal_hour,:goal_minute,:introduction,:profile_image)
+    params.require(:user).permit(:name, :email, :goal_hour, :goal_minute, :introduction, :profile_image)
   end
 
   def correct_user
     @user = User.find(params[:id])
-    unless current_user.id == @user.id
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user.id == @user.id
   end
 end
