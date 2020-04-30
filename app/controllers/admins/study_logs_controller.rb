@@ -2,7 +2,9 @@ class Admins::StudyLogsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @study_logs =  StudyLog.includes([:user,:tags]).page(params[:page]).per(6)
+    @study_logs = StudyLog.includes(%i[user tags])
+                          .page(params[:page])
+                          .per(6)
   end
 
   def show
@@ -15,6 +17,6 @@ class Admins::StudyLogsController < ApplicationController
     # binding.pry
     @study_log.destroy
     redirect_to admins_study_logs_path
-    flash[:info] = "学習記録を削除しました"
+    flash[:info] = '学習記録を削除しました'
   end
 end

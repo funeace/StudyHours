@@ -1,7 +1,9 @@
 class Admins::NotesController < ApplicationController
   before_action :authenticate_admin!
   def index
-    @notes = Note.includes([:user,:tags]).page(params[:page]).per(6)
+    @notes = Note.includes(%i[user tags])
+                 .page(params[:page])
+                 .per(6)
   end
 
   def show
@@ -12,7 +14,7 @@ class Admins::NotesController < ApplicationController
   def destroy
     @note = Note.find(params[:id])
     @note.destroy
-    flash[:info] = "ノートを削除しました"
+    flash[:info] = 'ノートを削除しました'
     redirect_to admins_notes_path
   end
 end

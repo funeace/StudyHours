@@ -12,7 +12,7 @@ class Admins::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     redirect_to admins_users_path
-    flash[:info] = "ユーザ情報を無効化しました"
+    flash[:info] = 'ユーザ情報を無効化しました'
     # binding.pry
   end
 
@@ -20,6 +20,6 @@ class Admins::UsersController < ApplicationController
     @user = User.with_deleted.find(params[:id])
     @user.restore
     redirect_to admins_users_path
-    flash[:info] = "ユーザ情報を復元しました"
+    flash[:info] = 'ユーザ情報を復元しました'
   end
 end
