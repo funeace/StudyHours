@@ -5,9 +5,8 @@ class NoteFavoritesController < ApplicationController
   def create
     @note = Note.find(params[:note_id])
     @note.note_favorites.create(user_id: current_user.id)
-    @note.create_notification_favorite!(current_user,"note_favorite")
-
-    # redirect_back(fallback_location: root_path)   
+    @note.create_notification_favorite!(current_user, 'note_favorite')
+    # redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -17,7 +16,8 @@ class NoteFavoritesController < ApplicationController
     # redirect_back(fallback_location: root_path)
   end
 
-private
+  private
+
   def set_note_favorite
     @note = Note.find(params[:note_id])
   end
