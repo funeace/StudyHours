@@ -84,7 +84,7 @@ describe NotesController, type: :request do
 
   describe "GET #edit" do
     let!(:user){ create(:user) }
-    let!(:note){ create(:note) }
+    let!(:note){ create(:note,user_id: user.id) }
     context "ログイン済みの場合" do
       before do
         sign_in user
