@@ -78,25 +78,17 @@ describe StudyLogsController, type: :request do
       end
     end
 
-    # 不具合
-    # context "パラメータが正しくない場合" do
-    #   it "リクエストが成功するか" do
-    #     post study_logs_path params: { study_log: FactoryBot.attributes_for(:study_log,user_id:"") }
-    #     expect(response).to have_http_status(302)
-    #   end
-
-
-    #   it "投稿に失敗するか" do
-    #     expect do
-    #       post study_logs_path params: { study_log: FactoryBot.attributes_for(:study_log,user_id:"") }
-    #     end.not_to change(StudyLog, :count)
-    #   end
-    # end
+    context "パラメータが正しくない場合" do
+      it "リクエストが成功するか" do
+        post study_logs_path params: { study_log: FactoryBot.attributes_for(:study_log,user_id:"") }
+        expect(response).to have_http_status(302)
+      end
+    end
   end
 
   describe "GET #edit" do
     let!(:user){ create(:user) }
-    let!(:study_log){ create(:study_log) }
+    let!(:study_log){ create(:study_log,user_id: user.id) }
     context "ログインしている時" do
       before do
         sign_in user
@@ -144,14 +136,6 @@ describe StudyLogsController, type: :request do
         patch study_log_path(study_log.id), params: { study_log: FactoryBot.attributes_for(:study_log,user_id:"",memo:"失敗") }
         expect(response).to have_http_status(302)
       end
-
-      # 不具合
-      # it "更新に失敗するか" do
-      #   expect do
-      #     patch study_log_path(study_log.id), params: { study_log: FactoryBot.attributes_for(:study_log,working_date:"",memo:"失敗") }
-      #     p params: { study_log: FactoryBot.attributes_for(:study_log,user_id:"",memo:"失敗") }
-      #   end.not_to change{StudyLog.find(study_log.id).memo}
-      # end
     end
   end
 

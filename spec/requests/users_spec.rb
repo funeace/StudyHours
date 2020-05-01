@@ -94,8 +94,6 @@ describe UsersController, type: :request do
     end
 
     context "パラメータが不正なとき" do
-
-      # 本当に302???
       it "リクエストが成功すること" do
         patch user_path(user), params:{id: user.id,user: FactoryBot.attributes_for(:user, :invalid)}
         expect(response).to have_http_status(302)
