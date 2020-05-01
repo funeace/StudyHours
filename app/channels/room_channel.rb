@@ -8,6 +8,6 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    Chat.create(content: data['chat'],user_id: current_user.id,room_id: params['room'])
+    Chat.create(content: data['chat'], user_id: current_user.id, room_id: params['room'])
   end
 end

@@ -166,8 +166,13 @@ $(document).on('turbolinks:load', function () {
 
 // study_log/new-------------------------------------
 // bootstrap-tagsinputのplaceholderが消えない不具合に対する処理
-$(document).on('turbolinks:load', function () {
+$(document).ready(function(){
+  if ($('#add_study_log_tags').tagsinput('items').length > 0){
+    $('.tags-placeholder').attr('placeholder','');
+  }
+
   $('#add_study_log_tags').on('change',function(){
+    console.log("change");
   // 現在のデータの総数を取得
   var length = $(this).tagsinput('items').length;
   // tags-placeholderの１つ手前に作成されるinput要素を取得
@@ -227,8 +232,15 @@ $(document).on('turbolinks:load', function () {
 
 // note/new-------------------------------------
 // bootstrap-tagsinputのplaceholderが消えない不具合に対する処理
-$(document).on('turbolinks:load', function () {
+// study_log/new-------------------------------------
+// bootstrap-tagsinputのplaceholderが消えない不具合に対する処理
+$(document).ready(function(){
+  if ($('#add_note_tags').tagsinput('items').length > 0){
+    $('.tags-placeholder').attr('placeholder','');
+  }
+
   $('#add_note_tags').on('change',function(){
+    console.log("change");
   // 現在のデータの総数を取得
   var length = $(this).tagsinput('items').length;
   // tags-placeholderの１つ手前に作成されるinput要素を取得
