@@ -16,6 +16,8 @@ AllCops:
     - 'script/**/*'
     - 'spec/**/*'
     - 'test/**/*'
+    - 'Gemfile'
+    - 'Gemfile.lock'
     - !ruby/regexp /old_and_unused\.rb$/
 
 # 日本語のコメントを許可する
