@@ -22,6 +22,8 @@ class StudyLog < ApplicationRecord
   validate :invalid_study_tag
   # 学習時間の合計が0じゃない  validate :invalid_study_hours
   validate :invalid_study_hours
+  # タグは6個まで登録できる
+  validate :invalid_study_tag_size
 
   # 既にいいね ボタンを押しているか確認
   def favorited_by?(user)
@@ -30,23 +32,26 @@ class StudyLog < ApplicationRecord
 
   # タグの存在確認
   # タグが存在しているかチェックするインスタンス変数を定義(default:false)
-  @taglist_chk = false
+  @taglist_count = 0
   # 画面から受け取ったパラメータのtag_listが存在しなければtaglist_chkをtrueに変更する
   def set_taglist_exist(tag_list)
-    if tag_list == ''
-      @taglist_chk = true
-    else
-      @taglist_chk = false
-    end
+    @taglist_count = tag_list 
   end
 
   # 実際のバリデーションを行うメソッド
   # 学習内容のタグがnullだったらエラー
   def invalid_study_tag
-    return unless @taglist_chk
+    return unless @taglist_count == 0
 
     errors[:base] << '学習内容が入力されていません'
   end
+
+  def invalid_study_tag_size
+    return unless @taglist_count > 6
+
+    errors[:base] << '学習内容は6つまで登録できます'
+  end
+
 
   private
 
