@@ -15,7 +15,7 @@
             <!-- 子要素と親要素を同時に更新するための処理,今後非同期で列の追加等を行う予定であるため、パーシャル化 -->
             <div class="row">      
               <span class="mt-2">
-                勉強内容
+                学習内容
               </span>
               <span class="col-8">
                 <%= f.text_field :tag_list,value: @study_log.tag_list.join(','),"data-role" => "tagsinput", class:"form-control"%>
@@ -24,7 +24,7 @@
             <hr>
             <div class="row">
               <div class="w-100  d-flex align-items-center ">
-                <h6 class="mt-2">勉強時間</h6>
+                <h6 class="mt-2">学習時間</h6>
                 <div class="width ml-3 mr-1">
                   <%= f.select :hour, Array.new(24){|index| index },{},class: "form-control" %>
                 </div>
