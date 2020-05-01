@@ -35,13 +35,13 @@ class StudyLog < ApplicationRecord
   @taglist_count = 0
   # 画面から受け取ったパラメータのtag_listが存在しなければtaglist_chkをtrueに変更する
   def set_taglist_exist(tag_list)
-    @taglist_count = tag_list 
+    @taglist_count = tag_list
   end
 
   # 実際のバリデーションを行うメソッド
   # 学習内容のタグがnullだったらエラー
   def invalid_study_tag
-    return unless @taglist_count == 0
+    return unless @taglist_count.zero?
 
     errors[:base] << '学習内容が入力されていません'
   end
