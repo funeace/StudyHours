@@ -4,8 +4,17 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
     @notes = @user.notes
+                  .order(id: 'DESC')
+                  .page(params[:study_log_page])
+                  .per(6)
+
     @study_logs = @user.study_logs
+                       .order(id: 'DESC')
+                       .page(params[:study_log_page])
+                       .per(6)
+
 
     # ユーザがログインしている場合、DM機能でroomを作成するため判定を行う
     # gonにデータを渡す処理
