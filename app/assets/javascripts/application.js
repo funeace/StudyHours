@@ -77,11 +77,11 @@ $(document).on('turbolinks:load', function() {
     };
 });
 
-// Timelines/index-----------------------------------
+// Timelines/index・Users/show-----------------------------------
 //kaminariでページネーションを行った時に、遷移前の状態が学習記録なら学習記録を、ノートならノートを開く処理
   // 画面の読み込み後に発火
   $(window).on('turbolinks:load', function () {
-    if(document.URL.match("/timelines")) {
+    if(document.URL.match("/timelines") || document.URL.match("/users")) {
       // location.searchで画面のsearch?以下を取得
       var getLocation = location.search;
       // 取得したパラメータを格納しておくobjectを定義
@@ -310,8 +310,11 @@ $(window).on('turbolinks:load', function () {
         $("#study_log").removeClass("active show");
         $("#note").removeClass("active show");
         $("#user").removeClass("active show");
-
-        $("#search_select").val("tag");
+        // search_idが存在していれば、selectタグの値をtagに変更
+        if( typeof getParams["search_id"] !== 'undefined'){
+          $("#search_select").val("tag");
+        }
+        // 検索する文字列が存在していればtagを選択
         $("#form").val(getParams["tag_name"]);
         // study_logだったらsearch_id = 1
         if( genre == 1 ){

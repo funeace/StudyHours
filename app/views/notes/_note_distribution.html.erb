@@ -1,0 +1,7 @@
+<% if request.referer&.include?("/searchs") %>
+    <%= link_to "戻る", searchs_path(genre_id: 2)  %>
+<% elsif request.referer&.include?("/users") %>
+    <%= link_to "戻る",user_path(note.user, tab_code: 2) %>
+<% else %>
+    <%= link_to "戻る",timelines_path(tab_code: 2) %>
+<% end %>

@@ -1,0 +1,7 @@
+<% if request.referer&.include?("/searchs") %>
+    <%= link_to "戻る", searchs_path(genre_id: 1), class: "study-log-back" %>
+<% elsif request.referer&.include?("/users") %>
+    <%= link_to "戻る",user_path(study_log.user,tab_code: 1), class: "study-log-back" %>
+<% else %>
+    <%= link_to "戻る",timelines_path(tab_code: 1), class: "study-log-back" %>
+<% end %>

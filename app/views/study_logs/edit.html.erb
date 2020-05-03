@@ -1,6 +1,9 @@
 <div class="container d-flex justify-content-center">
   <div class="study-log-new-width">  
-    <h3 class="mb-3">学習記録編集</h3>  
+    <div class="d-flex justify-content-start">
+      <h3 class="mb-3">学習記録編集</h3>
+      <%= link_to "戻る", study_log_path(@study_log), class: "study-log-back" %>
+    </div>
     <div class="s-card">
       <%= form_with model: @study_log, local: true do |f| %> 
         <%= render 'layouts/error_messages', model: @study_log %>

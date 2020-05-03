@@ -1,29 +1,42 @@
 <div class="container-fluid">
   <div class="row">
-    <%= render 'layouts/sidebar',user: @user,room: @room,room_chk: @room_chk,room_id: @room_id %>
-    <div class="col-9">
+    <%= render 'layouts/sidebar',user: @user,room: @room,room_chk: @room_chk,room_id: @room_id %>    
+    <div class="col-lg-9">
       <ul id="myTab" class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-          <a href="#profile" id="profile-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="profile" aria-selected="true">プロフィール</a>          
+          <a href="#profile" id="profile-tab" class="nav-link active show top-tabs" role="tab" data-toggle="tab" aria-controls="profile" aria-selected="true">プロフィール</a>
         </li>
         <li class="nav-item">
-          <a href="#study_log" id="study_log-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="record" aria-selected="true">学習記録</a>
+          <a href="#study_log" id="study_log-tab" class="nav-link top-tabs" role="tab" data-toggle="tab" aria-controls="record" aria-selected="false">学習記録</a>
         </li>
         <li class="nav-item">
-          <a href="#note" id="note-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="note" aria-selected="false">ノート</a>
+          <a href="#note" id="note-tab" class="nav-link top-tabs" role="tab" data-toggle="tab" aria-controls="note" aria-selected="false">ノート</a>
         </li>
       </ul>
       <div id="myTabContent" class="tab-content mt-3">
-        <div id="profile" class="tab-pane  show active fade" role="tabpanel" aria-labelledby="profile-tab">
+        <!-- ユーザのプロフィールを表示するための処理 -->
+        <div id="profile" class="tab-pane fade active show" role="tabpanel" aria-labelledby="profile-tab">
           <%= render 'users/profile',user: @user %>
         </div>
+
+        <!-- 学習記録を表示するための処理 -->
         <div id="study_log" class="tab-pane fade" role="tabpanel" aria-labelledby="study_log-tab">
-          <div class="row">
-            <%= render 'study_logs/study_log_list', study_logs: @study_logs,user: @user %>            
+          <div id="study-preview" class="row">
+            <%= render 'study_logs/study_log_list', study_logs: @study_logs,user: current_user %> 
+            <div id="paginate_study_logs" class="col-12 d-flex justify-content-end mt-3">
+              <%= paginate @study_logs, :param_name =>"study_log_page",params: {tab_code: 1} %>
+            </div>
           </div>
         </div>
+
+        <!-- ノートを表示するための処理 -->
         <div id="note" class="tab-pane fade" role="tabpanel" aria-labelledby="note-tab">
-          <%= render 'notes/note_list', notes: @notes %>              
+          <div id="note-preview">
+            <%= render 'notes/note_list', notes: @notes %>
+            <div id="paginate_notes" class="d-flex justify-content-end mt-3">
+              <%= paginate @notes,:param_name =>"note_page",params: {tab_code: 2} %>  
+            </div>
+          </div>
         </div>
       </div>
     </div>    
