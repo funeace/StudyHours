@@ -81,7 +81,7 @@ $(document).on('turbolinks:load', function() {
 //kaminariでページネーションを行った時に、遷移前の状態が学習記録なら学習記録を、ノートならノートを開く処理
   // 画面の読み込み後に発火
   $(window).on('turbolinks:load', function () {
-    if(document.URL.match("/timelines")) {
+    if(document.URL.match("/timelines") || document.URL.match("/users")) {
       // location.searchで画面のsearch?以下を取得
       var getLocation = location.search;
       // 取得したパラメータを格納しておくobjectを定義
