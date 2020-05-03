@@ -1,4 +1,8 @@
 <div class="container">
+  <div class="d-flex justify-content-end">
+    <!-- new・editから来ていたらtimelines、searchsから来ていたらsearch、showから来ていたらuser -->
+    <%= render 'note_distribution',note: @note %>
+  </div>
   <div class="row">
     <h3>ノート</h3>
   </div>
@@ -45,5 +49,5 @@
   </div>
   <div class="row"> 
     <%= render 'notes/note_form',note: @note,note_comment: @note_comment %>    
-  </div> 
+  </div>
 </div>

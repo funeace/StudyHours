@@ -12,7 +12,8 @@ class TimelinesController < ApplicationController
 
     @study_logs = StudyLog.includes(%i[user study_log_favorites tags])
                           .where('user_id = ? OR user_id IN (?)', @user.id, @user.followings.ids)
-                          .order(id: 'DESC').page(params[:study_log_page])
+                          .order(id: 'DESC')
+                          .page(params[:study_log_page])
                           .per(6)
     # ユーザがログインしている場合、DM機能でroomを作成するため判定を行う
     # gonにデータを渡す処理
