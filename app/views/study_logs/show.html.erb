@@ -1,6 +1,9 @@
 <div class="container study-log-show ">
   <div class="margin-auto width">
-    <h3 class="mb-3">学習記録詳細</h3>
+    <div class="d-flex justify-content-start">
+      <h3 class="mb-3">学習記録編集</h3>
+      <%= render 'study_logs/study_log_distribution', study_log: @study_log %>
+    </div>
     <div class="s-card">
       <div class="study-log-show-parent">
         <div class="favorite-child">
