@@ -67,8 +67,6 @@ $(document).on('turbolinks:load', function () {
     var target = 100 - progress;
   };
 
-  console.log(progress);
-  console.log(target);
   var myDoughnutChart = new Chart(doughnut_chart, {
     type: 'doughnut',
     data: {
@@ -92,7 +90,6 @@ $(document).on('turbolinks:load', function () {
   // 円の中心に文字列を表示する処理
   $(function(){
     $('.achievement-inner').text("目標達成率"+ progress+"%");//進捗率を表示
-    console.log(gon.labels.length);
     if(gon.labels.length === 0){
       $('.study-log-inner').text("学習記録はまだ投稿されていません");//進捗率を表示
       $('.study-log-inner').addClass("study-log-inner-position");//メッセージの表示位置を調整

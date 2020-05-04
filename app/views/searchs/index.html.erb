@@ -65,10 +65,6 @@
 <script>
   $(document).on('turbolinks:load', function () {
     // もっと見るボタンのlengthが6以下の場合は、もっと見るボタンを押せないようにする
-    console.log($("#more-study-logs").data('length'));
-    console.log($("#more-notes").data('length'));
-    console.log($("#more-users").data('length'));
-
     if($("#more-study-logs").data('length') <= 6){
       $("#more-study-logs").prop('disabled',true);
     }
@@ -103,10 +99,8 @@
 
         // お気に入りのカウント・自分のIDが存在しているかの確認
         study_log.study_log_favorites.forEach(function(study_log_favorite){
-          console.log("ここまではきた");
           study_log_favorite_html = '';
           study_log_favorites += 1;
-          // console.log(study_log_favorite.user_id);
           // お気に入りをしたユーザと、ログインしているユーザが一致しているか判定する。一致していたら1。一致していなかったら0。guestだったら2
           if (study_log_favorite.user_id === study_log.current_user){
             study_log_own_favorite = 1;
@@ -115,7 +109,6 @@
           };
         });
 
-        console.log()
         // いいねの処理(分岐)
         // お気に入りをしたユーザとログインしているユーザが一致していた場合
         if(study_log_own_favorite === 1){
@@ -263,7 +256,6 @@
         
       // １件ずつデータを受け取りHTMLを形成する
       user.forEach(function(user){
-
         // ユーザ画像が登録されているか確認
         if(user.profile_image == null){
          user_image = `<img class="attachment user profile_image pull-left profile-img" src="no_image.png" style= "width: 100px; height: 100px;">`
@@ -312,7 +304,7 @@
     }
 
 // 各HTMLを作成する処理ここまで---------------------------
-  // 以下Ajaxの処理
+// 以下Ajaxの処理
 
     // sortクラスが付与されているボタンがクリックされたら処理を実行
     $('.sort').on('click',function () {
@@ -320,9 +312,7 @@
       var val = $(this).attr('id');
       var parent = $(this).parent().attr('id');
       $('#form').val('');
-      // ajaxでデータを送信
       $.ajax({
-        // searchコントローラのsortアクションにsortidをjsonでコントローラへ送る
         type: 'GET',
         url: '/searchs/sort',
         data: {
@@ -330,14 +320,12 @@
         },
         dataType: 'json'
       })
-      // 成功した時の処理
       .done(function(data){
         // 取得してきたデータの総数
         var study_log_length = $('#more-study-logs').data('default-length');
         var note_length = $('#more-note-logs').data('default-length');
         var user_length = $('#more-user-logs').data('default-length');
 
-        // console.log(study_log_length,note_length,user_length);
         // study_sortをクリックした時
         if (parent == "study_sort"){
           var html = StudyLog_HTML(data.study_logs);
@@ -347,7 +335,6 @@
           $('#more-study-logs').data('length',study_log_length);
           $("#more-study-logs").data('sort',val)
 
-          // console.log(study_log_length)
           // study_log_lengthが６未満のときはボタンを押せない
           if(study_log_length <= 6){
             $("#more-study-logs").prop("disabled",true);
@@ -402,9 +389,7 @@
       var keyword = $.trim($(this).val());
       var genre = $("#search_select").val();
 
-      // ajaxでデータを送信
       $.ajax({
-        // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
         type: 'GET',
         url: '/searchs/search',
         data: {
@@ -413,12 +398,10 @@
         },
         dataType: 'json'
       })
-      // 検索結果をコントローラから受け取った後の処理
       .done(function(data){
         var study_log = StudyLog_HTML(data.study_logs);
         var note = Note_HTML(data.notes);
         var user = User_HTML(data.users);
-
         // １ページに表示する件数
         // 取得データ(length)
         var study_log_length = data.length.study_log_length;
@@ -501,7 +484,6 @@
     // もっと見るを押した時の処理
     $(".more").on('click',function() {
       more_param = $(this).attr('id');
-      // console.log(more_param)
       var offset = $(this).data('offset');
       var limit = $(this).data('limit');
       var length = $(this).data('length');
@@ -510,9 +492,7 @@
       var genre = $("#search_select").val();
       offset = Number(offset);
       length = Number(length);
-      // ajaxでデータを送信
       $.ajax({
-        // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
         type: 'GET',
         url: '/searchs/more',
         data: {
@@ -523,7 +503,6 @@
         },
         dataType: 'json'
       })
-      // 検索結果をコントローラから受け取った後の処理
       .done(function(data){
         // study_logのボタンを押した時
         if(more_param === "more-study-logs"){

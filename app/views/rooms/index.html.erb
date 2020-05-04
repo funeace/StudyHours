@@ -32,7 +32,6 @@
       var user_image = '';
       var user_introduction = '';
       // １件ずつデータを受け取りHTMLを形成する
-      // console.log(user);
       users.forEach(function(user){
         // ユーザ画像が登録されているか確認
         if(user.profile_image == null){
@@ -72,9 +71,7 @@
   $("#user-search").on('keyup',function(e){
     if(e.keyCode != 13) return;
     var keyword = $.trim($(this).val());
-    // ajaxでデータを送信
       $.ajax({
-        // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
         type: 'GET',
         url: '/rooms/search',
         data: {
@@ -82,17 +79,14 @@
         },
         dataType: 'json'
       })
-      // 検索結果をコントローラから受け取った後の処理
       .done(function(data){
-        // console.log(data);
         var html = RoomHTML(data.users);
         $('#rooms-preview').html(html);
-        var rooms_length = data.rooms_length;
         // ページング用にidを取得し、dataの値として更新
+        var rooms_length = data.rooms_length;
         // 初期値に戻す
         $("#more-rooms").data("offset",6);
         $('#more-rooms').data('length',rooms_length);
-        // console.log($('#more-rooms').data('length'));
         // 抽出した値が6以下の場合はボタン押せない(1ページの表示量)
         if(rooms_length <= 6){
           $("#more-rooms").prop("disabled",true);
@@ -102,20 +96,15 @@
       });
     });
 
-  // ソートを解除し、表示を戻す
+  // ソートを解除したときの処理
   $("#room_return").on('click',function(e){
-    // 初期値を変数に格納
     var rooms_length = $("#more-rooms").data("default-length")
-    // ajaxでデータを送信    
     $.ajax({
-      // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
       type: 'GET',
       url: '/rooms/return',
       dataType: 'json'
     })
-    // 検索結果をコントローラから受け取った時の処理
     .done(function(data){
-      // console.log(data);
       var html = RoomHTML(data.users);
       $('#rooms-preview').html(html);
       // 検索窓の値を空白に戻す
@@ -124,8 +113,6 @@
       $("#more-rooms").prop("disabled",false);
       $("#more-rooms").data("length",rooms_length);
       $("#more-rooms").data("offset",6);
-
-      // console.log(rooms_length);
     });
   }); 
 
@@ -136,7 +123,6 @@
     var keyword = $.trim($('#user-search').val());
     var limit = 6;
     $.ajax({
-      // searchコントローラのsearchアクションにkeywordをjsonでコントローラへ送る
       type: 'GET',
       url: '/rooms/more',
       data: {
@@ -145,9 +131,7 @@
       },
       dataType: 'json'
     })
-    // 検索結果をコントローラから受け取った後の処理
     .done(function(data){
-      console.log(data);
       var html = RoomHTML(data.users);
       $('#rooms-preview').append(html);
       $('#more-rooms').data('offset',offset + limit);
