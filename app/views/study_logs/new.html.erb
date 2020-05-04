@@ -50,7 +50,7 @@
     </div>
   </div>
 </div>
-<!-- エラーが存在していたら同じ場所にリダイレクトさせる処理 -->
+<!-- render先で画面リロードを行うとroutingエラーが発生するため、明示的にパスを指定してリダイレクトさせる -->
 <% if @study_log.errors.present? %>
 <script type="text/javascript">
   $(document).ready(function() {
