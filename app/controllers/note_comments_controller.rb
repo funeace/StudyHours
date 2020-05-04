@@ -6,10 +6,6 @@ class NoteCommentsController < ApplicationController
     @note_comment = current_user.note_comments.new(note_comment_params)
     @note_comment.note_id = @note.id
     @note_comment.save
-    #   redirect_to note_path(@note)
-    # else
-    #   render 'show'
-    # end
     @note_comments = @note.note_comments.all
     @note.create_notification_comment!(current_user, @note_comment.id, 'note_comment')
   end
