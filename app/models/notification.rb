@@ -1,5 +1,4 @@
 class Notification < ApplicationRecord
-  # 新着順に並ぶようスコープを定義
   default_scope -> { order(created_at: :desc) }
   belongs_to :user
   belongs_to :visit, class_name: 'User', foreign_key: 'visit_id'
@@ -9,12 +8,8 @@ class Notification < ApplicationRecord
   belongs_to :note, optional: true
   belongs_to :note_comment, optional: true
 
-  # user_idが空白じゃない
   validates :user_id, presence: true
-  # visit_idが空白じゃない
   validates :user_id, presence: true
-  # actionが空白じゃない
   validates :action, presence: true
-  # checkedはtrue or false
   validates :checked, inclusion: { in: [true, false] }
 end

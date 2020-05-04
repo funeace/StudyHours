@@ -8,17 +8,15 @@ class User < ApplicationRecord
   # 論理削除
   acts_as_paranoid
 
-  # ノートのアソシエーション
+  # refileを使うための設定
+  attachment :profile_image
+
   has_many :notes, dependent: :destroy
   has_many :note_favorites, dependent: :destroy
   has_many :note_comments, dependent: :destroy
-
-  # 学習記録のアソシエーション
   has_many :study_logs, dependent: :destroy
   has_many :study_log_favorites, dependent: :destroy
   has_many :study_log_comments, dependent: :destroy
-
-  # フォロー・フォロワーのアソシエーション
   has_many :relationships, dependent: :destroy
   has_many :followings, through: :relationships, source: :follow
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy
@@ -26,41 +24,28 @@ class User < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_many :rooms, through: :entries
   has_many :chats, dependent: :destroy
-
-  # 通知機能のアソシエーション
   has_many :notifications, dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visit_id', dependent: :destroy
 
-  # refileを使うための設定
-  attachment :profile_image
-
-  # ユーザ名が空白じゃない
   validates :name, presence: true
-  # 目標時間(時間)が0~23時間
   validates :goal_hour, length: { in: 0..23 }, presence: true
-  # 目標時間(分)が0~59分
   validates :goal_minute, length: { in: 0..59 }, presence: true
-  # 自己紹介文が200文字以内
   validates :introduction, length: { maximum: 200 }
 
-  # 対象ユーザがフォロー中か確認するメソッド
   def following?(user)
     followings.include?(user)
   end
 
-  # 対象ユーザをフォローするメソッド
   def follow(user)
-    return unless following?(user) == false
+    return if following?(user)
 
     relationships.create(follow_id: user.id)
   end
 
-  # 対象ユーザのフォローを解除するメソッド
   def unfollow(user)
     relationships.find_by(follow_id: user.id).destroy
   end
 
-  # 通算の学習時間を表示するメソッド
   def total_study_logs
     hour = 0
     minute = 0
@@ -74,11 +59,10 @@ class User < ApplicationRecord
     return [hour, minute]
   end
 
-  # １週間の学習時間を表示するメソッド
+  # １週間の学習時間を表示するメソッド(月曜日〜日曜日の間で判定)
   def weekly_study_logs
     hour = 0
     minute = 0
-    # 月曜日~日曜日で集計を行う(rubyの標準)
     study_logs.where(working_date: (Date.today.beginning_of_week)..(Date.today.end_of_week)).find_each do |weekly_study_log|
       hour += weekly_study_log.hour
       minute += weekly_study_log.minute
@@ -98,7 +82,7 @@ class User < ApplicationRecord
     return ((study_hours / goal_hours).floor(1) * 100).to_i
   end
 
-  # 投稿情報を集計して配列で返すメソッド(最終的なgonの処理はコントローラで行う)
+  # 投稿情報を集計して配列で返すメソッド
   def chart_create
     # ユーザの投稿内容に紐づいたtagを取得する処理
     study_data = []
@@ -122,18 +106,13 @@ class User < ApplicationRecord
 
   protected
 
-  # twitterの場合メールアドレスが持ってこれないため、ダミーデータが登録されている
+  # twitterの場合メールアドレスが持ってこれないためを登録する
   def self.from_omniauth(auth)
     user = if auth.provider == :twitter
              User.find_by(email: User.dummy_email(auth))
            else
              User.find_by(email: auth.info.email)
            end
-    # if auth.provider == :twitter
-    #   user = User.find_by(email: User.dummy_email(auth))
-    # else
-    #   user = User.find_by(email: auth.info.email)
-    # end
 
     unless user
       case auth.provider
@@ -154,7 +133,6 @@ class User < ApplicationRecord
     user
   end
 
-  # Twitterのアカウントはemailがnilとなってしまうため、ダミーを用意する
   def self.dummy_email(auth)
     return "#{auth.uid}-#{auth.provider}@dummy.co.jp"
   end
