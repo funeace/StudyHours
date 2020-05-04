@@ -38,30 +38,53 @@
 $(document).on('turbolinks:load', function() {
   if(document.URL.match("/admins/tags") && document.URL.match("/edit")) {
     $("#picker").spectrum({
-        color: gon.color, // 初期値
-        // color: "#ffffff",
-        flat: false, // trueの場合、クリックしなくてもピッカーが表示されるようにする
-        showInput: true, // コードの入力欄を表示する
-        showAlpha: true, // 不透明度の選択バーを表示する
-        disabled: false, // trueの場合、ピッカーを無効にする
-        showPalette: true, // パレットを表示する
-        showPaletteOnly: false, // true の場合、パレットのみの表示にする
-        togglePaletteOnly: false, // true の場合、パレット以外の部分はボタンで表示切替する
-        togglePaletteMoreText: "詳細", // togglePaletteOnlyがtrueの場合のボタン名(開く)
-        togglePaletteLessText: "閉じる", // togglePaletteOnlyがtrueの場合のボタン名(閉じる)
-        showSelectionPalette: true, // ユーザーが前に選択した色をパレットに表示する
-        maxSelectionSize: 10, // 選択した色を記憶する数の上限
-        hideAfterPaletteSelect: false, // true の場合、パレットを選んだ時点でピッカーを閉じる
-        clickoutFiresChange: true, // ピッカーの外側をクリックしてピッカーを閉じた際にchangeイベントを発生させる
-        showInitial: true, // 初期の色と選択した色を見比べるエリアを表示する
-        allowEmpty: true, // 「指定なし」を許可する
-        chooseText: "OK", // 選択ボタンのテキスト
-        cancelText: "キャンセル", // キャンセルボタンのテキスト
-        showButtons: true, // ボタンを表示する
-        containerClassName: "full-spectrum", // ピッカーの部品を囲うタグ(要素)のクラス名
-        replacerClassName: "", // ピッカーを表示させるボタンのクラス名
-        preferredFormat: "hex", // カラーコードの形式を指定したものに変更する (可能な限り。hex, hex3等)
-        localStorageKey: "spectrum.demo", // localStorageに選択色を記憶する際のキー
+        // 初期値
+        color: gon.color,
+        // trueの場合、クリックしなくてもピッカーが表示されるようにする
+        flat: false,
+        // コードの入力欄を表示する
+        showInput: true,
+        // 不透明度の選択バーを表示する
+        showAlpha: true,
+        // trueの場合、ピッカーを無効にする
+        disabled: false,
+        // パレットを表示する
+        showPalette: true,
+        // true の場合、パレットのみの表示にする
+        showPaletteOnly: false,
+        // true の場合、パレット以外の部分はボタンで表示切替する
+        togglePaletteOnly: false,
+        // togglePaletteOnlyがtrueの場合のボタン名(開く)
+        togglePaletteMoreText: "詳細",
+        // togglePaletteOnlyがtrueの場合のボタン名(閉じる)
+        togglePaletteLessText: "閉じる",
+        // ユーザーが前に選択した色をパレットに表示する
+        showSelectionPalette: true,
+        // 選択した色を記憶する数の上限
+        maxSelectionSize: 10,
+        // true の場合、パレットを選んだ時点でピッカーを閉じる
+        hideAfterPaletteSelect: false,
+        // ピッカーの外側をクリックしてピッカーを閉じた際にchangeイベントを発生させる
+        clickoutFiresChange: true,
+        // 初期の色と選択した色を見比べるエリアを表示する
+        showInitial: true,
+        // 「指定なし」を許可する
+        allowEmpty: true,
+        // 選択ボタンのテキスト
+        chooseText: "OK",
+        // キャンセルボタンのテキスト
+        cancelText: "キャンセル",
+        // ボタンを表示する
+        showButtons: true,
+        // ピッカーの部品を囲うタグ(要素)のクラス名
+        containerClassName: "full-spectrum",
+        // ピッカーを表示させるボタンのクラス名
+        replacerClassName: "",
+        // カラーコードの形式を指定したものに変更する (可能な限り。hex, hex3等)
+        preferredFormat: "hex",
+        // localStorageに選択色を記憶する際のキー
+        localStorageKey: "spectrum.demo",
+        // パレット
         palette: [
             ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
             ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
@@ -71,8 +94,9 @@ $(document).on('turbolinks:load', function() {
             ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
             ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
             ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
-        ], // パレット
-        selectionPalette: [] // 選択色のパレットの初期値
+        ],
+        // 選択色のパレットの初期値
+        selectionPalette: []
       });
     };
 });
@@ -86,8 +110,6 @@ $(document).on('turbolinks:load', function() {
       var getLocation = location.search;
       // 取得したパラメータを格納しておくobjectを定義
       var getParams = new Object();
-      console.log(getParams)
-
       // searchが存在するときに発火
       if(getLocation){
         getLocation = getLocation.substring(1);
@@ -139,7 +161,6 @@ $(document).on('turbolinks:load', function() {
 // Users/edit------------------------------------------
 // イメージ画像を設定した時にその場でプレビューを表示する処理
 $(document).on('turbolinks:load', function () {
-    // console.log("hoge")
   // 画像を呼び出すためのコールバック関数
   function readURL(input) {
     // データが存在していることを確認
@@ -158,7 +179,6 @@ $(document).on('turbolinks:load', function () {
 
   // post_imgが変更されたタイミングに発火
   $("#user_img").change(function () {
-    // console.log("hage")
     readURL(this);
   });
 });
@@ -172,14 +192,11 @@ $(document).ready(function(){
   }
 
   $('#add_study_log_tags').on('change',function(){
-    console.log("change");
   // 現在のデータの総数を取得
   var length = $(this).tagsinput('items').length;
   // tags-placeholderの１つ手前に作成されるinput要素を取得
   var input = $('.tags-placeholder');
-  console.log(length);
     if(length > 0){
-      console.log(input)
       input.attr('placeholder', '');
     } else{
       input.attr('placeholder', $(this).attr('placeholder'));
@@ -212,7 +229,6 @@ $(document).on('turbolinks:load', function () {
     // 成功した時の処理
     .done(function(data){
       $('#md-textarea').parent().css('display','none');
-      console.log(data);
       $('#preview-area').append(data.body);
     });
   });
@@ -240,14 +256,11 @@ $(document).ready(function(){
   }
 
   $('#add_note_tags').on('change',function(){
-    console.log("change");
   // 現在のデータの総数を取得
   var length = $(this).tagsinput('items').length;
   // tags-placeholderの１つ手前に作成されるinput要素を取得
   var input = $('.tags-placeholder');
-  console.log(length);
     if(length > 0){
-      console.log(input)
       input.attr('placeholder', '');
     } else{
       input.attr('placeholder', $(this).attr('placeholder'));
@@ -269,7 +282,6 @@ $(document).on('turbolinks:load', function () {
       $("#study_log").removeClass("active show");
       $("#note").removeClass("active show");
       $("#user").removeClass("active show");
-      console.log("aaaaa");
       // tab要素
       note_tab = $("#note-tab");
       note_tab.addClass("active");

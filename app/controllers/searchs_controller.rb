@@ -1,6 +1,5 @@
 class SearchsController < ApplicationController
   LIMIT = 6
-  # デフォルト設定
   def index
     @search_id = params[:search_id]
     @tag_name = params[:tag_name]
@@ -39,7 +38,6 @@ class SearchsController < ApplicationController
 
   # ユーザの並び替えが押された時に実行する処理(ajax)
   def sort
-    # binding.pry
     @user = if user_signed_in?
               current_user.id
             else
@@ -60,7 +58,6 @@ class SearchsController < ApplicationController
                           .includes(%i[user study_log_favorites tags])
                           .order(id: 'DESC')
                           .limit(LIMIT)
-    # binding.pry
 
     sort = params[:sort_id]
     case sort
@@ -107,7 +104,6 @@ class SearchsController < ApplicationController
   # ユーザ検索(ajax)
   def search
     genre = params[:genre]
-    # binding.pry
     @user = if user_signed_in?
               current_user.id
             else

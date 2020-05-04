@@ -2,21 +2,18 @@ class RoomsController < ApplicationController
   before_action :authenticate_user!
   LIMIT = 6
 
-  # チャットするユーザ一覧
   def index
     users_base = User.all.where.not(id: current_user.id)
     @users = users_base.limit(LIMIT)
     @users_length = users_base.size
   end
 
-  # チャットルーム
   def show
     @room = Room.find(params[:id])
     @chats = @room.chats
     @entries = @room.entries
   end
 
-  # チャットルーム作成
   def create
     # ルームに入る際、必ずcreateアクションを経由させる
     @user = User.find(params[:user_id])
@@ -38,7 +35,6 @@ class RoomsController < ApplicationController
         end
         unless @room_chk == true
           @new_room = Room.create
-          # binding.pry
           entry1 = Entry.create(user_id: @user.id, room_id: @new_room.id)
           entry2 = Entry.create(user_id: current_user.id, room_id: @new_room.id)
           redirect_to room_path(@new_room.id)
@@ -50,7 +46,6 @@ class RoomsController < ApplicationController
   # 以下APIの処理
   # インクリメンタルサーチ
   def search
-    # binding.pry
     users_base = User.where('name LIKE(?)', "%#{params[:keyword]}%")
                      .where.not(id: current_user.id)
 
@@ -71,7 +66,6 @@ class RoomsController < ApplicationController
 
   def more
     offset = params[:offset]
-    # binding.pry
     @users = User.where('name LIKE(?)', "%#{params[:keyword]}%")
                  .where.not(id: current_user.id)
                  .limit(LIMIT)

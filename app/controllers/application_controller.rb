@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  # deviseの設定
   # Ajaxリクエストにセキュリティトークンを含ませる(OmniAuth)
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?

@@ -25,10 +25,9 @@ module MarkdownHelper
   end
 
   def markdown(text)
-    # 画面の入力内容からシンタックスハイライトを作成(with_toc_data: リンクを許可する設定)
     html_render = HTMLwithCoderay.new(with_toc_data: true)
     options = {
-        # htmlのアクションを無効にうる
+        # htmlのアクションを無効にする
         filter_html: true,
         # 行末に２つスペースを入れなくても改行できるようになる
         hard_wrap: true,
@@ -47,8 +46,6 @@ module MarkdownHelper
         # 下線
         underline: true
     }
-    # HTMLwithCoderayの中で既にRedcarpet::Render::HTMLを既に行っているため無効化
-    # renderer = Redcarpet::Render::HTML.new(option)
     @markdown = Redcarpet::Markdown.new(html_render, options)
     @markdown.render(text).html_safe
   end
