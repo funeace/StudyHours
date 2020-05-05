@@ -14,8 +14,6 @@ class UsersController < ApplicationController
                        .order(id: 'DESC')
                        .page(params[:study_log_page])
                        .per(6)
-
-
     # jsにgonを使ってデータを渡す処理
     gon.labels = []
     gon.data = []
