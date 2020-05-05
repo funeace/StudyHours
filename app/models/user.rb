@@ -79,7 +79,7 @@ class User < ApplicationRecord
     goal_hours = (goal_hour * 60 + goal_minute).to_f
     return 100 if goal_hours.zero?
 
-    return ((study_hours / goal_hours).floor(1) * 100).to_i
+    return ((study_hours / goal_hours).floor(3) * 100).to_i
   end
 
   # 投稿情報を集計して配列で返すメソッド
