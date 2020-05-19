@@ -14,7 +14,7 @@
         </div>
       </div>
       <% if user_signed_in? && comment.user_id == current_user.id %>
-        <%= link_to "コメントを削除",study_log_study_log_comment_path(study_log,comment),method: :delete,remote: true, data: { confirm: "本当に削除しますか？",cancel: "やめる", commit: "削除する"},title: '投稿の削除',class: "text-muted note-comment-delete" %>
+        <%= link_to "コメントを削除",study_log_study_log_comment_path(study_log,comment),method: :delete,remote: true, data: { confirm: "本当に削除しますか？",cancel: "やめる", commit: "削除する"},title: '投稿の削除',class: "text-muted study-log-comment-delete" %>
       <% end %>
     </div>
   </div>
