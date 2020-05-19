@@ -258,9 +258,9 @@
       user.forEach(function(user){
         // ユーザ画像が登録されているか確認
         if(user.profile_image == null){
-         user_image = `<img class="attachment user profile_image pull-left profile-img" src="no_image.png" style= "width: 100px; height: 100px;">`
+         user_image = `<img class="attachment user profile_image user-list-img pull-left profile-img" src="no_image.png" style= "width: 100px; height: 100px;">`
         } else {
-          user_image =`<img class="attachment user profile_image pull-left profile-img" src="${user.profile_image}" style= "width: 100px; height: 100px; object-fit: cover;">`
+          user_image =`<img class="attachment user profile_image user-list-img pull-left profile-img" src="${user.profile_image}" style= "width: 100px; height: 100px; object-fit: cover;">`
         };
 
         if(user.introduction == null){
