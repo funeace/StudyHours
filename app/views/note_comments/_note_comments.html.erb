@@ -9,12 +9,10 @@
           <span><%= comment.user.name %></span>
           <span class="ml-3"><%= comment.created_at.strftime("%Y年%m月%d日") %></span>
         </div>
-
         <div class="ml-3 d-flex flex-column justify-content-center note-comment-font">
           <%= comment.comment %>
         </div>                
       </div>
-
       <% if user_signed_in? && comment.user_id == current_user.id %>
         <%= link_to "コメントを削除",note_note_comment_path(note,comment),method: :delete,remote: true, data: { confirm: "本当に削除しますか？",cancel: "やめる", commit: "削除する"},title: '投稿の削除',class:"text-muted note-comment-delete"%>
       <% end %>
