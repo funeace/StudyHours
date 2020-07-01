@@ -1,4 +1,4 @@
-# [Study Hours](https://studyhours.work/)
+# Study Hours
 
 
 ## サイトテーマ  
